@@ -19,96 +19,28 @@ using namespace std;
 
 void i2c_init();
 void i2c_end();
-void lineModuleTest();
-float maxMinPWM(float currentPWM, float maxPWM,float minPWM);
+void LineFollower();
 
 /*
  * 
  */
 int main(int argc, char** argv) {
     i2c_init();
-//    Motors *motorModule = new Motors();
-//    motorModule->selectModule();
-////    motorModule->maSetup(51.45);
-////    motorModule->mbSetup(51.45);
-////    motorModule->maSpeed(25);
-//    motorModule->maControl(motorModule->counter_clockwise); // - Left Motor
-//    motorModule->mbControl(motorModule->clockwise); // - Right Motor
-////    motorModule->maPWM(50);
-//    motorModule->motorsPWM(0,25);
-//    sleep(2);
-//    motorModule->motorsPWM(25,50);
-//    sleep(2);
-//    motorModule->motorsPWM(50,75);
-//    sleep(2);
-//    motorModule->motorsPWM(75,75);
-//    sleep(2);
-//    motorModule->motorsPWM(75,50);
-//    sleep(2);
-//    motorModule->motorsPWM(50,25);
-//    sleep(2);
-//    motorModule->motorsPWM(25,0);
-//    sleep(2);
-//    motorModule->motorsPWM(0,0);
-//    LineSensorModule *lineModule = new LineSensorModule();
-//    lineModule->initialize();
-//    lineModule->readLine();
 
-    lineModuleTest();
+    LineFollower();
     
-//    ServoModule *servoModule = new ServoModule();
-//    
-//    servoModule->initialize();
-//    servoModule->selectModule();
-//    uint8_t counter = 0;
-//    while(counter < 3){
-//        servoModule->servoAngle(7,-60);
-//        sleep(1);
-//        servoModule->servoAngle(7,0);
-//        sleep(1);
-//        servoModule->servoAngle(7,60);
-//        sleep(1);
-//        servoModule->servoAngle(7,0);
-//        sleep(1);
-//        counter++;
-//    }
-    
-//    Motors *motorModule = new Motors();
-//    
-//    motorModule->resetAddress();
-//    motorModule->mbSetup(51.45);
-//    motorModule->mbPWM(75);
-//    motorModule->mbControl(motorModule->clockwise);
-//    
-//    sleep(15);
-//    
-//    motorModule->mbSpeed(200);
-//    sleep(15);
-//    motorModule->mbControl(motorModule->stop);
-    
-    i2c_end();
-
-    
+    i2c_end();    
 
     return 0;
 }
 
-void lineModuleTest(){
+void LineFollower(){
     float lineSensors,prevLineSensors,currentError,prevError = 0,
-            maxPWM = 60,minPWM = 0, maPWM = 15, mbPWM = 15, // - Default 25% PWM
-            kp = 1,ki = 0.001,kd = 1,
+            maxPWM = 65,currentPWM = 15, maPWM, mbPWM, // - Default 25% PWM
+            kp = 1,ki = 0.001,kd = 10,integral = 0,
             powerDifference = 0,sampleTime = 1/1000.0; // - 10[ms]
-//    uint16_t sampleTime = 10;// - [ms]
-    
-    uint8_t inputs;    
-    
-//    LineFinder *lineFinder = new LineFinder(90,20,100);
-//    lineFinder->setSpeed(50); // - 250[mm/s]
-
+        
     Motors *motorModule = new Motors();
-//    motorModule->selectModule();
-//    motorModule->maSetup(51.45);
-//    motorModule->mbSetup(51.45);
     motorModule->maPWM(0); // - Left Motor
     motorModule->mbPWM(0); // - Left Motor
     motorModule->maControl(motorModule->counter_clockwise); // - Left Motor
@@ -118,12 +50,14 @@ void lineModuleTest(){
     lineModule->initialize();
     
     uint16_t i = 0;
+    maPWM = currentPWM;
+    mbPWM = currentPWM;
     sleep(2);
-    while(i<5000){
+    while(i<7500){
         lineModule->selectModule();
         lineSensors = lineModule->readLine();
-        if(lineSensors == 0){
-            lineSensors = prevLineSensors*1.25;
+        if(lineSensors == -1.0){
+            lineSensors = prevLineSensors;
         }
 //        printf("Inputs: 0x%02X\n",inputs);
 //        lineFinder->curveMeasurements(inputs);
@@ -131,67 +65,44 @@ void lineModuleTest(){
 //        printf("Left Speed: %d, ",leftSpeed);
 //        rightSpeed = lineFinder->rightRPMSpeed();
 //        printf("Right Speed: %d\n",rightSpeed);
-        currentError = (350 - lineSensors)/350.0;
+        currentError = lineSensors - 250;
         prevLineSensors = lineSensors;
 //        printf("%0.2f",lineSensors);
-        // - Girar a la izquierda
-        powerDifference += currentError*kp + (sampleTime*(prevError+currentError)/2.0)*ki + 
-                ((currentError-prevError)/(2.0*sampleTime))*kd;
+
+        // - PID Control
+        integral += currentError;
+        powerDifference = currentError*kp + integral*ki + (currentError-prevError)*kd;
         prevError = currentError;
         
 //        printf("PowerDifference: %0.5f\n",powerDifference);
         
-//        if(powerDifference > maxPWM){
-//            powerDifference = maxPWM;
-//        }
-//        if(powerDifference < -maxPWM){
-//            powerDifference = -maxPWM;
-//        }
-//        powerDifference *= powerDifference;
-        if(powerDifference == 0){ // - Centrado
-            maPWM += 1;
-            mbPWM += 1;
-        }else{
-//            printf("HERE\n");
-//            return;
-            maPWM *= 0.9;
-            mbPWM *= 0.9;
-            if(powerDifference < 0.0){ // - Girar a la derecha
-                maPWM += -(powerDifference/2.0); // - Increase power
-                mbPWM += (powerDifference/2.0); // - Decrease power
-//                mbPWM += -powerDifference;
-            }
-
-            if(powerDifference > 0.0){ // - Girar Izquierda
-                maPWM += -(powerDifference/2.0); // - Decrease Power
-                mbPWM += (powerDifference/2.0); // - Increase Power
-            }
+        if(powerDifference > currentPWM){
+            powerDifference = currentPWM;
         }
-        
-        maPWM = maxMinPWM(maPWM,maxPWM,minPWM);
-        mbPWM = maxMinPWM(mbPWM,maxPWM,minPWM);     
+        if(powerDifference < -currentPWM){
+            powerDifference = -currentPWM;
+        }
+
+        if(powerDifference < 0.0){ // - Girar a la izquierda
+            maPWM = currentPWM + powerDifference; // - Decrease power
+            mbPWM = currentPWM;
+        }else{
+            maPWM = currentPWM;
+            mbPWM = currentPWM - powerDifference; // - Decrease Power
+        }
 //        printf("PowerDifference: %0.5f, maPWM: %0.2f, mbPWM: %0.2f\n",powerDifference,maPWM,mbPWM);
         motorModule->selectModule();
         motorModule->motorsPWM(maPWM,mbPWM);
-        // - 50[ms] de muestreo
+        // - 1[ms] de muestreo
         usleep(1000);
         i++;
+        if(currentPWM < maxPWM){
+            currentPWM += 0.1;
+        }
     }
     motorModule->selectModule();
     motorModule->maControl(motorModule->stop);
     motorModule->mbControl(motorModule->stop);
-}
-
-float maxMinPWM(float currentPWM, float maxPWM,float minPWM){
-    if(currentPWM > maxPWM){
-        return maxPWM;
-    }
-
-    if(currentPWM < minPWM){
-        return minPWM;
-    }
-    
-    return currentPWM;
 }
 
 void i2c_init(){

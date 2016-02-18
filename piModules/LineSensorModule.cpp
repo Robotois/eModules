@@ -65,14 +65,14 @@ float LineSensorModule::readLine(){
     uint8_t inputs = getInputs();
     
     if(inputs == 0x00)
-        return 0.0;
+        return -1.0;
     
     int cumSum = 0;
     float avg = 0;
     
     for(uint8_t i = 0; i < 6; i++){
         if(inputs & (1<<i)){
-            avg += 100 * ((i+1)*100);
+            avg += 100 * (i*100);
             cumSum += 100;
         }
     }
