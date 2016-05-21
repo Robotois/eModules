@@ -5,9 +5,10 @@
  * Created on 21 de diciembre de 2015, 11:10 PM
  */
 #include "ServoModule.h"
+#include<cmath>
 
 ServoModule::ServoModule() {
-    slave_address = 0x40;
+    slave_address = 0x41;
     centerOffTime = (maxOnTime - minOnTime)/2.0;
     angleTimeRatio = (maxOnTime - minOnTime)/165.0;
     onTime = delay;
@@ -104,7 +105,13 @@ void ServoModule::initialize(){
  * @param degree: Angulo en grados centigrados => [-82.5 - 82.5].
  * para un angulo de 0° el servo apunta verticalmente hacia arriba.
  */
-void ServoModule::servoAngle(uint8_t servoNumber, float degree){
+void ServoModule::setAngle(uint8_t servoNumber, float degree){
+    if(degree> 100.0){
+        degree = 100;
+    }
+    if(degree < -100.0){
+        degree = -100;
+    }
 //    uint8_t offset = servoNumber - 1;
     offTime = delay + minOnTime + centerOffTime + degree*angleTimeRatio;
     wBuf[0] = SERVO0_ON_L+(4*servoNumber);

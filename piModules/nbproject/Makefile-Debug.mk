@@ -35,10 +35,17 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/AccelGyroModule.o \
+	${OBJECTDIR}/AccurateTiming.o \
+	${OBJECTDIR}/Kalman.o \
 	${OBJECTDIR}/LineFinder.o \
 	${OBJECTDIR}/LineSensorModule.o \
 	${OBJECTDIR}/Motors.o \
+	${OBJECTDIR}/Robert.o \
+	${OBJECTDIR}/Robotina.o \
 	${OBJECTDIR}/ServoModule.o \
+	${OBJECTDIR}/UltrasonicSensor.o \
+	${OBJECTDIR}/libraries/ADS1015/ADS1015.o \
 	${OBJECTDIR}/main.o
 
 
@@ -66,6 +73,21 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pimodules: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/pimodules ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/AccelGyroModule.o: AccelGyroModule.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AccelGyroModule.o AccelGyroModule.cpp
+
+${OBJECTDIR}/AccurateTiming.o: AccurateTiming.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AccurateTiming.o AccurateTiming.cpp
+
+${OBJECTDIR}/Kalman.o: Kalman.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Kalman.o Kalman.cpp
+
 ${OBJECTDIR}/LineFinder.o: LineFinder.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -81,10 +103,30 @@ ${OBJECTDIR}/Motors.o: Motors.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Motors.o Motors.cpp
 
+${OBJECTDIR}/Robert.o: Robert.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Robert.o Robert.cpp
+
+${OBJECTDIR}/Robotina.o: Robotina.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Robotina.o Robotina.cpp
+
 ${OBJECTDIR}/ServoModule.o: ServoModule.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ServoModule.o ServoModule.cpp
+
+${OBJECTDIR}/UltrasonicSensor.o: UltrasonicSensor.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UltrasonicSensor.o UltrasonicSensor.cpp
+
+${OBJECTDIR}/libraries/ADS1015/ADS1015.o: libraries/ADS1015/ADS1015.cpp 
+	${MKDIR} -p ${OBJECTDIR}/libraries/ADS1015
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libraries/ADS1015/ADS1015.o libraries/ADS1015/ADS1015.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

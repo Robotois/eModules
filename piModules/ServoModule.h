@@ -23,7 +23,7 @@ public:
     
     void selectModule();
     void initialize();
-    void servoAngle(uint8_t servoNumber,float degree);
+    void setAngle(uint8_t servoNumber,float degree);
 private:
     // - Register Addresses
     static const uint8_t MODE1 = 0x00,   // - MODE1 register

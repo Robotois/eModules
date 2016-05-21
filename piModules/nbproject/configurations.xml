@@ -4,10 +4,16 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>libraries/ADS1015/ADS1015.h</itemPath>
+      <itemPath>AccelGyroModule.h</itemPath>
+      <itemPath>AccurateTiming.h</itemPath>
       <itemPath>LineFinder.h</itemPath>
       <itemPath>LineSensorModule.h</itemPath>
       <itemPath>Motors.h</itemPath>
+      <itemPath>Robert.h</itemPath>
+      <itemPath>Robotina.h</itemPath>
       <itemPath>ServoModule.h</itemPath>
+      <itemPath>UltrasonicSensor.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,10 +22,18 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>libraries/ADS1015/ADS1015.cpp</itemPath>
+      <itemPath>AccelGyroModule.cpp</itemPath>
+      <itemPath>AccurateTiming.cpp</itemPath>
+      <itemPath>Kalman.cpp</itemPath>
+      <itemPath>Kalman.h</itemPath>
       <itemPath>LineFinder.cpp</itemPath>
       <itemPath>LineSensorModule.cpp</itemPath>
       <itemPath>Motors.cpp</itemPath>
+      <itemPath>Robert.cpp</itemPath>
+      <itemPath>Robotina.cpp</itemPath>
       <itemPath>ServoModule.cpp</itemPath>
+      <itemPath>UltrasonicSensor.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -53,6 +67,28 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="libraries/ADS1015/ADS1015.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="libraries/ADS1015/ADS1015.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="AccelGyroModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AccelGyroModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="AccurateTiming.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AccurateTiming.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Kalman.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Kalman.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="LineFinder.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="LineFinder.h" ex="false" tool="3" flavor2="0">
@@ -65,9 +101,21 @@
       </item>
       <item path="Motors.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Robert.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Robert.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Robotina.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Robotina.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ServoModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ServoModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="UltrasonicSensor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="UltrasonicSensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -84,6 +132,8 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
+          <commandlineTool>g++</commandlineTool>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -91,7 +141,35 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>-l bcm2835</linkerOptionItem>
+            <linkerOptionItem>-l rt</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
+      <item path="libraries/ADS1015/ADS1015.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="libraries/ADS1015/ADS1015.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="AccelGyroModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AccelGyroModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="AccurateTiming.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AccurateTiming.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Kalman.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Kalman.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="LineFinder.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="LineFinder.h" ex="false" tool="3" flavor2="0">
@@ -104,9 +182,21 @@
       </item>
       <item path="Motors.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Robert.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Robert.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Robotina.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Robotina.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ServoModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ServoModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="UltrasonicSensor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="UltrasonicSensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
