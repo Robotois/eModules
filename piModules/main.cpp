@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <cmath>
 #include "Motors.h"
-#include "LineSensorModule.h"
+#include "Modules/LineSensors/LineSensors.h"
 #include <chrono>
 #include "Kalman.h"
 #include "ServoModule.h"
@@ -21,11 +21,19 @@
 #include "Robert.h"
 #include "Robotina.h"
 
-#include "libraries/ADS1015/ADS1015.h"
+#include "Libraries/ADS1015/ADS1015.h"
+#include "Modules/AnalogModules/OpticalDistanceSensor.h"
+#include "Modules/AnalogModules/LightSensor.h"
+#include "Modules/AnalogModules/TemperatureSensor.h"
+#include "Modules/AnalogModules/RotaryModule.h"
+#include "Libraries/PCA9685/PCA9685.h"
+#include "Modules/RGBLEDs/RGBLEDs.h"
+#include "Modules/LCD/LCDModule.h"
+
 #include <iostream>
 #include <fstream>
 
-#include "AccurateTiming.h"
+#include "Libraries/Timer/AccurateTiming.h"
 
 //#include <armadillo>
 #define RESTRICT_PITCH
@@ -78,7 +86,7 @@ int main(int argc, char** argv) {
 //    robotina->loop();
 //    
 ////    MotorModuleTest();
-////    LineSensorTest();
+//    LineSensorTest();
 ////    LineFollower();
 //
 ////    AccelGyroTest();
@@ -89,8 +97,8 @@ int main(int argc, char** argv) {
 ////    yAnglekalmanTest(0.020);
 //    robotinaTest();
 //    
-////    UltrasonicTest();
-//    ServoTest();
+//    UltrasonicTest();
+    ServoTest();
 //    
 ////    RobotRotationTest();
 ////    MazeSolverTest();
@@ -100,303 +108,53 @@ int main(int argc, char** argv) {
 //    LEDModuleTest();
 //    RGBTest();
     
-    ADS1015 *analog = new ADS1015;
-    float reading = analog->readInput();
+//    RotaryModule rotaty;
+//    rotaty.selectPort(4);
+//    printf("Light Input: %0.2f\n",rotaty.getValue());
+//    printf("Raw Light Input: %d\n",rotaty.getScaledValue());
+
+//    TemperatureSensor temp;
+//    temp.selectPort(3);
+//    printf("Temp Input: %0.2f\n",temp.getTemperature());
     
-    printf("Reading: %0.4f\n",reading);
-            
+//    LightSensor lightSensor;
+//    lightSensor.selectPort(2);
+////    printf("Light Input: %0.2f\n",lightSensor.getLight());
+//    printf("Raw Light Input: %d\n",lightSensor.getScaledLight());
+
+//    ADS1015 *analog = new ADS1015;
+//    analog->selectInput(ADS1015_SENSOR2,ADS1015_4096_GAIN);
+//    float reading = analog->readInput();    
+//    printf("Reading: %0.4f\n",reading);
+//    
+//    int16_t reading = analog->readRawInput();
+//    printf("Raw Reading: %d\n",reading);
+
+//    OpticalDistanceSensor distanceSensor;
+//    distanceSensor.selectInputChannel(1);
+//    printf("Distance: %0.4f\n",distanceSensor.getDistance());
+//    uint8_t right_spaces;
+//    LCDModule _lcd(0x01);
+//    _lcd.initializeLCD();
+////    _lcd.printChar('Y');
+//    right_spaces = _lcd.message("Welcome to Robotois, the platform that\nallows you to create your own Robots");
+//    printf("RightSpaces: %d\n",right_spaces);
+//    _lcd.autoScroll(right_spaces);
+//    _lcd.scrollDisplayLeft();
     i2c_end();    
 
     return 0;
 }
 
 void RGBTest(){
-    // - Register Addresses
-    static const uint8_t MODE1 = 0x00,   // - MODE1 register
-            MODE2 = 0x02,    // - MODE2 register
-            PRE_SCALE = 0xFE,
-            
-            ALL_SERVOs_ON_L = 0xFA,
-            ALL_SERVOs_ON_H = 0xFB,
-            ALL_SERVOs_OFF_L = 0xFC,
-            ALL_SERVOs_OFF_H = 0xFD,
-            
-            SERVO0_ON_L = 0x06,
-            SERVO0_ON_H = 0x07,
-            SERVO0_OFF_L = 0x08,
-            SERVO0_OFF_H = 0x09
-    ;
-    // - Configuracion de tiempos, 800->2200 usec
-    static const uint16_t delay = 0,minOnTime = 164,maxOnTime = 450;
-    // - Variables para almacenar los tiempos ON/OFF actuales.
-    uint16_t onTime, offTime,maxOffTime,centerOffTime;
-    float pwmRatio;
-    uint8_t slave_address,result;
-    // - Buffers de lectura/escritura
-    char rBuf[10]; // - Max length
-    char wBuf[10]; // - Max length
-    
-    slave_address = 0x41;
-    bcm2835_i2c_setSlaveAddress(slave_address);    
-    
-    onTime = delay;
-    pwmRatio = 4095.0f/(255.0f*3.0f);
-
-    uint8_t prevMode, currentMode;
-
-    // - Set MODE1 register
-//    len = 2;
-    wBuf[0] = MODE1;
-    wBuf[1] = 0x00; // - Normal mode, all call
-    
-    result = bcm2835_i2c_write(wBuf, 2);
-//    printf("Set MODE1 Reg, Write Result = %d\n", result);
-    
-    // - Wait for oscillator
-//    usleep(500);
-    
-
-    // - Set PRE_SCALE register
-    wBuf[0] = MODE1;
-    
-//    result = bcm2835_i2c_write(wBuf,1);
-    result = bcm2835_i2c_read_register_rs(wBuf,rBuf,1);
-    prevMode = rBuf[0];
-    // - Sleep mode for setting the Prescale register
-    currentMode = (prevMode & 0x7F) | 0x10; // - Restart = 0, Go to sleep
-    
-    wBuf[0] = MODE1;
-    wBuf[1] = currentMode;
-    
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = PRE_SCALE;
-    wBuf[1] = 0x28; // - Prescaler => 150Hz
-  
-    result = bcm2835_i2c_write(wBuf, 2);
-//    printf("Set Prescale Reg, Write Result = %d\n", result);
-    
-    wBuf[0] = MODE1;
-    wBuf[1] = prevMode;
-    // - Setting back to the previous mode
-    result = bcm2835_i2c_write(wBuf, 2);
-    mDelay(5); // - Wait for oscillator
-    
-    wBuf[0] = MODE1;
-    wBuf[1] = prevMode | 0x80; // - Restart
-    // - Restarting
-    result = bcm2835_i2c_write(wBuf, 2);    
-    
-    
-    // - Reset a todos los servos
-    uint16_t on = 4096;
-    wBuf[0] = ALL_SERVOs_ON_L;
-    wBuf[1] = (uint8_t)(on); 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = ALL_SERVOs_ON_H;
-    wBuf[1] = (uint8_t)(on>>8);
-    result = bcm2835_i2c_write(wBuf, 2);
-    
-    wBuf[0] = ALL_SERVOs_OFF_L;
-    wBuf[1] = 0x00; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = ALL_SERVOs_OFF_H;
-    wBuf[1] = 0x00;
-    result = bcm2835_i2c_write(wBuf, 2);   
-
-
-
-    float pwm = 128;
-    uint8_t channel = 0;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);        
-
-    pwm = 0;
-    channel = 1;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);        
-
-    pwm = 128;
-    channel = 2;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);        
-
-
-    pwm = 0;
-    channel = 3;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);        
-    
-    pwm = 206;
-    channel = 4;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);     
-    
-    pwm = 209;
-    channel = 5;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);        
-    
-    pwm = 128;
-    channel = 6;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);        
-    
-    pwm = 128;
-    channel = 7;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);     
-    
-    pwm = 0;
-    channel = 8;
-    
-    offTime = 4095 - (uint16_t)(pwm*pwmRatio);
-
-    wBuf[0] = SERVO0_ON_L+(4*channel);
-    wBuf[1] = onTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[1] = onTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_L+(4*channel);
-    wBuf[1] = offTime & 0xFF; 
-    result = bcm2835_i2c_write(wBuf, 2);
-
-    wBuf[0] = SERVO0_OFF_H+(4*channel);
-    wBuf[1] = offTime >> 8;
-    result = bcm2835_i2c_write(wBuf, 2);        
+    RGBLEDs rgbs;
+    rgbs.setRGB(1,128,0,128);
+//    sleep(3);
+    rgbs.setRGB(2,0,206,209);
+//    sleep(3);
+    rgbs.setRGB(3,128,128,0);
+//    sleep(3);
+//    rgbs.setRGB(1,0,0,0);
 }
 
 void LEDModuleTest(){
@@ -613,7 +371,7 @@ void ServoTest(){
 
 void UltrasonicTest(){
     double dist;
-    UltrasonicSensor *ultrasonic = new UltrasonicSensor(RPI_V2_GPIO_P1_15,RPI_V2_GPIO_P1_16);
+    UltrasonicSensor *ultrasonic = new UltrasonicSensor(0x02);
     dist = ultrasonic->getDistance();
     printf("Distance: %0.3f\n",dist);
 }
@@ -669,22 +427,25 @@ void MotorModuleTest(){
 }
 
 void LineSensorTest(){
-    LineSensorModule *lineModule = new LineSensorModule();
-    lineModule->initialize();
+    LineSensors *lineModule = new LineSensors();
+//    lineModule->initialize();
     
-    uint8_t inputs;
+    uint8_t inputs,singleInput;
 
     uint16_t i = 0;
+    
+    lineModule->setBackground(LINESENSORS_WHITE_BACKGROUND);
     while(i<7500){
-        lineModule->selectModule();
-        inputs = lineModule->getInputs();
-        printf("Inputs: 0x%02X\n",inputs);
+//        lineModule->selectModule();
+        inputs = lineModule->readSensors();
+        singleInput = lineModule->readSensor(LINESENSORS_SENSOR1);
+        printf("Sensors: 0x%02X \tSingle Sensor: %d\n",inputs,singleInput);
         usleep(500000);
     }
 }
 
 void LineFollower(){
-    float lineSensors,prevLineSensors,currentError,prevError = 0,
+    float lineReading,prevLineSensors,currentError,prevError = 0,
             maxPWM = 50,currentPWM = 15, maPWM, mbPWM, // - Default 25% PWM
             kp = 1,ki = 0.001,kd = 7,integral = 0,
             powerDifference = 0; // - 10[ms]
@@ -695,18 +456,18 @@ void LineFollower(){
     motorModule->maControl(motorModule->counter_clockwise); // - Left Motor
     motorModule->mbControl(motorModule->clockwise); // - Right Motor
     
-    LineSensorModule *lineModule = new LineSensorModule();
-    lineModule->initialize();
+    LineSensors *lineModule = new LineSensors();
+//    lineModule->initialize();
     
     uint16_t i = 0;
     maPWM = currentPWM;
     mbPWM = currentPWM;
     sleep(2);
     while(i<2500){
-        lineModule->selectModule();
-        lineSensors = lineModule->readLine();
-        if(lineSensors == -1.0){
-            lineSensors = prevLineSensors;
+//        lineModule->selectModule();
+        lineReading = lineModule->readLine();
+        if(lineReading == -1.0){
+            lineReading = prevLineSensors;
         }
 //        printf("Inputs: 0x%02X\n",inputs);
 //        lineFinder->curveMeasurements(inputs);
@@ -714,8 +475,8 @@ void LineFollower(){
 //        printf("Left Speed: %d, ",leftSpeed);
 //        rightSpeed = lineFinder->rightRPMSpeed();
 //        printf("Right Speed: %d\n",rightSpeed);
-        currentError = lineSensors - 250;
-        prevLineSensors = lineSensors;
+        currentError = lineReading - 250;
+        prevLineSensors = lineReading;
 //        printf("%0.2f",lineSensors);
 
         // - PID Control

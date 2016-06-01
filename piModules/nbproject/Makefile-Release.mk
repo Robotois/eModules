@@ -36,16 +36,26 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/AccelGyroModule.o \
-	${OBJECTDIR}/AccurateTiming.o \
 	${OBJECTDIR}/Kalman.o \
+	${OBJECTDIR}/Libraries/ADS1015/ADS1015.o \
+	${OBJECTDIR}/Libraries/MCP23008/MCP23008.o \
+	${OBJECTDIR}/Libraries/PCA9685/PCA9685.o \
+	${OBJECTDIR}/Libraries/Timer/AccurateTiming.o \
 	${OBJECTDIR}/LineFinder.o \
-	${OBJECTDIR}/LineSensorModule.o \
+	${OBJECTDIR}/Modules/AnalogModules/LightSensor.o \
+	${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o \
+	${OBJECTDIR}/Modules/AnalogModules/RotaryModule.o \
+	${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o \
+	${OBJECTDIR}/Modules/DigitalIO/DigitalHeader.o \
+	${OBJECTDIR}/Modules/DigitalIO/DigitalIO.o \
+	${OBJECTDIR}/Modules/LCD/LCDModule.o \
+	${OBJECTDIR}/Modules/LineSensors/LineSensors.o \
+	${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o \
 	${OBJECTDIR}/Motors.o \
 	${OBJECTDIR}/Robert.o \
 	${OBJECTDIR}/Robotina.o \
 	${OBJECTDIR}/ServoModule.o \
 	${OBJECTDIR}/UltrasonicSensor.o \
-	${OBJECTDIR}/libraries/ADS1015/ADS1015.o \
 	${OBJECTDIR}/main.o
 
 
@@ -78,25 +88,80 @@ ${OBJECTDIR}/AccelGyroModule.o: AccelGyroModule.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AccelGyroModule.o AccelGyroModule.cpp
 
-${OBJECTDIR}/AccurateTiming.o: AccurateTiming.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AccurateTiming.o AccurateTiming.cpp
-
 ${OBJECTDIR}/Kalman.o: Kalman.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Kalman.o Kalman.cpp
+
+${OBJECTDIR}/Libraries/ADS1015/ADS1015.o: Libraries/ADS1015/ADS1015.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Libraries/ADS1015
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/ADS1015/ADS1015.o Libraries/ADS1015/ADS1015.cpp
+
+${OBJECTDIR}/Libraries/MCP23008/MCP23008.o: Libraries/MCP23008/MCP23008.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Libraries/MCP23008
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/MCP23008/MCP23008.o Libraries/MCP23008/MCP23008.cpp
+
+${OBJECTDIR}/Libraries/PCA9685/PCA9685.o: Libraries/PCA9685/PCA9685.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Libraries/PCA9685
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/PCA9685/PCA9685.o Libraries/PCA9685/PCA9685.cpp
+
+${OBJECTDIR}/Libraries/Timer/AccurateTiming.o: Libraries/Timer/AccurateTiming.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Libraries/Timer
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/Timer/AccurateTiming.o Libraries/Timer/AccurateTiming.cpp
 
 ${OBJECTDIR}/LineFinder.o: LineFinder.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/LineFinder.o LineFinder.cpp
 
-${OBJECTDIR}/LineSensorModule.o: LineSensorModule.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/Modules/AnalogModules/LightSensor.o: Modules/AnalogModules/LightSensor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/LineSensorModule.o LineSensorModule.cpp
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/LightSensor.o Modules/AnalogModules/LightSensor.cpp
+
+${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o: Modules/AnalogModules/OpticalDistanceSensor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o Modules/AnalogModules/OpticalDistanceSensor.cpp
+
+${OBJECTDIR}/Modules/AnalogModules/RotaryModule.o: Modules/AnalogModules/RotaryModule.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/RotaryModule.o Modules/AnalogModules/RotaryModule.cpp
+
+${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o: Modules/AnalogModules/TemperatureSensor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o Modules/AnalogModules/TemperatureSensor.cpp
+
+${OBJECTDIR}/Modules/DigitalIO/DigitalHeader.o: Modules/DigitalIO/DigitalHeader.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/DigitalIO
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/DigitalIO/DigitalHeader.o Modules/DigitalIO/DigitalHeader.cpp
+
+${OBJECTDIR}/Modules/DigitalIO/DigitalIO.o: Modules/DigitalIO/DigitalIO.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/DigitalIO
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/DigitalIO/DigitalIO.o Modules/DigitalIO/DigitalIO.cpp
+
+${OBJECTDIR}/Modules/LCD/LCDModule.o: Modules/LCD/LCDModule.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/LCD
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/LCD/LCDModule.o Modules/LCD/LCDModule.cpp
+
+${OBJECTDIR}/Modules/LineSensors/LineSensors.o: Modules/LineSensors/LineSensors.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/LineSensors
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/LineSensors/LineSensors.o Modules/LineSensors/LineSensors.cpp
+
+${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o: Modules/RGBLEDs/RGBLEDs.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/RGBLEDs
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o Modules/RGBLEDs/RGBLEDs.cpp
 
 ${OBJECTDIR}/Motors.o: Motors.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -122,11 +187,6 @@ ${OBJECTDIR}/UltrasonicSensor.o: UltrasonicSensor.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UltrasonicSensor.o UltrasonicSensor.cpp
-
-${OBJECTDIR}/libraries/ADS1015/ADS1015.o: libraries/ADS1015/ADS1015.cpp 
-	${MKDIR} -p ${OBJECTDIR}/libraries/ADS1015
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/libraries/ADS1015/ADS1015.o libraries/ADS1015/ADS1015.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
