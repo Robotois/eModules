@@ -160,18 +160,9 @@ void PCA9685::setPWM(uint8_t _channel, uint16_t _pwm){
     }
 
     wBuf[0] = PCA9685_CH0_ON_L+(4*_channel);
-    wBuf[1] = 0x00; 
-//    bcm2835_i2c_write(wBuf, 2);
-
-//    wBuf[0] = SERVO0_ON_H+(4*channel);
-    wBuf[2] = 0x00;
-//    result = bcm2835_i2c_write(wBuf, 2);
-
-//    wBuf[0] = SERVO0_OFF_L+(4*channel);
+    wBuf[1] = (uint8_t)onTime; 
+    wBuf[2] = (uint8_t)(onTime >> 8);
     wBuf[3] = (uint8_t)offTime; 
-//    result = bcm2835_i2c_write(wBuf, 2);
-
-//    wBuf[0] = SERVO0_OFF_H+(4*channel);
     wBuf[4] = (uint8_t)(offTime >> 8);
     bcm2835_i2c_write(wBuf, 5);        
 }

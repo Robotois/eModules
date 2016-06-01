@@ -11,7 +11,7 @@
 
 class RGBLEDs {
 public:
-    RGBLEDs(uint8_t _add = 0x01);
+    RGBLEDs(uint8_t _addr = 0x01);
     RGBLEDs(const RGBLEDs& orig);
     virtual ~RGBLEDs();
     

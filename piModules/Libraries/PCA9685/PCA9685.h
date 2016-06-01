@@ -4,7 +4,7 @@
  *
  * Created on 26 de mayo de 2016, 09:09 PM
  */
-
+#include <stdint.h>
 #ifndef PCA9685_H
 #define	PCA9685_H
 

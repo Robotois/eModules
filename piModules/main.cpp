@@ -14,10 +14,10 @@
 #include "Modules/LineSensors/LineSensors.h"
 #include <chrono>
 #include "Kalman.h"
-#include "ServoModule.h"
+#include "Modules/Servos/Servos.h"
 //#include "LineFinder.h"
 #include "AccelGyroModule.h"
-#include "UltrasonicSensor.h"
+#include "Modules/Ultrasonic/UltrasonicSensor.h"
 #include "Robert.h"
 #include "Robotina.h"
 
@@ -97,8 +97,8 @@ int main(int argc, char** argv) {
 ////    yAnglekalmanTest(0.020);
 //    robotinaTest();
 //    
-//    UltrasonicTest();
-    ServoTest();
+    UltrasonicTest();
+//    ServoTest();
 //    
 ////    RobotRotationTest();
 ////    MazeSolverTest();
@@ -347,9 +347,14 @@ void RobotRotationTest(){
 }
 
 void ServoTest(){
-    ServoModule *servos = new ServoModule();
-    servos->initialize();
-    servos->setAngle(0,-100.0);
+    Servos *servos = new Servos();
+//    servos->initialize();
+    while(1){
+        servos->setAngle(0,-90);
+        mDelay(5000);
+        servos->setAngle(0,90);
+        mDelay(5000);
+    }
     
 //    unsigned int i = 0;
 //    float inc = +3;
@@ -370,8 +375,8 @@ void ServoTest(){
 }
 
 void UltrasonicTest(){
-    double dist;
-    UltrasonicSensor *ultrasonic = new UltrasonicSensor(0x02);
+    float dist;
+    UltrasonicSensor *ultrasonic = new UltrasonicSensor(2);
     dist = ultrasonic->getDistance();
     printf("Distance: %0.3f\n",dist);
 }

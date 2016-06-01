@@ -9,15 +9,15 @@
 
 #include "Robert.h"
 #include "Motors.h"
-#include "ServoModule.h"
+#include "Modules/Servos/Servos.h"
 #include "Libraries/Timer/AccurateTiming.h"
 #include "Modules/LineSensors/LineSensors.h"
 
 Robert::Robert() {
     motorModule = new Motors();
     ultrasonicSensor = new UltrasonicSensor(0x02);
-    servos = new ServoModule();
-    servos->initialize();
+    servos = new Servos();
+//    servos->initialize();
 }
 
 Robert::Robert(const Robert& orig) {
@@ -205,20 +205,20 @@ double Robert::rightDistance(){
 }
 
 double Robert::frontDistance(){
-    servos->selectModule();
+//    servos->selectModule();
     servos->setAngle(0,0.0);
 //    uDelay(500000);
     return ultrasonicSensor->getDistance();    
 }
 
 void Robert::lookLeft(){
-    servos->selectModule();
+//    servos->selectModule();
     servos->setAngle(0,+100);    
     uDelay(400000);
 }
 
 void Robert::lookRight(){
-    servos->selectModule();
+//    servos->selectModule();
     servos->setAngle(0,-100);    
     uDelay(400000);
 }

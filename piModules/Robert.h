@@ -10,14 +10,14 @@
 
 #include "Motors.h"
 
-#include "UltrasonicSensor.h"
-#include "ServoModule.h"
+#include "Modules/Ultrasonic/UltrasonicSensor.h"
+#include "Modules/Servos/Servos.h"
 
 class Robert {
 public:
     Motors *motorModule;
     UltrasonicSensor *ultrasonicSensor;
-    ServoModule *servos;
+    Servos *servos;
     Robert();
     Robert(const Robert& orig);
     virtual ~Robert();

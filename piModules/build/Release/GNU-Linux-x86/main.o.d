@@ -1,9 +1,10 @@
 build/Release/GNU-Linux-x86/main.o: main.cpp Motors.h \
  Modules/LineSensors/LineSensors.h \
  Modules/LineSensors/../../Libraries/MCP23008/MCP23008.h Kalman.h \
- ServoModule.h AccelGyroModule.h UltrasonicSensor.h \
- Modules/DigitalIO/DigitalHeader.h Robert.h Robotina.h \
- Libraries/Timer/AccurateTiming.h Libraries/ADS1015/ADS1015.h \
+ Modules/Servos/Servos.h Modules/Servos/../../Libraries/PCA9685/PCA9685.h \
+ AccelGyroModule.h Modules/Ultrasonic/UltrasonicSensor.h \
+ Modules/Ultrasonic/../../Modules/DigitalIO/DigitalHeader.h Robert.h \
+ Robotina.h Libraries/Timer/AccurateTiming.h Libraries/ADS1015/ADS1015.h \
  Modules/AnalogModules/OpticalDistanceSensor.h \
  Modules/AnalogModules/../../Libraries/ADS1015/ADS1015.h \
  Modules/AnalogModules/LightSensor.h \
@@ -21,13 +22,15 @@ Modules/LineSensors/../../Libraries/MCP23008/MCP23008.h:
 
 Kalman.h:
 
-ServoModule.h:
+Modules/Servos/Servos.h:
+
+Modules/Servos/../../Libraries/PCA9685/PCA9685.h:
 
 AccelGyroModule.h:
 
-UltrasonicSensor.h:
+Modules/Ultrasonic/UltrasonicSensor.h:
 
-Modules/DigitalIO/DigitalHeader.h:
+Modules/Ultrasonic/../../Modules/DigitalIO/DigitalHeader.h:
 
 Robert.h:
 

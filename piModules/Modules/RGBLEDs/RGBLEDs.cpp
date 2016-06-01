@@ -11,10 +11,9 @@
 //#include<stdio.h>
 #include "RGBLEDs.h"
 
-RGBLEDs::RGBLEDs(uint8_t _add) {
-    pwmModule = new PCA9685(_add);
+RGBLEDs::RGBLEDs(uint8_t _addr) {
+    pwmModule = new PCA9685(_addr);
     pwmModule->setPreScale(0x28); // Prescaler for 150Hz frequency
-//    printf("Here\n");
     pwmModule->setInvertedMode();
     
     pwmModule->allOff();

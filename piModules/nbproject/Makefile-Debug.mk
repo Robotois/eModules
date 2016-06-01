@@ -51,11 +51,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/Modules/LCD/LCDModule.o \
 	${OBJECTDIR}/Modules/LineSensors/LineSensors.o \
 	${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o \
+	${OBJECTDIR}/Modules/Servos/Servos.o \
+	${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o \
 	${OBJECTDIR}/Motors.o \
 	${OBJECTDIR}/Robert.o \
 	${OBJECTDIR}/Robotina.o \
-	${OBJECTDIR}/ServoModule.o \
-	${OBJECTDIR}/UltrasonicSensor.o \
 	${OBJECTDIR}/main.o
 
 
@@ -163,6 +163,16 @@ ${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o: Modules/RGBLEDs/RGBLEDs.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o Modules/RGBLEDs/RGBLEDs.cpp
 
+${OBJECTDIR}/Modules/Servos/Servos.o: Modules/Servos/Servos.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/Servos
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/Servos/Servos.o Modules/Servos/Servos.cpp
+
+${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o: Modules/Ultrasonic/UltrasonicSensor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/Ultrasonic
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o Modules/Ultrasonic/UltrasonicSensor.cpp
+
 ${OBJECTDIR}/Motors.o: Motors.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -177,16 +187,6 @@ ${OBJECTDIR}/Robotina.o: Robotina.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Robotina.o Robotina.cpp
-
-${OBJECTDIR}/ServoModule.o: ServoModule.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ServoModule.o ServoModule.cpp
-
-${OBJECTDIR}/UltrasonicSensor.o: UltrasonicSensor.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UltrasonicSensor.o UltrasonicSensor.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

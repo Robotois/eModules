@@ -19,17 +19,22 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <chrono>
-#include <bcm2835.h>
-#include "Libraries/Timer/AccurateTiming.h"
+//#include <bcm2835.h>
+#include "../../Libraries/Timer/AccurateTiming.h"
 
-#include "Modules/DigitalIO/DigitalIO.h"
-#include "Modules/DigitalIO/DigitalHeader.h"
+//#include "Modules/DigitalIO/DigitalIO.h"
+#include "../../Modules/DigitalIO/DigitalHeader.h"
 
 using namespace std;
 UltrasonicSensor::UltrasonicSensor() {}
 
 UltrasonicSensor::UltrasonicSensor(uint8_t header) {
     initialize(header);
+    
+    if(!connectionTest()){
+        printf("Error reading echo from the Ultrasonic Sensor...\n");
+        exit(EXIT_FAILURE);        
+    }
 }
 
 UltrasonicSensor::UltrasonicSensor(const UltrasonicSensor& orig) {
@@ -58,24 +63,34 @@ double UltrasonicSensor::getDistance(){
     return measure(2);
 }
 
-double UltrasonicSensor::measure(int samples){
-    long int echoSum = 0; // suma total de los ecos en [ns]
-    double average = 0;
-    for(int i = 0; i < samples; i++){
+float UltrasonicSensor::measure(uint8_t samples){
+    unsigned int echoSum = 0; // Echo length sum [us]
+    float average = 0;
+    unsigned int microseconds;
+    unsigned int maxWaitTime = 60000; // 30ms => half the mearuse cycle
+
+    for(uint8_t i = 0; i < samples; i++){
+        auto startTime = std::chrono::high_resolution_clock::now();
         echoSum += readSensor();
-        uDelay(60000); // Se da un tiempo al sensor para evitar saturarlo
+        
+        auto elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
+        microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();
+        while(microseconds < maxWaitTime){
+            auto elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
+            microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();
+        }
+//        mDelay(60); // Se da un tiempo al sensor para evitar saturarlo
     }
     // Se retorna el promedio del tiempo en [ns]
-    average = (( (double)echoSum/samples ))/58; // La regla es T[us]/58 = dist[cm]
+    average = (( (float)echoSum/samples ))/58.0f; // La regla es T[us]/58 = dist[cm]
     return average;
 }
 
-long int UltrasonicSensor::readSensor(){
-    long int echoTime = 0;
+unsigned int UltrasonicSensor::readSensor(){
+    unsigned int echoTime = 0;
 
     // High enable, cuando se detecta un alto se dispara un evento EDS (Event Detect Status)
     // - Enviar el trigger
-//    sendTrigger();
     IOHeader->write(triggerPin,HIGH);
     uDelay(10); // 10us de trigger
     IOHeader->write(triggerPin,LOW);
@@ -84,30 +99,14 @@ long int UltrasonicSensor::readSensor(){
     IOHeader->riseEnable(echoPin);    
 
     echoTime = readEcho();
-    // std::cout<<"echoTime in ns: "<<echoTime<<std::endl;
-    // std::cout<<"distance in cm: "<<(echoTime/1000.0)/58<<std::endl;    
     return echoTime;
 }
-
-//void UltrasonicSensor::sendTrigger(){
-//    triggerPin.write(HIGH);
-//    uDelay(10); // 10us de trigger
-//    triggerPin.write(LOW);
-//}
-
-//void UltrasonicSensor::setPins(int _triggerPin, int _echoPin){
-//    bcm2835_gpio_fsel(_triggerPin, BCM2835_GPIO_FSEL_OUTP);
-//
-//    // Cambiar la configuracion
-//    bcm2835_gpio_fsel(_echoPin,BCM2835_GPIO_FSEL_INPT);
-//    bcm2835_gpio_set_pud(_echoPin, BCM2835_GPIO_PUD_UP);
-//}
 
 unsigned int UltrasonicSensor::readEcho(){
     auto startTime = std::chrono::high_resolution_clock::now();
     auto elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
-    unsigned int maxWaitTime = 60000;
-    long long microseconds;
+    unsigned int maxWaitTime = 30000; // 30ms => half the mearuse cycle
+    unsigned int microseconds;
     unsigned int echolength = 0;
 
     while(true){        
@@ -147,36 +146,38 @@ unsigned int UltrasonicSensor::readEcho(){
     return echolength;
 }
 
-//long int UltrasonicSensor::echoLength(long int start_time){
-//  long int time_difference;
-//  struct timespec gettime_now;
-//
-//  time_difference = 0;
-//
-//  // clock_gettime(CLOCK_REALTIME, &gettime_now);
-//  // start_time = gettime_now.tv_nsec;   //Get nS value
-//
-//  bcm2835_gpio_set_eds(echoPin);
-//  bcm2835_gpio_clr_aren(echoPin);
-//              
-//  //            bcm2835_gpio_set_eds(_echoPin);
-//  // Low enable, cuando se detecta un alto se dispara un evento EDS (Event Detect Status)
-//  bcm2835_gpio_afen(echoPin);
-//
-//  while(true){
-//    // Detectar evento en LOW
-//    if(bcm2835_gpio_eds(echoPin)){
-//        bcm2835_gpio_set_eds(echoPin);
-//        bcm2835_gpio_clr_afen(echoPin);
-//
-//        clock_gettime(CLOCK_REALTIME, &gettime_now);
-//        time_difference = gettime_now.tv_nsec - start_time;
-//        if (time_difference < 0){
-//            time_difference += 1000000000; //(Rolls over every 1 second)
-//        }
-////                    return time_difference;
-//        break;
-//    }
-//  }
-//  return time_difference;
-//}
+
+bool UltrasonicSensor::connectionTest(){
+    auto startTime = std::chrono::high_resolution_clock::now();
+    auto elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
+    unsigned int maxWaitTime = 30000; // 30ms => half the mearuse cycle
+    unsigned int microseconds;
+    
+    
+    // - Send the trigger
+    IOHeader->write(triggerPin,HIGH);
+    uDelay(10); // 10us de trigger
+    IOHeader->write(triggerPin,LOW);
+    
+    // - Rise Event Enable
+    IOHeader->riseEnable(echoPin);    
+    
+
+    while(true){        
+        // Echo Signal has arrived
+        if(IOHeader->riseDetected(echoPin)){
+            mDelay(60);
+            return true;
+        }
+
+      // - Si nunca llega el echo, se manda una distancia de 200[cm]
+        elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
+        microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();
+        
+        // - Echo never received
+        if(microseconds > maxWaitTime){
+            return false;
+        }
+    }
+    return false;    
+}

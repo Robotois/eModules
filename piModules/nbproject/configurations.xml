@@ -21,9 +21,9 @@
       <itemPath>Robert.h</itemPath>
       <itemPath>Robotina.h</itemPath>
       <itemPath>Modules/AnalogModules/RotaryModule.h</itemPath>
-      <itemPath>ServoModule.h</itemPath>
+      <itemPath>Modules/Servos/Servos.h</itemPath>
       <itemPath>Modules/AnalogModules/TemperatureSensor.h</itemPath>
-      <itemPath>UltrasonicSensor.h</itemPath>
+      <itemPath>Modules/Ultrasonic/UltrasonicSensor.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -51,9 +51,9 @@
       <itemPath>Robert.cpp</itemPath>
       <itemPath>Robotina.cpp</itemPath>
       <itemPath>Modules/AnalogModules/RotaryModule.cpp</itemPath>
-      <itemPath>ServoModule.cpp</itemPath>
+      <itemPath>Modules/Servos/Servos.cpp</itemPath>
       <itemPath>Modules/AnalogModules/TemperatureSensor.cpp</itemPath>
-      <itemPath>UltrasonicSensor.cpp</itemPath>
+      <itemPath>Modules/Ultrasonic/UltrasonicSensor.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -87,6 +87,16 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="Modules/Ultrasonic/UltrasonicSensor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Modules/Ultrasonic/UltrasonicSensor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="AccelGyroModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="AccelGyroModule.h" ex="false" tool="3" flavor2="0">
@@ -181,6 +191,10 @@
       </item>
       <item path="Modules/RGBLEDs/RGBLEDs.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Modules/Servos/Servos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/Servos/Servos.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Motors.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motors.h" ex="false" tool="3" flavor2="0">
@@ -192,14 +206,6 @@
       <item path="Robotina.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Robotina.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ServoModule.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="ServoModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="UltrasonicSensor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="UltrasonicSensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -232,6 +238,16 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="Modules/Ultrasonic/UltrasonicSensor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Modules/Ultrasonic/UltrasonicSensor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="AccelGyroModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="AccelGyroModule.h" ex="false" tool="3" flavor2="0">
@@ -324,6 +340,10 @@
       </item>
       <item path="Modules/RGBLEDs/RGBLEDs.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Modules/Servos/Servos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/Servos/Servos.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Motors.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motors.h" ex="false" tool="3" flavor2="0">
@@ -335,14 +355,6 @@
       <item path="Robotina.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Robotina.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ServoModule.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="ServoModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="UltrasonicSensor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="UltrasonicSensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
