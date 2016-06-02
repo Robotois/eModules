@@ -8,7 +8,7 @@
 #ifndef ROBERT_H
 #define	ROBERT_H
 
-#include "Motors.h"
+#include "Modules/Motors/Motors.h"
 
 #include "Modules/Ultrasonic/UltrasonicSensor.h"
 #include "Modules/Servos/Servos.h"

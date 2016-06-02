@@ -14,7 +14,7 @@
       <itemPath>LineFinder.h</itemPath>
       <itemPath>Modules/LineSensors/LineSensors.h</itemPath>
       <itemPath>Libraries/MCP23008/MCP23008.h</itemPath>
-      <itemPath>Motors.h</itemPath>
+      <itemPath>Modules/Motors/Motors.h</itemPath>
       <itemPath>Modules/AnalogModules/OpticalDistanceSensor.h</itemPath>
       <itemPath>Libraries/PCA9685/PCA9685.h</itemPath>
       <itemPath>Modules/RGBLEDs/RGBLEDs.h</itemPath>
@@ -44,7 +44,7 @@
       <itemPath>LineFinder.cpp</itemPath>
       <itemPath>Modules/LineSensors/LineSensors.cpp</itemPath>
       <itemPath>Libraries/MCP23008/MCP23008.cpp</itemPath>
-      <itemPath>Motors.cpp</itemPath>
+      <itemPath>Modules/Motors/Motors.cpp</itemPath>
       <itemPath>Modules/AnalogModules/OpticalDistanceSensor.cpp</itemPath>
       <itemPath>Libraries/PCA9685/PCA9685.cpp</itemPath>
       <itemPath>Modules/RGBLEDs/RGBLEDs.cpp</itemPath>
@@ -87,12 +87,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Modules/Ultrasonic/UltrasonicSensor.cpp"
+      <item path="Modules/Motors/Motors.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Modules/Ultrasonic/UltrasonicSensor.h"
+      <item path="Modules/Motors/Motors.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -195,9 +195,15 @@
       </item>
       <item path="Modules/Servos/Servos.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Motors.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Modules/Ultrasonic/UltrasonicSensor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="Motors.h" ex="false" tool="3" flavor2="0">
+      <item path="Modules/Ultrasonic/UltrasonicSensor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="Robert.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -238,12 +244,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Modules/Ultrasonic/UltrasonicSensor.cpp"
+      <item path="Modules/Motors/Motors.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Modules/Ultrasonic/UltrasonicSensor.h"
+      <item path="Modules/Motors/Motors.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -344,9 +350,15 @@
       </item>
       <item path="Modules/Servos/Servos.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Motors.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Modules/Ultrasonic/UltrasonicSensor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="Motors.h" ex="false" tool="3" flavor2="0">
+      <item path="Modules/Ultrasonic/UltrasonicSensor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="Robert.cpp" ex="false" tool="1" flavor2="0">
       </item>

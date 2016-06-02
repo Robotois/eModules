@@ -8,10 +8,11 @@
 #include <unistd.h>
 #include <iostream>
 #include <fstream>
+#include <stdint.h>
 
 #include "Motors.h"
-#include "Libraries/Timer/AccurateTiming.h"
-//#include <bcm2835.h>
+#include "../../Libraries/Timer/AccurateTiming.h"
+#include <bcm2835.h>
 
 using namespace std;
 
@@ -41,13 +42,9 @@ void Motors::selectModule(){
  * @param gearBox => Relacion de vueltas del gearBox.
  */
 void Motors::motorsSetup25D(){
+    selectModule();
     wBuf[0] = 0x1F;
-//    wBuf[1] = (revCounts & 0xFF);
-//    wBuf[2] = 0x0D;
-//    wBuf[3] = (revCounts & 0xFF00)>>8;
-    
     bcm2835_i2c_write(wBuf, 1);
-//    configPause();
 }
 
 
@@ -56,6 +53,7 @@ void Motors::motorsSetup25D(){
  * @param gearBox => Relacion de vueltas del gearBox.
  */
 void Motors::maSetup(float gearBox){
+    selectModule();
     uint16_t revCounts;
     revCounts = (uint16_t)(gearBox*6.0); // - Conteo del encoder por vuelta del rotor
     // - Registros para configurar el gearBox son de 8 bits
@@ -73,10 +71,10 @@ void Motors::maSetup(float gearBox){
  * @param control => 0 --> Stop, 1 --> counter_clockwise, 2 --> clockwise.
  */
 void Motors::maControl(uint8_t control){
+    selectModule();
     wBuf[0] = 0x00; // - Direccion del registro
     wBuf[1] = control; // - Contenido del registro
     bcm2835_i2c_write(wBuf, 2);
-//    configPause(); 
 }
 
 /**
@@ -84,32 +82,30 @@ void Motors::maControl(uint8_t control){
  * @param pwmReal => Valor de PWM en un rango de 0-100, con un digito decimal,
  * con lo que se obtienen 1000 velocidades.
  */
-void Motors::maPWM(float pwmReal){
-    uint16_t pwm;
-    uint8_t result;
-    pwm = (uint16_t)(pwmReal * 10.0);
+void Motors::maPWM(int16_t pwmReal){
+    selectModule();
+    
+    constrain(&pwmReal,-1000,1000);
     wBuf[0] = 0x02;
-    wBuf[1] = (pwm & 0xFF);
-//    wBuf[2] = 0x03;
-    wBuf[2] = (pwm & 0xFF00)>>8;
+    wBuf[1] = (uint8_t)pwmReal;
+    wBuf[2] = (uint8_t)(pwmReal >> 8);
 
-    result = bcm2835_i2c_write(wBuf, 3);
-    printf("PWM Result: %d\n",result);
-//    configPause();
+    bcm2835_i2c_write(wBuf, 3);
 }
 
 /**
  * Configura la velocidad deseada en el motor A.
  * @param rpm => Velocidad en RPM.
  */
-void Motors::maSpeed(uint16_t rpm){
+void Motors::maSpeed(int16_t rpm){
+    selectModule();
+
+    constrain(&rpm,-500,500);
     wBuf[0] = 0x06;
-    wBuf[1] = (rpm&0xFF);
-//    wBuf[2] = 0x07;
-    wBuf[2] = (rpm&0xFF00)>>8;
+    wBuf[1] = (uint8_t)rpm;
+    wBuf[2] = (uint8_t)(rpm >> 8);
     
     bcm2835_i2c_write(wBuf,3);    
-    configPause();
 }
 
 /**
@@ -117,6 +113,7 @@ void Motors::maSpeed(uint16_t rpm){
  * @param gearBox => Relacion de vueltas del gearBox.
  */
 void Motors::mbSetup(float gearBox){
+    selectModule();
     uint16_t revCounts;
     revCounts = (uint16_t)(gearBox*6.0); // - Conteo del encoder por vuelta del rotor
     // - Registros para configurar el gearBox son de 8 bits
@@ -134,18 +131,18 @@ void Motors::mbSetup(float gearBox){
  * @param control => 0 --> Stop, 1 --> counter_clockwise, 2 --> clockwise.
  */
 void Motors::mbControl(uint8_t control){
+    selectModule();
     wBuf[0] = 0x01; // - Direccion del registro
     wBuf[1] = control; // - Contenido del registro
     bcm2835_i2c_write(wBuf, 2);
-//    configPause(); 
 }
 
 void Motors::motorsControl(uint8_t maControl, uint8_t mbControl){
+    selectModule();
     wBuf[0] = 0x00; // - Direccion del registro
     wBuf[1] = maControl; // - Contenido del registro
     wBuf[2] = mbControl; // - Contenido del registro
     bcm2835_i2c_write(wBuf,3);
-//    configPause();     
 }
 
 /**
@@ -153,100 +150,45 @@ void Motors::motorsControl(uint8_t maControl, uint8_t mbControl){
  * @param pwmReal => Valor de PWM en un rango de 0-100, con un digito decimal,
  * con lo que se obtienen 1000 velocidades.
  */
-void Motors::mbPWM(float pwmReal){
-    uint16_t pwm;
+void Motors::mbPWM(int16_t pwmReal){
+    selectModule();
     
-    pwm = (uint16_t)(pwmReal * 10.0);
+    constrain(&pwmReal,-1000,1000);
     wBuf[0] = 0x04;
-    wBuf[1] = (pwm & 0xFF);
-//    wBuf[2] = 0x05;
-    wBuf[2] = (pwm & 0xFF00)>>8;
+    wBuf[1] = (uint8_t)pwmReal;
+    wBuf[2] = (uint8_t)(pwmReal >> 8);
 
     bcm2835_i2c_write(wBuf, 3);
-//    configPause();
 }
 
 /**
  * Configura la velocidad deseada en el motor B.
  * @param rpm => Velocidad en RPM.
  */
-void Motors::mbSpeed(uint16_t rpm){
+void Motors::mbSpeed(int16_t rpm){
+    selectModule();
+    
+    constrain(&rpm,-500,500);
     wBuf[0] = 0x08;
-    wBuf[1] = (rpm&0xFF);
-//    wBuf[2] = 0x09;
-    wBuf[2] = (rpm&0xFF00)>>8;
+    wBuf[1] = (uint8_t)rpm;
+    wBuf[2] = (uint8_t)(rpm >> 8);
     
     bcm2835_i2c_write(wBuf,3);    
-    configPause();
 }
 
-void Motors::motorsPWM(float maPWM, float mbPWM){
-    uint16_t pwm;
-    
-    pwm = (uint16_t)(maPWM * 10.0);
-    wBuf[0] = 0x02;
-    wBuf[1] = (pwm & 0xFF);
-//    wBuf[2] = 0x03;
-    wBuf[2] = (pwm & 0xFF00)>>8;
+void Motors::motorsPWM(int16_t maPWM, int16_t mbPWM){
+    selectModule();
 
-    pwm = (uint16_t)(mbPWM * 10.0);
-//    wBuf[4] = 0x04;
-    wBuf[3] = (pwm & 0xFF);
-//    wBuf[6] = 0x05;
-    wBuf[4] = (pwm & 0xFF00)>>8;
-
-    bcm2835_i2c_write(wBuf, 5);
-    configPause();
-}
-
-void Motors::motorsPWM2(int maPWM, int mbPWM){
-    
-    if(maPWM> 1000){
-        maPWM = 1000;
-    }
-    
-    if(maPWM < -1000){
-        maPWM = -1000;
-    }
-    
-    if(maPWM < 0 ){
-        ma_pwm = (uint16_t)abs(maPWM);
-        ma_pwm ^= 0x8000;
-    }else{
-        ma_pwm = (uint16_t)maPWM;
-    }
-    
-//    printf("Inputs: 0x%04X\n",ma_pwm);
-//    if(ma_pwm & (1 << 15)){
-//        cout<<"Negative!!"<<endl;
-//    }
-    if(mbPWM> 1000){
-        mbPWM = 1000;
-    }
-    
-    if(mbPWM < -1000){
-        mbPWM = -1000;
-    }
-    
-    if(mbPWM < 0 ){
-        mb_pwm = (uint16_t)abs(mbPWM);
-        mb_pwm ^= 0x8000;
-    }else{
-        mb_pwm = (uint16_t)mbPWM;
-    }
+    constrain(&maPWM,-1000,1000);
+    constrain(&mbPWM,-1000,1000);
 
     wBuf[0] = 0x02;
-    wBuf[1] = (ma_pwm & 0x00FF);
-//    wBuf[2] = 0x03;
-    wBuf[2] = (ma_pwm & 0xFF00)>>8;
-
-//    wBuf[4] = 0x04;
-    wBuf[3] = (mb_pwm & 0x00FF);
-//    wBuf[6] = 0x05;
-    wBuf[4] = (mb_pwm & 0xFF00)>>8;
+    wBuf[1] = (uint8_t)maPWM;
+    wBuf[2] = (uint8_t)(maPWM >> 8);
+    wBuf[3] = (uint8_t)(mbPWM);
+    wBuf[4] = (uint8_t)(mbPWM >> 8);
 
     bcm2835_i2c_write(wBuf, 5);
-    configPause();
 }
 
 /**
@@ -254,128 +196,64 @@ void Motors::motorsPWM2(int maPWM, int mbPWM){
  * @param maPWM
  * @param mbPWM
  */
-void Motors::drivePWMs(int maPWM, int mbPWM){
-//    uint16_t ma_pwm, mb_pwm;    
-    if(maPWM> 1000){
-        maPWM = 1000;
-    }
+void Motors::drivePWMs(int16_t maPWM, int16_t mbPWM){
+    selectModule();
+    constrain(&maPWM,-1000,1000);
+    constrain(&mbPWM,-1000,1000);
+    // The motor module drives the motors in Clockwise direction when the PWM parammeter
+    // is positive, it drives them CounterClockwise when a negative PWM is provided.
     
-    if(maPWM < -1000){
-        maPWM = -1000;
-    }
+    // We stablish a negative relationship with the PWM of the LEFT motor, this way 
+    // we obtain a proper behavior for a robot:
+    // - Positive PWM => forward motion (CCW)
+    // - negative PWM => backward motion (CW)
+    ma_pwm = -maPWM;
+    // For the right motor there is a direct relationship with the PWM parammeter.
+    mb_pwm = mbPWM;
     
-    if(maPWM < 0 ){ // - For negative PWM move Backwards, on Left Motor => Clockwise
-        ma_pwm = (uint16_t)abs(maPWM);
-    }else{ // - For positive PWM move Forward, on Left Motor => Counter Clockwise
-        ma_pwm = (uint16_t)maPWM;
-        ma_pwm ^= 0x8000;
-    }
-    
-//    printf("Inputs: 0x%04X\n",ma_pwm);
-//    if(ma_pwm & (1 << 15)){
-//        cout<<"Negative!!"<<endl;
-//    }
-    if(mbPWM> 1000){
-        mbPWM = 1000;
-    }
-    
-    if(mbPWM < -1000){
-        mbPWM = -1000;
-    }
-    
-    if(mbPWM < 0 ){ // - For negative PWM move Backwards, on Right Motor => Clockwise
-        mb_pwm = (uint16_t)abs(mbPWM);
-        mb_pwm ^= 0x8000;
-    }else{ // - For positive PWM move Forward, on Left Motor => Counter Clockwise
-        mb_pwm = (uint16_t)mbPWM;
-    }
-
     wBuf[0] = 0x02;
-    wBuf[1] = (ma_pwm & 0x00FF);
-//    wBuf[2] = 0x03;
-    wBuf[2] = (ma_pwm & 0xFF00)>>8;
-
-//    wBuf[4] = 0x04;
-    wBuf[3] = (mb_pwm & 0x00FF);
-//    wBuf[6] = 0x05;
-    wBuf[4] = (mb_pwm & 0xFF00)>>8;
+    wBuf[1] = (uint8_t)ma_pwm;
+    wBuf[2] = (uint8_t)(ma_pwm >> 8);
+    wBuf[3] = (uint8_t)(mb_pwm);
+    wBuf[4] = (uint8_t)(mb_pwm >> 8);
 
     bcm2835_i2c_write(wBuf, 5);
-//    configPause();
 }
 
-void Motors::driveSpeeds(int maSpeed, int mbSpeed){
-//    uint16_t ma_pwm, mb_pwm;    
-    if(maSpeed > 1000){
-        maSpeed = 1000;
-    }
-    
-    if(maSpeed < -1000){
-        maSpeed = -1000;
-    }
-    
-    if(maSpeed < 0 ){ // - For negative Speed move Backwards, on Left Motor => Clockwise
-        ma_speed = (uint16_t)abs(maSpeed);
-    }else{ // - For positive Speed move Forward, on Left Motor => Counter Clockwise
-        ma_speed = (uint16_t)maSpeed;
-        ma_speed ^= 0x8000;
-    }
-    
-//    printf("Inputs: 0x%04X\n",ma_pwm);
-//    if(ma_pwm & (1 << 15)){
-//        cout<<"Negative!!"<<endl;
-//    }
-    if(mbSpeed> 1000){
-        mbSpeed = 1000;
-    }
-    
-    if(mbSpeed < -1000){
-        mbSpeed = -1000;
-    }
-    
-    if(mbSpeed < 0 ){ // - For negative Speed move Backwards, on Right Motor => Counter Clockwise
-        mb_speed = (uint16_t)abs(mbSpeed);
-        mb_speed ^= 0x8000;
-    }else{ // - For positive Speed move Forward, on Left Motor => Clockwise
-        mb_speed = (uint16_t)mbSpeed;
-    }
-    
-//    pwm = (uint16_t)(maPWM * 10.0);
-    wBuf[0] = 0x06;
-    wBuf[1] = (ma_speed & 0xFF);
-//    wBuf[2] = 0x03;
-    wBuf[2] = (ma_speed & 0xFF00)>>8;
+void Motors::driveSpeeds(int16_t maSpeed, int16_t mbSpeed){
+    selectModule();
 
-//    pwm = (uint16_t)(mbPWM * 10.0);
-//    wBuf[4] = 0x04;
-    wBuf[3] = (mb_speed & 0xFF);
-//    wBuf[6] = 0x05;
-    wBuf[4] = (mb_speed & 0xFF00)>>8;
+    constrain(&maSpeed,-500,500);
+    constrain(&mbSpeed,-500,500);
+
+    ma_speed = -maSpeed;
+    mb_speed = mbSpeed;
+    
+    wBuf[0] = 0x06;
+    wBuf[1] = (uint8_t)ma_speed;
+    wBuf[2] = (uint8_t)(ma_speed >> 8);
+    wBuf[3] = (uint8_t)(mb_speed);
+    wBuf[4] = (uint8_t)(mb_speed >> 8);
 
     bcm2835_i2c_write(wBuf, 5);
-//    configPause();
 }
 
-void Motors::motorsSpeed(uint16_t maSpeed, uint16_t mbSpeed){
-//    uint16_t pwm;
-    
-//    pwm = (uint16_t)(maPWM * 10.0);
-    wBuf[0] = 0x06;
-    wBuf[1] = (maSpeed & 0xFF);
-//    wBuf[2] = 0x03;
-    wBuf[2] = (maSpeed & 0xFF00)>>8;
+void Motors::motorsSpeed(int16_t maSpeed, int16_t mbSpeed){
+    selectModule();
+    constrain(&maSpeed,-500,500);
+    constrain(&mbSpeed,-500,500);
 
-//    pwm = (uint16_t)(mbPWM * 10.0);
-//    wBuf[4] = 0x04;
-    wBuf[3] = (mbSpeed & 0xFF);
-//    wBuf[6] = 0x05;
-    wBuf[4] = (mbSpeed & 0xFF00)>>8;
+    wBuf[0] = 0x06;
+    wBuf[1] = (uint8_t)maSpeed;
+    wBuf[2] = (uint8_t)(maSpeed >> 8);
+    wBuf[3] = (uint8_t)(mbSpeed);
+    wBuf[4] = (uint8_t)(mbSpeed >> 8);
 
     bcm2835_i2c_write(wBuf, 5);
-    configPause();
 }
 
 void Motors::GetEncoderTicks(long* LeftEncoderTicks, long* RightEncoderTicks){
+    selectModule();
     wBuf[0] = 0x25;
     bcm2835_i2c_write(wBuf,1);    
     bcm2835_i2c_read(rBuf,8);
@@ -385,6 +263,7 @@ void Motors::GetEncoderTicks(long* LeftEncoderTicks, long* RightEncoderTicks){
 }
 
 void Motors::ResetEncoderCounters(){
+    selectModule();
     wBuf[0] = 0x24;
     bcm2835_i2c_write(wBuf,1);    
 }
@@ -397,27 +276,49 @@ void Motors::configPause(){
 // -- Motors Test
 void Motors::motorsBasicTest(){
 //    maControl(clockwise);
-    motorsPWM2(250,250); // - Left Motor
+    drivePWMs(250,250); // - Left Motor
     sleep(3);
-    motorsPWM2(500,500); // - Left Motor
+    drivePWMs(500,500); // - Left Motor
     sleep(3);
-    motorsPWM2(750,750); // - Left Motor
+    drivePWMs(750,750); // - Left Motor
     sleep(3);
-    motorsPWM2(1000,1000); // - Left Motor
+//    drivePWMs(1000,1000); // - Left Motor
+//    sleep(3);
+    drivePWMs(0,0); // - Left Motor
     sleep(3);
-    motorsPWM2(0,0); // - Left Motor
+    drivePWMs(-250,-250); // - Left Motor
     sleep(3);
-    motorsPWM2(-250,-250); // - Left Motor
+    drivePWMs(-500,-500); // - Left Motor
     sleep(3);
-    motorsPWM2(-500,-500); // - Left Motor
+    drivePWMs(-750,-750); // - Left Motor
     sleep(3);
-    motorsPWM2(-750,-750); // - Left Motor
-    sleep(3);
-    motorsPWM2(-1000,-1000); // - Left Motor
-    sleep(3);
-    motorsPWM2(0,0); // - Left Motor
+//    drivePWMs(-1000,-1000); // - Left Motor
+//    sleep(3);
+    drivePWMs(0,0); // - Left Motor
 }
 
+void Motors::motorsBasicSpeedTest(){
+//    maControl(clockwise);
+    driveSpeeds(50,50); // - Left Motor
+    sleep(3);
+    driveSpeeds(100,100); // - Left Motor
+    sleep(3);
+    driveSpeeds(200,200); // - Left Motor
+    sleep(3);
+//    drivePWMs(1000,1000); // - Left Motor
+//    sleep(3);
+    driveSpeeds(0,0); // - Left Motor
+    sleep(3);
+    driveSpeeds(-50,-50); // - Left Motor
+    sleep(3);
+    driveSpeeds(-100,-100); // - Left Motor
+    sleep(3);
+    driveSpeeds(-200,-200); // - Left Motor
+    sleep(3);
+//    drivePWMs(-1000,-1000); // - Left Motor
+//    sleep(3);
+    driveSpeeds(0,0); // - Left Motor
+}
 
 // --- Motors Test
 // -- MOTOR A TEST
@@ -445,8 +346,8 @@ void Motors::maBasicTest(){
     maPWM(0); // - Left Motor    
 }
 
-
 void Motors::maFullSpeedTest(){
+    selectModule();    
     char buf[250];
     wBuf[0] = 0x20;
 
@@ -474,6 +375,7 @@ void Motors::maFullSpeedTest(){
 }
 
 void Motors::maPIDResponse(){
+    selectModule();    
     char buf[250];
     wBuf[0] = 0x21;
 
@@ -526,6 +428,7 @@ void Motors::mbBasicTest(){
 }
 
 void Motors::mbFullSpeedTest(){
+    selectModule();
     char buf[250];
     wBuf[0] = 0x22;
 
@@ -553,6 +456,7 @@ void Motors::mbFullSpeedTest(){
 }
 
 void Motors::mbPIDResponse(){
+    selectModule();    
     char buf[250];
     wBuf[0] = 0x23;
 
@@ -577,4 +481,16 @@ void Motors::mbPIDResponse(){
         outputFile<<i<<','<<(int)buf[i]<<endl;
     }
     outputFile.close();
+}
+
+void Motors::constrain(int16_t* value, int16_t min, int16_t max){
+    if(*value > max){
+        *value = max;
+        return;
+    }
+    
+    if(*value < min){
+        *value = min;
+        return;
+    }    
 }

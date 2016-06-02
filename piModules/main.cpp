@@ -10,30 +10,29 @@
 #include <bcm2835.h>
 #include <unistd.h>
 #include <cmath>
-#include "Motors.h"
-#include "Modules/LineSensors/LineSensors.h"
 #include <chrono>
 #include "Kalman.h"
-#include "Modules/Servos/Servos.h"
 //#include "LineFinder.h"
 #include "AccelGyroModule.h"
-#include "Modules/Ultrasonic/UltrasonicSensor.h"
 #include "Robert.h"
 #include "Robotina.h"
 
 #include "Libraries/ADS1015/ADS1015.h"
+#include "Libraries/PCA9685/PCA9685.h"
+#include "Libraries/Timer/AccurateTiming.h"
 #include "Modules/AnalogModules/OpticalDistanceSensor.h"
 #include "Modules/AnalogModules/LightSensor.h"
 #include "Modules/AnalogModules/TemperatureSensor.h"
 #include "Modules/AnalogModules/RotaryModule.h"
-#include "Libraries/PCA9685/PCA9685.h"
 #include "Modules/RGBLEDs/RGBLEDs.h"
 #include "Modules/LCD/LCDModule.h"
+#include "Modules/Ultrasonic/UltrasonicSensor.h"
+#include "Modules/Servos/Servos.h"
+#include "Modules/Motors/Motors.h"
+#include "Modules/LineSensors/LineSensors.h"
 
 #include <iostream>
 #include <fstream>
-
-#include "Libraries/Timer/AccurateTiming.h"
 
 //#include <armadillo>
 #define RESTRICT_PITCH
@@ -85,7 +84,7 @@ int main(int argc, char** argv) {
 //    robotina->setup();
 //    robotina->loop();
 //    
-////    MotorModuleTest();
+    MotorModuleTest();
 //    LineSensorTest();
 ////    LineFollower();
 //
@@ -97,7 +96,7 @@ int main(int argc, char** argv) {
 ////    yAnglekalmanTest(0.020);
 //    robotinaTest();
 //    
-    UltrasonicTest();
+//    UltrasonicTest();
 //    ServoTest();
 //    
 ////    RobotRotationTest();
@@ -383,31 +382,33 @@ void UltrasonicTest(){
 
 void MotorModuleTest(){
     Motors *motorModule = new Motors();
-    motorModule->selectModule();
+//    motorModule->selectModule();
+//    motorModule->motorsBasicTest();
+    motorModule->motorsBasicSpeedTest();
 //    motorModule->motorsSpeed(100,100);
 //    mDelay(5000);
-    motorModule->motorsSetup25D();
-    motorModule->driveSpeeds(25,25);
-    mDelay(20);
-    motorModule->driveSpeeds(50,50);
-    mDelay(20);
-    motorModule->driveSpeeds(75,75);
-    mDelay(20);
-    motorModule->driveSpeeds(100,100);
-    mDelay(20);
-    motorModule->driveSpeeds(150,150);
-    mDelay(20);
-    motorModule->driveSpeeds(25,25);
-    mDelay(20);
-    motorModule->driveSpeeds(-25,-25);
-    mDelay(20);
-    motorModule->driveSpeeds(-50,-50);
-    mDelay(20);
-    motorModule->driveSpeeds(-75,-75);
-    mDelay(20);
-    motorModule->driveSpeeds(-100,-100);
-    mDelay(20);
-    motorModule->motorsControl(Motors::stop,Motors::stop);
+//    motorModule->motorsSetup25D();
+//    motorModule->driveSpeeds(25,25);
+//    mDelay(20);
+//    motorModule->driveSpeeds(50,50);
+//    mDelay(20);
+//    motorModule->driveSpeeds(75,75);
+//    mDelay(20);
+//    motorModule->driveSpeeds(100,100);
+//    mDelay(20);
+//    motorModule->driveSpeeds(150,150);
+//    mDelay(20);
+//    motorModule->driveSpeeds(25,25);
+//    mDelay(20);
+//    motorModule->driveSpeeds(-25,-25);
+//    mDelay(20);
+//    motorModule->driveSpeeds(-50,-50);
+//    mDelay(20);
+//    motorModule->driveSpeeds(-75,-75);
+//    mDelay(20);
+//    motorModule->driveSpeeds(-100,-100);
+//    mDelay(20);
+//    motorModule->motorsControl(Motors::stop,Motors::stop);
     
 //    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->clockwise);
 //    uint16_t rpms = 10;

@@ -5,14 +5,12 @@
  * Created on 26 de enero de 2016, 06:15 PM
  */
 
+#ifndef MOTORS_H
+#define	MOTORS_H
+
 #include <unistd.h>
 #include <cstdlib>
 #include <stdio.h>
-#include <bcm2835.h>
-
-
-#ifndef MOTORS_H
-#define	MOTORS_H
 
 class Motors {
 public:
@@ -32,25 +30,26 @@ public:
     void motorsSetup25D();
     void maSetup(float gearBox);
     void maControl(uint8_t control);
-    void maPWM(float pwmReal);
-    void maSpeed(uint16_t rpm);
+    void maPWM(int16_t pwmReal);
+    void maSpeed(int16_t rpm);
 
     void mbSetup(float gearBox);
     void mbControl(uint8_t control);
-    void mbPWM(float pwmReal);
-    void mbSpeed(uint16_t rpm);
+    void mbPWM(int16_t pwmReal);
+    void mbSpeed(int16_t rpm);
     
     void motorsControl(uint8_t maControl,uint8_t mbControl);
-    void motorsPWM(float maPWM, float mbPWM);
-    void motorsPWM2(int maPWM, int mbPWM);
-    void drivePWMs(int maPWM, int mbPWM);
-    void motorsSpeed(uint16_t maSpeed, uint16_t mbSpeed);
-    void driveSpeeds(int maSpeed,int mbSpeed);
+//    void motorsPWM(float maPWM, float mbPWM);
+    void motorsPWM(int16_t maPWM, int16_t mbPWM);
+    void drivePWMs(int16_t maPWM, int16_t mbPWM);
+    void motorsSpeed(int16_t maSpeed, int16_t mbSpeed);
+    void driveSpeeds(int16_t maSpeed,int16_t mbSpeed);
     void GetEncoderTicks(long *LeftEncodetTicks, long *RightEncoderTicks);
     void ResetEncoderCounters();
     
     void maBasicTest();
     void motorsBasicTest();
+    void motorsBasicSpeedTest();
     void maFullSpeedTest();
     void maPIDResponse();
 
@@ -60,8 +59,9 @@ public:
 
     void configPause();
 private:
-    uint16_t ma_pwm, mb_pwm,ma_speed,mb_speed;
+    int16_t ma_pwm, mb_pwm,ma_speed,mb_speed;
     
+    void constrain(int16_t *value,int16_t min, int16_t max);
 
 };
 

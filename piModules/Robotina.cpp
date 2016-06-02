@@ -8,9 +8,10 @@
 #include <bcm2835.h>
 #include <iostream>
 #include "Robotina.h"
-#include "Motors.h"
 #include "AccelGyroModule.h"
 #include <stdio.h>
+#include <chrono>
+#include <cmath>
 
 Robotina::Robotina() {
     stopButton = RPI_V2_GPIO_P1_11;

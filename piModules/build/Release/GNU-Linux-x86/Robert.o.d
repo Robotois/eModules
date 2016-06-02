@@ -1,5 +1,5 @@
-build/Release/GNU-Linux-x86/Robert.o: Robert.cpp Robert.h Motors.h \
- Modules/Ultrasonic/UltrasonicSensor.h \
+build/Release/GNU-Linux-x86/Robert.o: Robert.cpp Robert.h \
+ Modules/Motors/Motors.h Modules/Ultrasonic/UltrasonicSensor.h \
  Modules/Ultrasonic/../../Modules/DigitalIO/DigitalHeader.h \
  Modules/Servos/Servos.h Modules/Servos/../../Libraries/PCA9685/PCA9685.h \
  Libraries/Timer/AccurateTiming.h Modules/LineSensors/LineSensors.h \
@@ -7,7 +7,7 @@ build/Release/GNU-Linux-x86/Robert.o: Robert.cpp Robert.h Motors.h \
 
 Robert.h:
 
-Motors.h:
+Modules/Motors/Motors.h:
 
 Modules/Ultrasonic/UltrasonicSensor.h:
 

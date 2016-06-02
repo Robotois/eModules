@@ -5,16 +5,8 @@
  * Created on 26 de abril de 2016, 05:22 PM
  */
 
-#include <cstdlib>
-#include <unistd.h>
-#include <stdio.h>
-#include<cstdint>
-#include <cmath>
-#include <chrono>
-
-#include "Motors.h"
+#include "Modules/Motors/Motors.h"
 #include "AccelGyroModule.h"
-#include <bcm2835.h>
 #include "Libraries/Timer/AccurateTiming.h"
 
 #ifndef ROBOTINA_H
