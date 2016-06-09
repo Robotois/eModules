@@ -5,14 +5,15 @@
  * Created on 26 de mayo de 2016, 09:06 AM
  */
 
-#include "../../Libraries/ADS1015/ADS1015.h"
 
 #ifndef OPTICALDISTANCESENSOR_H
 #define	OPTICALDISTANCESENSOR_H
 
+#include "../../Libraries/ADS1015/ADS1015.h"
+
 class OpticalDistanceSensor {
 public:
-    OpticalDistanceSensor(uint8_t _addr = 0x48);
+    OpticalDistanceSensor(uint8_t _addr = 0x00);
     OpticalDistanceSensor(const OpticalDistanceSensor& orig);
     virtual ~OpticalDistanceSensor();
     

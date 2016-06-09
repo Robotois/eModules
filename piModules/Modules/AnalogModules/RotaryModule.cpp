@@ -23,7 +23,6 @@ RotaryModule::~RotaryModule() {
 }
 
 void RotaryModule::selectPort(uint8_t _port){
-    analogModule->selectModule();
     inputPort = _port;
     switch(inputPort){
         case 0x01:

@@ -5,20 +5,19 @@
  * Created on 26 de mayo de 2016, 01:52 PM
  */
 
-#include"../../Libraries/ADS1015/ADS1015.h"
-
 #ifndef LIGHTSENSOR_H
 #define	LIGHTSENSOR_H
+#include"../../Libraries/ADS1015/ADS1015.h"
 
 class LightSensor {
 public:    
-    LightSensor(uint8_t _addr = 0x48);
+    LightSensor(uint8_t _addr = 0x00);
     LightSensor(const LightSensor& orig);
     virtual ~LightSensor();
     
     void selectPort(uint8_t _port);
     float getLight();
-    int16_t getScaledLight();
+    int16_t getScaledLight();    
 private:
     ADS1015 *analogModule;
     uint8_t inputPort;

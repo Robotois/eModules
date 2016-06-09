@@ -7,6 +7,7 @@
       <itemPath>Libraries/ADS1015/ADS1015.h</itemPath>
       <itemPath>AccelGyroModule.h</itemPath>
       <itemPath>Libraries/Timer/AccurateTiming.h</itemPath>
+      <itemPath>Libraries/BCMSetup/BCMSetup.h</itemPath>
       <itemPath>Modules/DigitalIO/DigitalHeader.h</itemPath>
       <itemPath>Modules/DigitalIO/DigitalIO.h</itemPath>
       <itemPath>Modules/LCD/LCDModule.h</itemPath>
@@ -35,6 +36,7 @@
       <itemPath>Libraries/ADS1015/ADS1015.cpp</itemPath>
       <itemPath>AccelGyroModule.cpp</itemPath>
       <itemPath>Libraries/Timer/AccurateTiming.cpp</itemPath>
+      <itemPath>Libraries/BCMSetup/BCMSetup.cpp</itemPath>
       <itemPath>Modules/DigitalIO/DigitalHeader.cpp</itemPath>
       <itemPath>Modules/DigitalIO/DigitalIO.cpp</itemPath>
       <itemPath>Kalman.cpp</itemPath>
@@ -87,12 +89,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Modules/Motors/Motors.cpp"
+      <item path="Libraries/BCMSetup/BCMSetup.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Modules/Motors/Motors.h"
+      <item path="Libraries/BCMSetup/BCMSetup.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -187,6 +189,10 @@
       </item>
       <item path="Modules/LineSensors/LineSensors.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Modules/Motors/Motors.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/Motors/Motors.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Modules/RGBLEDs/RGBLEDs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Modules/RGBLEDs/RGBLEDs.h" ex="false" tool="3" flavor2="0">
@@ -244,12 +250,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Modules/Motors/Motors.cpp"
+      <item path="Libraries/BCMSetup/BCMSetup.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Modules/Motors/Motors.h"
+      <item path="Libraries/BCMSetup/BCMSetup.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -341,6 +347,10 @@
             flavor2="0">
       </item>
       <item path="Modules/LineSensors/LineSensors.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Modules/Motors/Motors.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/Motors/Motors.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Modules/RGBLEDs/RGBLEDs.cpp" ex="false" tool="1" flavor2="0">
       </item>

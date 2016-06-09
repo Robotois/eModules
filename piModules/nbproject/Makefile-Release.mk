@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/AccelGyroModule.o \
 	${OBJECTDIR}/Kalman.o \
 	${OBJECTDIR}/Libraries/ADS1015/ADS1015.o \
+	${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o \
 	${OBJECTDIR}/Libraries/MCP23008/MCP23008.o \
 	${OBJECTDIR}/Libraries/PCA9685/PCA9685.o \
 	${OBJECTDIR}/Libraries/Timer/AccurateTiming.o \
@@ -97,6 +98,11 @@ ${OBJECTDIR}/Libraries/ADS1015/ADS1015.o: Libraries/ADS1015/ADS1015.cpp
 	${MKDIR} -p ${OBJECTDIR}/Libraries/ADS1015
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/ADS1015/ADS1015.o Libraries/ADS1015/ADS1015.cpp
+
+${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o: Libraries/BCMSetup/BCMSetup.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Libraries/BCMSetup
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o Libraries/BCMSetup/BCMSetup.cpp
 
 ${OBJECTDIR}/Libraries/MCP23008/MCP23008.o: Libraries/MCP23008/MCP23008.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Libraries/MCP23008

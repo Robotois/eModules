@@ -5,14 +5,14 @@
  * Created on 26 de mayo de 2016, 03:33 PM
  */
 
-#include "../../Libraries/ADS1015/ADS1015.h"
-
 #ifndef TEMPERATURESENSOR_H
 #define	TEMPERATURESENSOR_H
 
+#include "../../Libraries/ADS1015/ADS1015.h"
+
 class TemperatureSensor {
 public:
-    TemperatureSensor(uint8_t _addr = 0x48);
+    TemperatureSensor(uint8_t _addr = 0x00);
     TemperatureSensor(const TemperatureSensor& orig);
     virtual ~TemperatureSensor();
     

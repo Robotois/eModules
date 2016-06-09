@@ -23,7 +23,6 @@ OpticalDistanceSensor::~OpticalDistanceSensor() {
 }
 
 void OpticalDistanceSensor::selectPort(uint8_t _addr){
-    analogModule->selectModule();
     inputPort = _addr;
     switch(inputPort){
         case 0x01:
@@ -45,7 +44,6 @@ void OpticalDistanceSensor::selectPort(uint8_t _addr){
 }
 
 float OpticalDistanceSensor::getDistance(){
-//    analogModule->selectModule();
     selectPort(inputPort);
     float reading = analogModule->readInput();
 ////Fitness: 57928.89508794543; medianError: 1.72625422681002 ; [28.142297327584714, -1.171874995889084, -0.7541231022934074]    

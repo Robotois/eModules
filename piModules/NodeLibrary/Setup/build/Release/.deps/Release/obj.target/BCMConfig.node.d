@@ -1,0 +1,1 @@
+cmd_Release/obj.target/BCMConfig.node := g++ -shared -pthread -rdynamic  -Wl,-soname=BCMConfig.node -o Release/obj.target/BCMConfig.node -Wl,--start-group Release/obj.target/BCMConfig/BCMConfig.o Release/obj.target/BCMConfig/BCMSetupWrapper.o Release/obj.target/BCMConfig/../../Libraries/BCMSetup/BCMSetup.o -Wl,--end-group -l bcm2835 -l rt

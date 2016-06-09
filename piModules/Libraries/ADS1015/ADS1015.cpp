@@ -15,13 +15,19 @@
 
 ADS1015::ADS1015(uint8_t _addr) {
     uint8_t result;
-    addr = _addr;
-//    currentInput = 0x04;
-//    bcm2835_i2c_setClockDivider(BCM2835_I2C_CLOCK_DIVIDER_626);
+    if(_addr > 1){ // - 1 bit for custom address
+        printf("Wrong slave address for the Digital IO Module...\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    bcm_init();
+    
+    addr = ADS1015_DEFAULT_ADDRESS | _addr;
     selectModule();
     
     wBuf[0] = ADS1015_CONFIG_REG;
     result = bcm2835_i2c_read_register_rs(wBuf,rBuf,2);
+//    printf("Here 2...\n");
     if(result == 0x01){
         printf("Error reading from the Analog Module...\n");
         exit(EXIT_FAILURE);
@@ -32,6 +38,8 @@ ADS1015::ADS1015(const ADS1015& orig) {
 }
 
 ADS1015::~ADS1015() {
+//    printf("Ending BCM...\n");
+    bcm_end();
 }
 
 void ADS1015::selectModule(){
@@ -110,4 +118,27 @@ float ADS1015::readInput(){
     int16_t input = readRawInput();
     
     return input*resolution;
+}
+
+void ADS1015::bcm_init(){
+    // - 400kHz aproximadamente...
+    uint16_t clk_div = BCM2835_I2C_CLOCK_DIVIDER_626;
+    // - La direccion del esclavo se establece en cada modulo
+//    uint8_t slave_address = 0x10;
+
+    if (!bcm2835_init()){
+        printf("BCM2835 Error!!...\n");
+        exit(1);
+    }
+    
+    bcm2835_i2c_begin();
+
+    bcm2835_i2c_setClockDivider(clk_div);
+//    fprintf(stderr, "Clock divider set to: %d\n", clk_div);
+//    fprintf(stderr, "Slave address set to: %d\n", slave_address);    
+}
+
+void ADS1015::bcm_end(){
+    bcm2835_i2c_end();
+    bcm2835_close();    
 }

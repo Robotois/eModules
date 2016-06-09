@@ -1,0 +1,18 @@
+{
+  "name": "temperature",
+  "version": "1.0.0",
+  "description": "Node library for the temperature sensor and the analog module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "temp"
+  ],
+  "author": "yovany.lg@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "nan": "^2.3.5"
+  },
+  "gypfile": true
+}

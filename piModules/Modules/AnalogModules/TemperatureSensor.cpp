@@ -22,7 +22,6 @@ TemperatureSensor::~TemperatureSensor() {
 }
 
 void TemperatureSensor::selectPort(uint8_t _port){
-    analogModule->selectModule();
     inputPort = _port;
     switch(inputPort){
         case 0x01:
@@ -44,9 +43,8 @@ void TemperatureSensor::selectPort(uint8_t _port){
 }
 
 float TemperatureSensor::getTemperature(){
-//    analogModule->selectModule();
     selectPort(inputPort);
     float reading = analogModule->readInput();
-////Fitness: 57928.89508794543; medianError: 1.72625422681002 ; [28.142297327584714, -1.171874995889084, -0.7541231022934074]    
+//    printf("Reading: %0.2f\n",reading);
     return reading*(25.0f/0.750f);
 }

@@ -20,6 +20,7 @@
 #include "Libraries/ADS1015/ADS1015.h"
 #include "Libraries/PCA9685/PCA9685.h"
 #include "Libraries/Timer/AccurateTiming.h"
+#include "Libraries/BCMSetup/BCMSetup.h"
 #include "Modules/AnalogModules/OpticalDistanceSensor.h"
 #include "Modules/AnalogModules/LightSensor.h"
 #include "Modules/AnalogModules/TemperatureSensor.h"
@@ -71,12 +72,11 @@ void SleepTest();
 void LEDModuleTest();
 void RGBTest();
 
-
 /*
  * 
  */
 int main(int argc, char** argv) {
-    i2c_init();
+//    i2c_init();
     
 //    AccelGyroModule * accelGyro = new AccelGyroModule();
 //    accelGyro->calibrateMPU();
@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
 //    robotina->setup();
 //    robotina->loop();
 //    
-    MotorModuleTest();
+//    MotorModuleTest();
 //    LineSensorTest();
 ////    LineFollower();
 //
@@ -112,10 +112,9 @@ int main(int argc, char** argv) {
 //    printf("Light Input: %0.2f\n",rotaty.getValue());
 //    printf("Raw Light Input: %d\n",rotaty.getScaledValue());
 
-//    TemperatureSensor temp;
-//    temp.selectPort(3);
-//    printf("Temp Input: %0.2f\n",temp.getTemperature());
-    
+    TemperatureSensor temp;
+    temp.selectPort(1);
+    printf("Temp Input: %0.2f\n",temp.getTemperature());    
 //    LightSensor lightSensor;
 //    lightSensor.selectPort(2);
 ////    printf("Light Input: %0.2f\n",lightSensor.getLight());
@@ -140,7 +139,8 @@ int main(int argc, char** argv) {
 //    printf("RightSpaces: %d\n",right_spaces);
 //    _lcd.autoScroll(right_spaces);
 //    _lcd.scrollDisplayLeft();
-    i2c_end();    
+
+//    i2c_end();    
 
     return 0;
 }

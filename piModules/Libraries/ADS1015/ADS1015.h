@@ -5,10 +5,12 @@
  * Created on 19 de mayo de 2016, 08:29 PM
  */
 
-#include <stdint.h>
-
 #ifndef ADS1015_H
 #define	ADS1015_H
+
+#include <stdint.h>
+
+#define ADS1015_DEFAULT_ADDRESS 0x48 // Conversion Register
 
 #define ADS1015_CONV_REG 0x00 // Conversion Register
 #define ADS1015_CONFIG_REG 0x01 // Configuration Register
@@ -30,7 +32,7 @@
 
 class ADS1015 {
 public:
-    ADS1015(uint8_t _addr = 0x48);    
+    ADS1015(uint8_t _addr = 0x00);    
     ADS1015(const ADS1015& orig);
     virtual ~ADS1015();
 
@@ -48,6 +50,8 @@ private:
     
     char rBuf[10],wBuf[10];
 
+    void bcm_init();
+    void bcm_end();
 };
 
 #endif	/* ADS1015_H */
