@@ -8,7 +8,7 @@ build/Release/GNU-Linux-x86/main.o: main.cpp Kalman.h AccelGyroModule.h \
  Modules/AnalogModules/../../Libraries/ADS1015/ADS1015.h \
  Modules/AnalogModules/LightSensor.h \
  Modules/AnalogModules/TemperatureSensor.h \
- Modules/AnalogModules/RotaryModule.h Modules/RGBLEDs/RGBLEDs.h \
+ Modules/AnalogModules/RotarySensor.h Modules/RGBLEDs/RGBLEDs.h \
  Modules/RGBLEDs/../../Libraries/PCA9685/PCA9685.h \
  Modules/LCD/LCDModule.h Modules/LCD/../../Libraries/MCP23008/MCP23008.h \
  Modules/LineSensors/LineSensors.h \
@@ -48,7 +48,7 @@ Modules/AnalogModules/LightSensor.h:
 
 Modules/AnalogModules/TemperatureSensor.h:
 
-Modules/AnalogModules/RotaryModule.h:
+Modules/AnalogModules/RotarySensor.h:
 
 Modules/RGBLEDs/RGBLEDs.h:
 

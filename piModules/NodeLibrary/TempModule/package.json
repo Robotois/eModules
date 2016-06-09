@@ -12,7 +12,6 @@
   "author": "yovany.lg@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "nan": "^2.3.5"
   },
   "gypfile": true
 }

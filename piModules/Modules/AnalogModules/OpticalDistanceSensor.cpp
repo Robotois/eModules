@@ -7,9 +7,9 @@
 
 #include "OpticalDistanceSensor.h"
 #include <stdlib.h>
-#include<cmath>
+#include <cmath>
 #include <stdint.h>
-#include<iostream>
+#include <iostream>
 
 OpticalDistanceSensor::OpticalDistanceSensor(uint8_t _addr) {
     analogModule = new ADS1015(_addr);

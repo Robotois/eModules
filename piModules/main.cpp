@@ -24,7 +24,7 @@
 #include "Modules/AnalogModules/OpticalDistanceSensor.h"
 #include "Modules/AnalogModules/LightSensor.h"
 #include "Modules/AnalogModules/TemperatureSensor.h"
-#include "Modules/AnalogModules/RotaryModule.h"
+#include "Modules/AnalogModules/RotarySensor.h"
 #include "Modules/RGBLEDs/RGBLEDs.h"
 #include "Modules/LCD/LCDModule.h"
 #include "Modules/Ultrasonic/UltrasonicSensor.h"
@@ -107,19 +107,24 @@ int main(int argc, char** argv) {
 //    LEDModuleTest();
 //    RGBTest();
     
-//    RotaryModule rotaty;
-//    rotaty.selectPort(4);
-//    printf("Light Input: %0.2f\n",rotaty.getValue());
-//    printf("Raw Light Input: %d\n",rotaty.getScaledValue());
+    RotarySensor rotaty;
+    rotaty.selectPort(1);
+    printf("Rotary Input: %0.2f\n",rotaty.getValue());
+    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
 
-    TemperatureSensor temp;
-    temp.selectPort(1);
-    printf("Temp Input: %0.2f\n",temp.getTemperature());    
+//    TemperatureSensor temp;
+//    temp.selectPort(1);
+//    printf("Temp Input: %0.2f\n",temp.getTemperature());    
+
 //    LightSensor lightSensor;
-//    lightSensor.selectPort(2);
-////    printf("Light Input: %0.2f\n",lightSensor.getLight());
+//    lightSensor.selectPort(1);
+//    printf("Light Input: %0.2f\n",lightSensor.getLight());
 //    printf("Raw Light Input: %d\n",lightSensor.getScaledLight());
 
+//    OpticalDistanceSensor distanceSensor;
+//    distanceSensor.selectPort(1);
+//    printf("Distance: %0.4f\n",distanceSensor.getDistance());
+    
 //    ADS1015 *analog = new ADS1015;
 //    analog->selectInput(ADS1015_SENSOR2,ADS1015_4096_GAIN);
 //    float reading = analog->readInput();    
@@ -128,9 +133,6 @@ int main(int argc, char** argv) {
 //    int16_t reading = analog->readRawInput();
 //    printf("Raw Reading: %d\n",reading);
 
-//    OpticalDistanceSensor distanceSensor;
-//    distanceSensor.selectInputChannel(1);
-//    printf("Distance: %0.4f\n",distanceSensor.getDistance());
 //    uint8_t right_spaces;
 //    LCDModule _lcd(0x01);
 //    _lcd.initializeLCD();

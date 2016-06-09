@@ -45,7 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/LineFinder.o \
 	${OBJECTDIR}/Modules/AnalogModules/LightSensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o \
-	${OBJECTDIR}/Modules/AnalogModules/RotaryModule.o \
+	${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o \
 	${OBJECTDIR}/Modules/DigitalIO/DigitalHeader.o \
 	${OBJECTDIR}/Modules/DigitalIO/DigitalIO.o \
@@ -134,10 +134,10 @@ ${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o: Modules/AnalogModule
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o Modules/AnalogModules/OpticalDistanceSensor.cpp
 
-${OBJECTDIR}/Modules/AnalogModules/RotaryModule.o: Modules/AnalogModules/RotaryModule.cpp 
+${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o: Modules/AnalogModules/RotarySensor.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/RotaryModule.o Modules/AnalogModules/RotaryModule.cpp
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o Modules/AnalogModules/RotarySensor.cpp
 
 ${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o: Modules/AnalogModules/TemperatureSensor.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
