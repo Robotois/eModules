@@ -32,6 +32,8 @@ LCDModule::LCDModule(uint8_t _addr) {
   _data_pins[4] = _rs_pin; // Reset Pin
   _data_pins[5] = _enable_pin; // Enable Pin
   _data_pins[6] = _backlight_pin;  // BackLight enable pin
+  
+  initializeLCD();
 }
 
 LCDModule::LCDModule(const LCDModule& orig) {

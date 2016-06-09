@@ -1,6 +1,6 @@
 build/Release/GNU-Linux-x86/main.o: main.cpp Kalman.h AccelGyroModule.h \
  Robert.h Modules/Motors/Motors.h Modules/Ultrasonic/UltrasonicSensor.h \
- Modules/Ultrasonic/../../Modules/DigitalIO/DigitalHeader.h \
+ Modules/Ultrasonic/../../Libraries/DigitalIO/DigitalHeader.h \
  Modules/Servos/Servos.h Modules/Servos/../../Libraries/PCA9685/PCA9685.h \
  Robotina.h Libraries/Timer/AccurateTiming.h Libraries/ADS1015/ADS1015.h \
  Libraries/PCA9685/PCA9685.h Libraries/BCMSetup/BCMSetup.h \
@@ -24,7 +24,7 @@ Modules/Motors/Motors.h:
 
 Modules/Ultrasonic/UltrasonicSensor.h:
 
-Modules/Ultrasonic/../../Modules/DigitalIO/DigitalHeader.h:
+Modules/Ultrasonic/../../Libraries/DigitalIO/DigitalHeader.h:
 
 Modules/Servos/Servos.h:
 

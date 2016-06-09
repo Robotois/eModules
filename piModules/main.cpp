@@ -12,7 +12,6 @@
 #include <cmath>
 #include <chrono>
 #include "Kalman.h"
-//#include "LineFinder.h"
 #include "AccelGyroModule.h"
 #include "Robert.h"
 #include "Robotina.h"
@@ -35,14 +34,12 @@
 #include <iostream>
 #include <fstream>
 
-//#include <armadillo>
 #define RESTRICT_PITCH
+
 using namespace std;
-//using namespace arma;
 
 void i2c_init();
 void i2c_end();
-//void uDelay(int delay_us);
 
 void ServoTest();
 void MotorModuleTest();
@@ -107,10 +104,10 @@ int main(int argc, char** argv) {
 //    LEDModuleTest();
 //    RGBTest();
     
-    RotarySensor rotaty;
-    rotaty.selectPort(1);
-    printf("Rotary Input: %0.2f\n",rotaty.getValue());
-    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
+//    RotarySensor rotaty;
+//    rotaty.selectPort(1);
+//    printf("Rotary Input: %0.2f\n",rotaty.getValue());
+//    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
 
 //    TemperatureSensor temp;
 //    temp.selectPort(1);
@@ -134,10 +131,10 @@ int main(int argc, char** argv) {
 //    printf("Raw Reading: %d\n",reading);
 
 //    uint8_t right_spaces;
-//    LCDModule _lcd(0x01);
+    LCDModule _lcd;
 //    _lcd.initializeLCD();
 ////    _lcd.printChar('Y');
-//    right_spaces = _lcd.message("Welcome to Robotois, the platform that\nallows you to create your own Robots");
+    _lcd.message("Welcome to \nRobotois :D");
 //    printf("RightSpaces: %d\n",right_spaces);
 //    _lcd.autoScroll(right_spaces);
 //    _lcd.scrollDisplayLeft();
@@ -377,7 +374,7 @@ void ServoTest(){
 
 void UltrasonicTest(){
     float dist;
-    UltrasonicSensor *ultrasonic = new UltrasonicSensor(2);
+    UltrasonicSensor *ultrasonic = new UltrasonicSensor(1);
     dist = ultrasonic->getDistance();
     printf("Distance: %0.3f\n",dist);
 }

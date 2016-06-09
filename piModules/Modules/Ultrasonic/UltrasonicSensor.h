@@ -5,13 +5,11 @@
  * Created on 16 de abril de 2016, 06:17 PM
  */
 
-#include <bcm2835.h>
-#include "../../Modules/DigitalIO/DigitalHeader.h"
-
 #ifndef ULTRASONICSENSOR_H
 #define	ULTRASONICSENSOR_H
 
-using namespace std;
+#include <bcm2835.h>
+#include "../../Libraries/DigitalIO/DigitalHeader.h"
 
 class UltrasonicSensor {
 public:

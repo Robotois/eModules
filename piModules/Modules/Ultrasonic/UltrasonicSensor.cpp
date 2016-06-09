@@ -19,13 +19,8 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <chrono>
-//#include <bcm2835.h>
 #include "../../Libraries/Timer/AccurateTiming.h"
 
-//#include "Modules/DigitalIO/DigitalIO.h"
-#include "../../Modules/DigitalIO/DigitalHeader.h"
-
-using namespace std;
 UltrasonicSensor::UltrasonicSensor() {}
 
 UltrasonicSensor::UltrasonicSensor(uint8_t header) {
@@ -56,7 +51,6 @@ void UltrasonicSensor::initialize(uint8_t header){
     // We save the io adresses just to simplify their usage.
     triggerPin = IOHeader->io_pin1;
     echoPin = IOHeader->io_pin2;
-
 }
 
 double UltrasonicSensor::getDistance(){
@@ -145,7 +139,6 @@ unsigned int UltrasonicSensor::readEcho(){
     }
     return echolength;
 }
-
 
 bool UltrasonicSensor::connectionTest(){
     auto startTime = std::chrono::high_resolution_clock::now();

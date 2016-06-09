@@ -39,6 +39,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Kalman.o \
 	${OBJECTDIR}/Libraries/ADS1015/ADS1015.o \
 	${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o \
+	${OBJECTDIR}/Libraries/DigitalIO/DigitalHeader.o \
+	${OBJECTDIR}/Libraries/DigitalIO/DigitalIO.o \
 	${OBJECTDIR}/Libraries/MCP23008/MCP23008.o \
 	${OBJECTDIR}/Libraries/PCA9685/PCA9685.o \
 	${OBJECTDIR}/Libraries/Timer/AccurateTiming.o \
@@ -47,8 +49,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o \
-	${OBJECTDIR}/Modules/DigitalIO/DigitalHeader.o \
-	${OBJECTDIR}/Modules/DigitalIO/DigitalIO.o \
 	${OBJECTDIR}/Modules/LCD/LCDModule.o \
 	${OBJECTDIR}/Modules/LineSensors/LineSensors.o \
 	${OBJECTDIR}/Modules/Motors/Motors.o \
@@ -104,6 +104,16 @@ ${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o: Libraries/BCMSetup/BCMSetup.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o Libraries/BCMSetup/BCMSetup.cpp
 
+${OBJECTDIR}/Libraries/DigitalIO/DigitalHeader.o: Libraries/DigitalIO/DigitalHeader.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Libraries/DigitalIO
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/DigitalIO/DigitalHeader.o Libraries/DigitalIO/DigitalHeader.cpp
+
+${OBJECTDIR}/Libraries/DigitalIO/DigitalIO.o: Libraries/DigitalIO/DigitalIO.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Libraries/DigitalIO
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/DigitalIO/DigitalIO.o Libraries/DigitalIO/DigitalIO.cpp
+
 ${OBJECTDIR}/Libraries/MCP23008/MCP23008.o: Libraries/MCP23008/MCP23008.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Libraries/MCP23008
 	${RM} "$@.d"
@@ -143,16 +153,6 @@ ${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o: Modules/AnalogModules/Te
 	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o Modules/AnalogModules/TemperatureSensor.cpp
-
-${OBJECTDIR}/Modules/DigitalIO/DigitalHeader.o: Modules/DigitalIO/DigitalHeader.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Modules/DigitalIO
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/DigitalIO/DigitalHeader.o Modules/DigitalIO/DigitalHeader.cpp
-
-${OBJECTDIR}/Modules/DigitalIO/DigitalIO.o: Modules/DigitalIO/DigitalIO.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Modules/DigitalIO
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/DigitalIO/DigitalIO.o Modules/DigitalIO/DigitalIO.cpp
 
 ${OBJECTDIR}/Modules/LCD/LCDModule.o: Modules/LCD/LCDModule.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Modules/LCD

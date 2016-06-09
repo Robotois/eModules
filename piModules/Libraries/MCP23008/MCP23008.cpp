@@ -21,6 +21,8 @@ MCP23008::MCP23008(uint8_t _addr) {
     
     slave_addr = MCP23008_ADDRESS | _addr;
     
+    bcm_init();
+    
     selectModule();
     // - Read from the MCP23008 device to make sure it is connected
     wBuf[0] = MCP23008_IODIR;
@@ -35,6 +37,7 @@ MCP23008::MCP23008(const MCP23008& orig) {
 }
 
 MCP23008::~MCP23008() {
+    bcm_end();
 }
 
 void MCP23008::selectModule(){
@@ -200,4 +203,24 @@ void MCP23008::writeMultiGPIO(uint8_t* pin_array, uint8_t pin_data, uint8_t pin_
         io_mask |= ((pin_data >> pin_array[i]) & 0x01) << pin_array[i];
     }
     writeGPIO(io_mask);    
+}
+
+void MCP23008::bcm_init(){
+    // - 400kHz aproximadamente...
+    uint16_t clk_div = BCM2835_I2C_CLOCK_DIVIDER_626;
+    // - La direccion del esclavo se establece en cada modulo
+
+    if (!bcm2835_init()){
+        printf("BCM2835 Error!!...\n");
+        exit(1);
+    }
+    
+    bcm2835_i2c_begin();
+
+    bcm2835_i2c_setClockDivider(clk_div);
+}
+
+void MCP23008::bcm_end(){
+    bcm2835_i2c_end();
+    bcm2835_close();    
 }

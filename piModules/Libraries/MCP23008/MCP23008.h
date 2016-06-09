@@ -51,6 +51,8 @@ private:
     
     void selectModule();
     
+    void bcm_init();
+    void bcm_end();
 
 };
 

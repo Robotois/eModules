@@ -8,8 +8,8 @@
       <itemPath>AccelGyroModule.h</itemPath>
       <itemPath>Libraries/Timer/AccurateTiming.h</itemPath>
       <itemPath>Libraries/BCMSetup/BCMSetup.h</itemPath>
-      <itemPath>Modules/DigitalIO/DigitalHeader.h</itemPath>
-      <itemPath>Modules/DigitalIO/DigitalIO.h</itemPath>
+      <itemPath>Libraries/DigitalIO/DigitalHeader.h</itemPath>
+      <itemPath>Libraries/DigitalIO/DigitalIO.h</itemPath>
       <itemPath>Modules/LCD/LCDModule.h</itemPath>
       <itemPath>Modules/AnalogModules/LightSensor.h</itemPath>
       <itemPath>LineFinder.h</itemPath>
@@ -37,8 +37,8 @@
       <itemPath>AccelGyroModule.cpp</itemPath>
       <itemPath>Libraries/Timer/AccurateTiming.cpp</itemPath>
       <itemPath>Libraries/BCMSetup/BCMSetup.cpp</itemPath>
-      <itemPath>Modules/DigitalIO/DigitalHeader.cpp</itemPath>
-      <itemPath>Modules/DigitalIO/DigitalIO.cpp</itemPath>
+      <itemPath>Libraries/DigitalIO/DigitalHeader.cpp</itemPath>
+      <itemPath>Libraries/DigitalIO/DigitalIO.cpp</itemPath>
       <itemPath>Kalman.cpp</itemPath>
       <itemPath>Kalman.h</itemPath>
       <itemPath>Modules/LCD/LCDModule.cpp</itemPath>
@@ -161,16 +161,16 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="Modules/DigitalIO/DigitalHeader.cpp"
+      <item path="Libraries/DigitalIO/DigitalHeader.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Modules/DigitalIO/DigitalHeader.h" ex="false" tool="3" flavor2="0">
+      <item path="Libraries/DigitalIO/DigitalHeader.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Modules/DigitalIO/DigitalIO.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Libraries/DigitalIO/DigitalIO.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Modules/DigitalIO/DigitalIO.h" ex="false" tool="3" flavor2="0">
+      <item path="Libraries/DigitalIO/DigitalIO.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Modules/LCD/LCDModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -314,16 +314,16 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="Modules/DigitalIO/DigitalHeader.cpp"
+      <item path="Libraries/DigitalIO/DigitalHeader.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Modules/DigitalIO/DigitalHeader.h" ex="false" tool="3" flavor2="0">
+      <item path="Libraries/DigitalIO/DigitalHeader.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Modules/DigitalIO/DigitalIO.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Libraries/DigitalIO/DigitalIO.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Modules/DigitalIO/DigitalIO.h" ex="false" tool="3" flavor2="0">
+      <item path="Libraries/DigitalIO/DigitalIO.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Modules/LCD/LCDModule.cpp" ex="false" tool="1" flavor2="0">
       </item>

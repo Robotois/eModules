@@ -5,12 +5,11 @@
  * Created on 28 de mayo de 2016, 02:38 PM
  */
 
-#include "../../Libraries/MCP23008/MCP23008.h"
-#include <string>
-
-
 #ifndef LCDMODULE_H
 #define	LCDMODULE_H
+
+#include "../../Libraries/MCP23008/MCP23008.h"
+#include <string>
 
 // commands
 #define LCD_CLEARDISPLAY 0x01

@@ -14,4 +14,4 @@ void InitAll(Handle<Object> exports, Handle<Object> module) {
   NODE_SET_METHOD(module,"exports",CreateObject);
 }
 
-NODE_MODULE(LightModule, InitAll)
+NODE_MODULE(DistanceModule, InitAll)
