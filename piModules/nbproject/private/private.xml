@@ -7,11 +7,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file://RASPBERRYPI/Projects/eModules/piModules/Modules/AnalogModules/LightSensor.h</file>
-            <file>file://RASPBERRYPI/Projects/eModules/piModules/Modules/AnalogModules/LightSensor.cpp</file>
+            <file>file://RASPBERRYPI/Projects/eModules/piModules/Modules/LineSensors/LineSensors.h</file>
+            <file>file://RASPBERRYPI/Projects/eModules/piModules/Modules/LineSensors/LineSensors.cpp</file>
             <file>file://RASPBERRYPI/Projects/eModules/piModules/main.cpp</file>
-            <file>file://RASPBERRYPI/Projects/eModules/piModules/Modules/AnalogModules/RotarySensor.h</file>
-            <file>file://RASPBERRYPI/Projects/eModules/piModules/Modules/AnalogModules/RotarySensor.cpp</file>
         </group>
     </open-files>
 </project-private>

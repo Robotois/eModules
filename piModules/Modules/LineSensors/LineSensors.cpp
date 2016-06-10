@@ -15,7 +15,6 @@
 LineSensors::LineSensors(uint8_t _addr) {
     mcp = new MCP23008(_addr);
     initialize();
-//    slave_address = 0x20;   // - Default Address
 }
 
 LineSensors::LineSensors(const LineSensors& orig) {
@@ -25,14 +24,6 @@ LineSensors::~LineSensors() {
     mcp->digitalWrite(LINESENSORS_ENABLE,MCP23008_LOW); //Disable the sensors    
     delete mcp;
 }
-
-/**
- * Reestablece la direccion del esclavo en el puerto i2c. Se debe llamar antes de
- * iniciar una transaccion o serie de transacciones hacia el modulo LineFinder.
- */
-//void LineSensors::selectModule(){
-//    bcm2835_i2c_setSlaveAddress(slave_address);
-//}
 
 void LineSensors::initialize(){
     // Sensors are ordered from left to right
@@ -71,8 +62,6 @@ uint8_t LineSensors::readSensor(uint8_t _sensor){
 }
 
 float LineSensors::readLine(){
-//    typedef std::bitset<sizeof(unsigned char)> IntBits;
-//    bool is_set = IntBits(200).test(5);
     uint8_t inputs = readSensors();
     
     if(inputs == 0x00)

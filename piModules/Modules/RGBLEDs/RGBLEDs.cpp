@@ -8,7 +8,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include<iostream>
-//#include<stdio.h>
 #include "RGBLEDs.h"
 
 RGBLEDs::RGBLEDs(uint8_t _addr) {

@@ -5,17 +5,10 @@
  * Created on 21 de diciembre de 2015, 11:10 PM
  */
 
-//#include <cstdlib>
-//#include <stdio.h>
-//#include <unistd.h>
-//#include <bcm2835.h>
-
-#include "../../Libraries/PCA9685/PCA9685.h"
-
 #ifndef SERVOS_H
 #define	SERVOS_H
 
-using namespace std;
+#include "../../Libraries/PCA9685/PCA9685.h"
 
 class Servos {
 public:
@@ -34,12 +27,10 @@ private:
     // - Variables para almacenar los tiempos ON/OFF actuales.
     uint16_t onTime, offTime,maxOffTime,halfOffTime,centerOffTime;
     float angleTimeRatio;
-//    uint8_t slave_address,result;
-    // - Buffers de lectura/escritura
-//    char rBuf[10]; // - Max length
-//    char wBuf[10]; // - Max length
     
     PCA9685 *pwmModule;
+    
+    void constrain(float* value, float min, float max);
 
 };
 

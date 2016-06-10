@@ -18,12 +18,14 @@ PCA9685::PCA9685(uint8_t _addr) {
 //    slave_addr = _add;
     invertedMode = false;
     
-    if(_addr < 0 or _addr > 7){ // - 3 bits for custom address
+    if(_addr > 7){ // - 3 bits for custom address
         printf("Wrong slave address for the PWM Module...\n");
         exit(EXIT_FAILURE);    
     }
     
     slave_addr = PCA9685_ADDRESS | _addr;
+    
+    bcm_init();
     
     selectModule();
     // - Testing PCA9685 connection to the I2C bus
@@ -40,6 +42,7 @@ PCA9685::PCA9685(const PCA9685& orig) {
 }
 
 PCA9685::~PCA9685() {
+    bcm_end();
 }
 
 void PCA9685::selectModule(){
@@ -136,7 +139,7 @@ void PCA9685::allOff(){
 
 void PCA9685::setPWM(uint8_t _channel, uint16_t _pwm){
     selectModule();
-    if(!(_channel >= 0 and _channel <= 15)){
+    if(_channel > 15){
         printf("Wrong selection of the PWM channel...\n");
         exit(EXIT_FAILURE);
     }
@@ -171,7 +174,7 @@ void PCA9685::setPWM(uint8_t _init_channel, uint8_t _channel_count, uint16_t *_p
 //    uint16_t currentPWM;
     char *_wBuf;
     selectModule();
-    if(_init_channel < 0 or (_init_channel + _channel_count - 1) > 15){
+    if((_init_channel + _channel_count - 1) > 15){
         printf("Error in the amount of PWM channels to be set...\n");
         exit(EXIT_FAILURE);
     }
@@ -206,4 +209,24 @@ void PCA9685::setPWM(uint8_t _init_channel, uint8_t _channel_count, uint16_t *_p
         _wBuf[(i*4)+4] = (uint8_t)(offTime >> 8);
     }    
     bcm2835_i2c_write(_wBuf, _channel_count*4 + 1);        
+}
+
+void PCA9685::bcm_init(){
+    // - 400kHz aproximadamente...
+    uint16_t clk_div = BCM2835_I2C_CLOCK_DIVIDER_626;
+    // - La direccion del esclavo se establece en cada modulo
+
+    if (!bcm2835_init()){
+        printf("BCM2835 Error!!...\n");
+        exit(1);
+    }
+    
+    bcm2835_i2c_begin();
+
+    bcm2835_i2c_setClockDivider(clk_div);
+}
+
+void PCA9685::bcm_end(){
+    bcm2835_i2c_end();
+    bcm2835_close();    
 }

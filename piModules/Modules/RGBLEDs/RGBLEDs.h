@@ -5,9 +5,10 @@
  * Created on 27 de mayo de 2016, 08:38 AM
  */
 
-#include "../../Libraries/PCA9685/PCA9685.h"
 #ifndef RGBLEDS_H
 #define	RGBLEDS_H
+
+#include "../../Libraries/PCA9685/PCA9685.h"
 
 class RGBLEDs {
 public:

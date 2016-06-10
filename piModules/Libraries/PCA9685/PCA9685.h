@@ -4,9 +4,10 @@
  *
  * Created on 26 de mayo de 2016, 09:09 PM
  */
-#include <stdint.h>
 #ifndef PCA9685_H
 #define	PCA9685_H
+
+#include <stdint.h>
 
 #define PCA9685_ADDRESS 0x40
 #define PCA9685_MODE1 0x00 //Mode Register 1 address
@@ -41,6 +42,8 @@ private:
     char wBuf[10]; // - Max length
     
     void initialize();
+    void bcm_init();
+    void bcm_end();
     
 };
 

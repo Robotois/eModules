@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
 ////    DigitalSensorTest();
     
 //    LEDModuleTest();
-//    RGBTest();
+    RGBTest();
     
 //    RotarySensor rotaty;
 //    rotaty.selectPort(1);
@@ -131,10 +131,10 @@ int main(int argc, char** argv) {
 //    printf("Raw Reading: %d\n",reading);
 
 //    uint8_t right_spaces;
-    LCDModule _lcd;
+//    LCDModule _lcd;
 //    _lcd.initializeLCD();
 ////    _lcd.printChar('Y');
-    _lcd.message("Welcome to \nRobotois :D");
+//    _lcd.message("Welcome to \nRobotois :D");
 //    printf("RightSpaces: %d\n",right_spaces);
 //    _lcd.autoScroll(right_spaces);
 //    _lcd.scrollDisplayLeft();
