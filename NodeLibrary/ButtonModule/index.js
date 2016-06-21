@@ -23,18 +23,22 @@ function ButtonModule(header){
     case DigitalHeader1:
       this.button1 = new Gpio(DigitalHeader1_1,  'in', 'both');
       this.button2 = new Gpio(DigitalHeader1_2,  'in', 'both');
+      enableEvents();
       break;
     case DigitalHeader2:
       this.button1 = new Gpio(DigitalHeader2_1,  'in', 'both');
       this.button2 = new Gpio(DigitalHeader2_2,  'in', 'both');
+      enableEvents();
       break;
     case DigitalHeader3:
       this.button1 = new Gpio(DigitalHeader3_1,  'in', 'both');
       this.button2 = new Gpio(DigitalHeader3_2,  'in', 'both');
+      enableEvents();
       break;
     case DigitalHeader4:
       this.button1 = new Gpio(DigitalHeader4_1,  'in', 'both');
       this.button2 = new Gpio(DigitalHeader4_2,  'in', 'both');
+      enableEvents();
       break;
     default:
       console.log("Error selecting the digital Header...");
@@ -54,23 +58,25 @@ function ButtonModule(header){
     process.exit();
   });
 
-  this.button1.watch(function (err, value) {
-    if (err) {
-      throw err;
-    }
-    console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
-    // button1.writeSync(!value|0);
-    _self.eventEmitter.emit('button1_change',!value|0);
-  });
+  function enableEvents() {
+    this.button1.watch(function (err, value) {
+      if (err) {
+        throw err;
+      }
+      console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
+      // button1.writeSync(!value|0);
+      _self.eventEmitter.emit('button1_change',!value|0);
+    });
 
-  this.button2.watch(function (err, value) {
-    if (err) {
-      throw err;
-    }
-    console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
-    // button1.writeSync(!value|0);
-    _self.eventEmitter.emit('button2_change',!value|0);
-  });
+    this.button2.watch(function (err, value) {
+      if (err) {
+        throw err;
+      }
+      console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
+      // button1.writeSync(!value|0);
+      _self.eventEmitter.emit('button2_change',!value|0);
+    });
+  }
 }
 
 // ButtonModule.prototype.setEventEmitter = function (_eventEmitter) {
