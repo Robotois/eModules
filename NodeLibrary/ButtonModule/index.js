@@ -44,22 +44,22 @@ function ButtonModule(header){
       console.log("Error selecting the digital Header...");
   }
 
-  process.on('SIGINT', function () {
-    // console.log('Unexporting buttons');
-    _self.button1.unexport();
-    _self.button2.unexport();
-    process.exit();
-  });
-
-  process.on('SIGTERM', function () {
-    console.log('[Buttons] => SIGTERM: Unexporting buttons');
-    _self.button1.unexport();
-    _self.button2.unexport();
-    process.exit();
-  });
+  // process.on('SIGINT', function () {
+  //   // console.log('Unexporting buttons');
+  //   _self.button1.unexport();
+  //   _self.button2.unexport();
+  //   process.exit();
+  // });
+  //
+  // process.on('SIGTERM', function () {
+  //   console.log('[Buttons] => SIGTERM: Unexporting buttons');
+  //   _self.button1.unexport();
+  //   _self.button2.unexport();
+  //   process.exit();
+  // });
 
   function enableEvents() {
-    this.button1.watch(function (err, value) {
+    _self.button1.watch(function (err, value) {
       if (err) {
         throw err;
       }
@@ -68,7 +68,7 @@ function ButtonModule(header){
       _self.eventEmitter.emit('button1_change',!value|0);
     });
 
-    this.button2.watch(function (err, value) {
+    _self.button2.watch(function (err, value) {
       if (err) {
         throw err;
       }
@@ -110,6 +110,11 @@ ButtonModule.prototype.readButton1 = function () {
 ButtonModule.prototype.readButton2 = function () {
   var value = this.button2.readSync();
   return !value|0;
+};
+
+ButtonModule.prototype.unexport = function () {
+  this.button1.unexport();
+  this.button2.unexport();
 };
 
 inherits(ButtonModule,EventEmitter);

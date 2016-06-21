@@ -1,6 +1,7 @@
 var Gpio = require('onoff').Gpio;
 // var EventEmitter = require('events').EventEmitter;
 // var inherits = require('util').inherits;
+var sleep = require('sleep');
 
 var DigitalHeader1 = 1;
 var DigitalHeader1_1 = 5; // 3.3v Logic IO
@@ -40,18 +41,18 @@ function LEDModule(header){
       console.log("Error selecting the digital Header...");
   }
 
-  process.on('SIGINT', function () {
-    _self.led1.unexport();
-    _self.led2.unexport();
-    process.exit();
-  });
-
-  process.on('SIGTERM', function () {
-    console.log('[LEDs] => SIGTERM: Unexporting LEDs');
-    _self.led1.unexport();
-    _self.led2.unexport();
-    process.exit();
-  });
+  // process.on('SIGINT', function () {
+  //   _self.led1.unexport();
+  //   _self.led2.unexport();
+  //   process.exit();
+  // });
+  //
+  // process.on('SIGTERM', function () {
+  //   console.log('[LEDs] => SIGTERM: Unexporting LEDs');
+  //   _self.led1.unexport();
+  //   _self.led2.unexport();
+  //   process.exit();
+  // });
 }
 
 // inherits(LEDModule,EventEmitter);
@@ -76,6 +77,23 @@ LEDModule.prototype.setLED1 = function (ledValue) {
 
 LEDModule.prototype.setLED2 = function (ledValue) {
   this.led2.writeSync(ledValue);
+};
+
+LEDModule.prototype.unexport = function () {
+  this.led1.unexport();
+  this.led2.unexport();
+};
+
+LEDModule.prototype.led1_blink = function () {
+  this.led1.writeSync(1);
+  sleep.usleep(500000);
+  this.led1.writeSync(0);
+};
+
+LEDModule.prototype.led2_blink = function () {
+  this.led2.writeSync(1);
+  sleep.usleep(500000);
+  this.led2.writeSync(0);
 };
 
 // LEDModule.prototype.led2_watch = function (eventName) {
