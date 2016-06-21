@@ -1,6 +1,6 @@
 var Gpio = require('onoff').Gpio;
-var EventEmitter = require('events').EventEmitter;
-var inherits = require('util').inherits;
+// var EventEmitter = require('events').EventEmitter;
+// var inherits = require('util').inherits;
 
 var DigitalHeader1 = 1;
 var DigitalHeader1_1 = 5; // 3.3v Logic IO
@@ -16,7 +16,7 @@ var DigitalHeader4_1 = 20; // 3.3v Logic IO
 var DigitalHeader4_2 = 26; // 3.3v Logic IO
 
 function LEDModule(header){
-  EventEmitter.call(this);
+  // EventEmitter.call(this);
   var _self = this;
   // var led1,led2;
   switch (header) {
@@ -41,28 +41,34 @@ function LEDModule(header){
   }
 
   process.on('SIGINT', function () {
-    console.log(_self);
+    _self.led1.unexport();
+    _self.led2.unexport();
+    process.exit();
+  });
+
+  process.on('SIGTERM', function () {
+    console.log('[LEDs] => SIGTERM: Unexporting LEDs');
     _self.led1.unexport();
     _self.led2.unexport();
     process.exit();
   });
 }
 
-inherits(LEDModule,EventEmitter);
+// inherits(LEDModule,EventEmitter);
 
-LEDModule.prototype.setEventEmitter = function (_eventEmitter) {
-  this.eventEmitter = _eventEmitter;
-};
+// LEDModule.prototype.setEventEmitter = function (_eventEmitter) {
+//   this.eventEmitter = _eventEmitter;
+// };
 
-LEDModule.prototype.led1_watch = function (eventName) {
-  var _self = this;
-  // console.log('Setting event: ' + eventName);
-  // console.log(this);
-  this.eventEmitter.on(eventName,function (ledValue){
-    // console.log(ledValue,_self);
-    _self.led1.writeSync(ledValue);
-  });
-};
+// LEDModule.prototype.led1_watch = function (eventName) {
+//   var _self = this;
+//   // console.log('Setting event: ' + eventName);
+//   // console.log(this);
+//   this.eventEmitter.on(eventName,function (ledValue){
+//     // console.log(ledValue,_self);
+//     _self.led1.writeSync(ledValue);
+//   });
+// };
 
 LEDModule.prototype.setLED1 = function (ledValue) {
   this.led1.writeSync(ledValue);
@@ -72,15 +78,15 @@ LEDModule.prototype.setLED2 = function (ledValue) {
   this.led2.writeSync(ledValue);
 };
 
-LEDModule.prototype.led2_watch = function (eventName) {
-  var _self = this;
-  // console.log('Setting event: ' + eventName);
-  // console.log(this);
-  this.eventEmitter.on(eventName,function (ledValue){
-    // console.log(ledValue,_self);
-    _self.led2.writeSync(ledValue);
-  });
-};
+// LEDModule.prototype.led2_watch = function (eventName) {
+//   var _self = this;
+//   // console.log('Setting event: ' + eventName);
+//   // console.log(this);
+//   this.eventEmitter.on(eventName,function (ledValue){
+//     // console.log(ledValue,_self);
+//     _self.led2.writeSync(ledValue);
+//   });
+// };
 
 module.exports = LEDModule;
 

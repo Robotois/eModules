@@ -46,37 +46,64 @@ function ButtonModule(header){
     _self.button2.unexport();
     process.exit();
   });
-}
 
-ButtonModule.prototype.setEventEmitter = function (_eventEmitter) {
-  this.eventEmitter = _eventEmitter;
-  var _self = this;
+  process.on('SIGTERM', function () {
+    console.log('[Buttons] => SIGTERM: Unexporting buttons');
+    _self.button1.unexport();
+    _self.button2.unexport();
+    process.exit();
+  });
 
   this.button1.watch(function (err, value) {
     if (err) {
       throw err;
     }
-    // console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
+    console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
     // button1.writeSync(!value|0);
-    _self.eventEmitter.emit('button1Change',!value|0);
+    _self.eventEmitter.emit('button1_change',!value|0);
   });
 
   this.button2.watch(function (err, value) {
     if (err) {
       throw err;
     }
-    // console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
+    console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
     // button1.writeSync(!value|0);
-    _self.eventEmitter.emit('button2Change',!value|0);
+    _self.eventEmitter.emit('button2_change',!value|0);
   });
-};
+}
+
+// ButtonModule.prototype.setEventEmitter = function (_eventEmitter) {
+//   this.eventEmitter = _eventEmitter;
+//   var _self = this;
+//
+//   this.button1.watch(function (err, value) {
+//     if (err) {
+//       throw err;
+//     }
+//     // console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
+//     // button1.writeSync(!value|0);
+//     _self.eventEmitter.emit('button1Change',!value|0);
+//   });
+//
+//   this.button2.watch(function (err, value) {
+//     if (err) {
+//       throw err;
+//     }
+//     // console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
+//     // button1.writeSync(!value|0);
+//     _self.eventEmitter.emit('button2Change',!value|0);
+//   });
+// };
 
 ButtonModule.prototype.readButton1 = function () {
-  return this.button1.readSync();
+  var value = this.button1.readSync();
+  return !value|0;
 };
 
 ButtonModule.prototype.readButton2 = function () {
-  return this.button2.readSync();
+  var value = this.button2.readSync();
+  return !value|0;
 };
 
 inherits(ButtonModule,EventEmitter);
