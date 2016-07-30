@@ -84,9 +84,9 @@ int main(int argc, char** argv) {
 //    robotina->loop();
 //    
 //    MotorModuleTest();
-//    LineSensorTest();
-    Robert *robertRobot = new Robert();
-    robertRobot->LineFollower();
+    LineSensorTest();
+//    Robert *robertRobot = new Robert();
+//    robertRobot->LineFollower();
 //    LineFollower();
 //
 ////    AccelGyroTest();
@@ -108,10 +108,11 @@ int main(int argc, char** argv) {
 //    LEDModuleTest();
 //    RGBTest();
     
-//    RotarySensor rotaty;
-//    rotaty.selectPort(1);
-//    printf("Rotary Input: %0.2f\n",rotaty.getValue());
-//    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
+    RotarySensor rotaty;
+    rotaty.selectPort(1);
+    float value;
+    printf("Rotary Input: %0.2f\n",rotaty.getValue());
+    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
 
 //    TemperatureSensor temp;
 //    temp.selectPort(1);
@@ -135,10 +136,29 @@ int main(int argc, char** argv) {
 //    printf("Raw Reading: %d\n",reading);
 
 //    uint8_t right_spaces;
-//    LCDModule _lcd;
+    LCDModule _lcd;
 //    _lcd.initializeLCD();
-////    _lcd.printChar('Y');
-//    _lcd.message("Welcome to \nRobotois :D");
+//    _lcd.printChar('Y');
+    _lcd.message("Welcome to \nRobotois :D");
+
+    mDelay(3000);
+    _lcd.clear();
+    _lcd.message("Value: ");
+    while(true){
+        value = rotaty.getValue();
+        printf("Rotary Input: %0.2f\n", value);
+        
+        string s(16, '\0');
+        auto written = std::snprintf(&s[0], s.size(), "%.2f", value);
+        s.resize(written);        
+        
+        _lcd.setCursor(0,7);
+        if(value > 2.5){ // - blink the backlight
+            _lcd.bklBlink();
+        }
+        _lcd.message(s);
+        mDelay(1000);
+    }
 //    printf("RightSpaces: %d\n",right_spaces);
 //    _lcd.autoScroll(right_spaces);
 //    _lcd.scrollDisplayLeft();

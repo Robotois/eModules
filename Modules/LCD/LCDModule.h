@@ -64,6 +64,12 @@ public:
     void scrollRight();
     void scrollLeft();
     void autoScroll(uint8_t right_spaces);
+    void setBacklight(uint8_t status);
+    void bklBlink();
+    void noDisplay();
+    void setCursor(uint8_t col, uint8_t row);
+    void clear();
+    void home();
     
 private:
     uint8_t _rs_pin; // LOW: command.  HIGH: character.
@@ -80,8 +86,8 @@ private:
 
     uint8_t _numlines,_currline;
 
-    uint8_t _SPIclock, _SPIdata, _SPIlatch;
-    uint8_t _SPIbuff;
+//    uint8_t _SPIclock, _SPIdata, _SPIlatch;
+//    uint8_t _SPIbuff;
 
     uint8_t _i2cAddr;
 
@@ -92,10 +98,7 @@ private:
     void command(uint8_t value);
     
     void display();
-    void clear();
-    void nextLine();
-    void home();
-    
+    void nextLine();    
 
 };
 

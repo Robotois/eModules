@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   ADS1015.cpp
  * Author: yova
- * 
+ *
  * Created on 19 de mayo de 2016, 08:29 PM
  */
 
@@ -12,6 +12,7 @@
 #include<cmath>
 #include <unistd.h>
 #include "ADS1015.h"
+#include "../../Libraries/Timer/AccurateTiming.h"
 
 ADS1015::ADS1015(uint8_t _addr) {
     uint8_t result;
@@ -19,12 +20,12 @@ ADS1015::ADS1015(uint8_t _addr) {
         printf("Wrong slave address for the Digital IO Module...\n");
         return;
     }
-    
+
     bcm_init();
-    
+
     addr = ADS1015_DEFAULT_ADDRESS | _addr;
     selectModule();
-    
+
     wBuf[0] = ADS1015_CONFIG_REG;
     result = bcm2835_i2c_read_register_rs(wBuf,rBuf,2);
     if(result == 0x01){
@@ -37,6 +38,7 @@ ADS1015::ADS1015(const ADS1015& orig) {
 }
 
 ADS1015::~ADS1015() {
+//  printf("[ADS1015] => BCM end...\n");
     bcm_end();
 }
 
@@ -45,7 +47,7 @@ void ADS1015::selectModule(){
 }
 
 /**
- * Set the input port to be read and the gain. It is recomended that the gain is selected 
+ * Set the input port to be read and the gain. It is recomended that the gain is selected
  * according to the maximum input voltage for the given input address, this way
  * we'll obtain a good resolution.
  * @param _inputAdd
@@ -56,12 +58,12 @@ void ADS1015::selectInput(uint8_t _inputAdd, uint8_t _gain){
     inputAdd = _inputAdd;
     inputGain = _gain;
 
-    if(!(inputAdd >= 0x04 and inputAdd <= 0x07)){ // - Seleccion de entrada individual
+    if(inputAdd < 0x04 or inputAdd > 0x07){ // - Seleccion de entrada individual
         printf("Invalid Input...\n");
         return;
     }
 
-    if(!(inputGain >= 0x01 and inputGain <= 0x03)){ // - Seleccion de entrada individual
+    if(inputGain > 0x03){ // - Seleccion de entrada individual
         printf("Invalid Gain...\n");
         return;
     }
@@ -75,28 +77,31 @@ void ADS1015::selectInput(uint8_t _inputAdd, uint8_t _gain){
         case ADS1015_4096_GAIN:
             resolution = 4.096f/2048.0f; // - volts/(11 bits)
             break;
+        case ADS1015_6144_GAIN:
+            resolution = 6.144f/2048.0f; // - volts/(11 bits)
+            break;
     }
-    
+
     wBuf[0] = ADS1015_CONFIG_REG;
     // - The upper Byte
     wBuf[1] = (uint8_t)(inputAdd << 4) | (uint8_t)(inputGain << 1);
     // - Lower Byte => 128 SPS, Disble Comparator
     wBuf[2] = (uint8_t)(ADS1015_128SPS<<4) | 0x03;
-    
+
     bcm2835_i2c_write(wBuf, 3);
-    usleep(50000);
+    uDelay(1000);
 }
 
 int16_t ADS1015::readRawInput(){
     selectModule();
     uint16_t input = 0x00;
-    
+
     wBuf[0] = ADS1015_CONV_REG; // - Registro de conversion
     bcm2835_i2c_read_register_rs(wBuf,rBuf,2);
-    
+
     input = (uint16_t)(rBuf[0] << 8) |(rBuf[1]);
     input = input >> 4;
-    
+
     return fullRangeMeas(input);
 }
 
@@ -107,14 +112,13 @@ int16_t ADS1015::fullRangeMeas(uint16_t reading){
         return (int16_t)reading;
 }
 
-
 /**
  * Returns the current input reading in volts.
- * @return 
+ * @return
  */
 float ADS1015::readInput(){
     int16_t input = readRawInput();
-    
+
     return input*resolution;
 }
 
@@ -127,7 +131,7 @@ void ADS1015::bcm_init(){
         printf("BCM2835 Error!!...\n");
         exit(1);
     }
-    
+
     bcm2835_i2c_begin();
 
     bcm2835_i2c_setClockDivider(clk_div);
@@ -135,5 +139,5 @@ void ADS1015::bcm_init(){
 
 void ADS1015::bcm_end(){
     bcm2835_i2c_end();
-    bcm2835_close();    
+    bcm2835_close();
 }

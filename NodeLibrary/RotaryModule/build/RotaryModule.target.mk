@@ -70,7 +70,8 @@ OBJS := \
 	$(obj).target/$(TARGET)/RotaryModule.o \
 	$(obj).target/$(TARGET)/RotaryWrapper.o \
 	$(obj).target/$(TARGET)/../../Modules/AnalogModules/RotarySensor.o \
-	$(obj).target/$(TARGET)/../../Libraries/ADS1015/ADS1015.o
+	$(obj).target/$(TARGET)/../../Libraries/ADS1015/ADS1015.o \
+	$(obj).target/$(TARGET)/../../Libraries/Timer/AccurateTiming.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)

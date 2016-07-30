@@ -28,7 +28,7 @@ MCP23008::MCP23008(uint8_t _addr) {
     wBuf[0] = MCP23008_IODIR;
     result = bcm2835_i2c_read_register_rs(wBuf,rBuf,1);
     if(result == 0x01){
-        printf("Address: %2X",slave_addr);
+//        printf("Address: %2X",slave_addr);
         printf("Error reading from the Digital IO Device...\n");
         return;
     }

@@ -148,6 +148,11 @@ void LCDModule::display() {
   command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
 
+void LCDModule::noDisplay(){
+  _displaycontrol &= ~LCD_DISPLAYON;
+  command(LCD_DISPLAYCONTROL | _displaycontrol);
+}
+
 
 void LCDModule::printChar(char _char){
     send(_char,MCP23008_HIGH);
@@ -198,6 +203,16 @@ void LCDModule::autoScroll(uint8_t right_spaces){
     }
 }
 
+void LCDModule::setBacklight(uint8_t status) {
+   mcp->digitalWrite(_backlight_pin, status); // backlight is on pin 7
+}
+
+void LCDModule::bklBlink(){
+    setBacklight(MCP23008_LOW);
+    mDelay(250);
+    setBacklight(MCP23008_HIGH);
+}
+
 void LCDModule::nextLine(){
     command(LCD_SETDDRAMADDR | LCD_NEXTLINE_DDRAMADDR);
 }
@@ -213,4 +228,13 @@ void LCDModule::scrollLeft() {
 void LCDModule::home(){
   command(LCD_RETURNHOME);  // set cursor position to zero
   uDelay(2000);  // this command takes a long time!
+}
+
+void LCDModule::setCursor(uint8_t row, uint8_t col){
+    uint8_t offsets[] = {0x00,0x40};
+    if(row > 1){ // - row param => 0-1
+        printf("Worg Row selection for the LCD Display...\n");
+        return;
+    }
+    command(LCD_SETDDRAMADDR | (offsets[row] + col));
 }

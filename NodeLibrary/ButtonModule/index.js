@@ -63,18 +63,18 @@ function ButtonModule(header){
       if (err) {
         throw err;
       }
-      console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
+      // console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
       // button1.writeSync(!value|0);
-      _self.eventEmitter.emit('button1_change',!value|0);
+      _self.emit('Button1_change',!value|0);
     });
 
     _self.button2.watch(function (err, value) {
       if (err) {
         throw err;
       }
-      console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
+      // console.log("Current Button Value: " + value + ", Inverted value: " +(!value|0));
       // button1.writeSync(!value|0);
-      _self.eventEmitter.emit('button2_change',!value|0);
+      _self.emit('Button2_change',!value|0);
     });
   }
 }

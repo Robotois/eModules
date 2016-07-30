@@ -132,7 +132,7 @@ void MotorsWrapper::DrivePWM(const FunctionCallbackInfo<Value>& args){
   uint8_t _argc = args.Length();
   if(_argc != 2){
     isolate->ThrowException(Exception::TypeError(
-    String::NewFromUtf8(isolate, "Wrong arguments...")));
+    String::NewFromUtf8(isolate, "Wrong arguments for Motor Module...")));
   }
 
   int16_t left_pwm = (int16_t) args[0]->NumberValue(),

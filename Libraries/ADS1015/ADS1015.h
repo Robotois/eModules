@@ -23,6 +23,7 @@
 #define ADS1015_1024_GAIN 0x03 //- 1.024v gain
 #define ADS1015_2048_GAIN 0x02 //- 2.048v gain
 #define ADS1015_4096_GAIN 0x01 //- 4.096v gain
+#define ADS1015_6144_GAIN 0x00 //- 6.144v gain
 
 #define ADS1015_128SPS 0x00 //- Data Rate: 128 Samples Per Second
 #define ADS1015_250SPS 0x01 //- Data Rate: 250 Samples Per Second

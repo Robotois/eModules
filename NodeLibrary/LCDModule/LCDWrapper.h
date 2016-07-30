@@ -15,7 +15,12 @@ private:
   ~LCDWrapper();
 
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
+
   static void Message(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void Clear(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void Home(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void SetCursor(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void bklBlink(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static v8::Persistent<v8::Function> constructor;
 

@@ -22,6 +22,10 @@ void LCDWrapper::Init(){
 
   // Prototype
   NODE_SET_PROTOTYPE_METHOD(tpl,"Message",Message);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"Clear",Clear);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"Home",Home);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"SetCursor",SetCursor);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"bklBlink",bklBlink);
 
   constructor.Reset(isolate,tpl->GetFunction());
 }
@@ -97,4 +101,50 @@ void LCDWrapper::Message(const FunctionCallbackInfo<Value>& args){
   std::string _msg = std::string(*msg);
 
   args.GetReturnValue().Set(Number::New(isolate,temp_obj->lcd->message(_msg)));
+}
+
+void LCDWrapper::Clear(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  LCDWrapper* temp_obj = ObjectWrap::Unwrap<LCDWrapper>(args.Holder());
+  temp_obj->lcd->clear();
+}
+
+void LCDWrapper::bklBlink(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  LCDWrapper* temp_obj = ObjectWrap::Unwrap<LCDWrapper>(args.Holder());
+  temp_obj->lcd->bklBlink();
+}
+
+void LCDWrapper::Home(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  LCDWrapper* temp_obj = ObjectWrap::Unwrap<LCDWrapper>(args.Holder());
+  temp_obj->lcd->home();
+}
+
+void LCDWrapper::SetCursor(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  LCDWrapper* temp_obj = ObjectWrap::Unwrap<LCDWrapper>(args.Holder());
+
+  uint8_t _argc = args.Length(), col, row;
+  // printf("Args Count: %d\n",_argc);
+  if(_argc != 2){
+    isolate->ThrowException(Exception::TypeError(
+    String::NewFromUtf8(isolate, "Wrong arguments to set cursor in the LCD Module...")));
+  }
+  row = (uint8_t) (args[0]->NumberValue() - 1);
+  col = (uint8_t) (args[1]->NumberValue() - 1);
+  if(col > 39 or row > 1){
+    isolate->ThrowException(Exception::TypeError(
+    String::NewFromUtf8(isolate, "Wrong arguments to set cursor in the LCD Module...")));
+  }
+  temp_obj->lcd->setCursor(row,col);
+  // args.GetReturnValue().Set(Number::New(isolate,temp_obj->lcd->message(_msg)));
 }
