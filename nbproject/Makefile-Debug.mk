@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/AccelGyroModule.o \
 	${OBJECTDIR}/Libraries/ADS1015/ADS1015.o \
 	${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o \
 	${OBJECTDIR}/Libraries/DigitalIO/DigitalHeader.o \
@@ -54,7 +53,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o \
 	${OBJECTDIR}/Modules/Servos/Servos.o \
 	${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o \
-	${OBJECTDIR}/Old/LineFinder.o \
 	${OBJECTDIR}/Robots/Robert/Robert.o \
 	${OBJECTDIR}/Robots/Robotina/Robotina.o \
 	${OBJECTDIR}/main.o
@@ -83,11 +81,6 @@ LDLIBSOPTIONS=-l bcm2835
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/emodules: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/emodules ${OBJECTFILES} ${LDLIBSOPTIONS}
-
-${OBJECTDIR}/AccelGyroModule.o: AccelGyroModule.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AccelGyroModule.o AccelGyroModule.cpp
 
 ${OBJECTDIR}/Libraries/ADS1015/ADS1015.o: Libraries/ADS1015/ADS1015.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Libraries/ADS1015
@@ -178,11 +171,6 @@ ${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o: Modules/Ultrasonic/Ultrasoni
 	${MKDIR} -p ${OBJECTDIR}/Modules/Ultrasonic
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o Modules/Ultrasonic/UltrasonicSensor.cpp
-
-${OBJECTDIR}/Old/LineFinder.o: Old/LineFinder.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Old
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Old/LineFinder.o Old/LineFinder.cpp
 
 ${OBJECTDIR}/Robots/Robert/Robert.o: Robots/Robert/Robert.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Robots/Robert

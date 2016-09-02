@@ -12,7 +12,7 @@
 #include <cmath>
 #include <chrono>
 
-#include "AccelGyroModule.h"
+#include "Modules/AccelGyro/AccelGyroModule.h"
 
 #include "Robots/Robert/Robert.h"
 #include "Robots/Robotina/Robotina.h"

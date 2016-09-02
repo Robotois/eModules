@@ -9,7 +9,7 @@
 #define	ROBOTINA_H
 
 #include "../../Modules/Motors/Motors.h"
-#include "../../AccelGyroModule.h"
+#include "../../Modules/AccelGyro/AccelGyroModule.h"
 
 #define RAD_TO_DEG 180.0f/M_PI
 

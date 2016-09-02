@@ -5,14 +5,12 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Libraries/ADS1015/ADS1015.h</itemPath>
-      <itemPath>AccelGyroModule.h</itemPath>
       <itemPath>Libraries/Timer/AccurateTiming.h</itemPath>
       <itemPath>Libraries/BCMSetup/BCMSetup.h</itemPath>
       <itemPath>Libraries/DigitalIO/DigitalHeader.h</itemPath>
       <itemPath>Libraries/DigitalIO/DigitalIO.h</itemPath>
       <itemPath>Modules/LCD/LCDModule.h</itemPath>
       <itemPath>Modules/AnalogModules/LightSensor.h</itemPath>
-      <itemPath>Old/LineFinder.h</itemPath>
       <itemPath>Modules/LineSensors/LineSensors.h</itemPath>
       <itemPath>Libraries/MCP23008/MCP23008.h</itemPath>
       <itemPath>Modules/Motors/Motors.h</itemPath>
@@ -34,7 +32,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>Libraries/ADS1015/ADS1015.cpp</itemPath>
-      <itemPath>AccelGyroModule.cpp</itemPath>
       <itemPath>Libraries/Timer/AccurateTiming.cpp</itemPath>
       <itemPath>Libraries/BCMSetup/BCMSetup.cpp</itemPath>
       <itemPath>Libraries/DigitalIO/DigitalHeader.cpp</itemPath>
@@ -43,7 +40,6 @@
       <itemPath>Libraries/Kalman/Kalman.h</itemPath>
       <itemPath>Modules/LCD/LCDModule.cpp</itemPath>
       <itemPath>Modules/AnalogModules/LightSensor.cpp</itemPath>
-      <itemPath>Old/LineFinder.cpp</itemPath>
       <itemPath>Modules/LineSensors/LineSensors.cpp</itemPath>
       <itemPath>Libraries/MCP23008/MCP23008.cpp</itemPath>
       <itemPath>Modules/Motors/Motors.cpp</itemPath>
@@ -89,9 +85,15 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="AccelGyroModule.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Modules/AccelGyro/AccelGyroModule.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="AccelGyroModule.h" ex="false" tool="3" flavor2="0">
+      <item path="Modules/AccelGyro/AccelGyroModule.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="Libraries/ADS1015/ADS1015.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -204,10 +206,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="Old/LineFinder.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Old/LineFinder.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Robots/Robert/Robert.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Robots/Robert/Robert.h" ex="false" tool="3" flavor2="0">
@@ -247,9 +245,15 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="AccelGyroModule.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Modules/AccelGyro/AccelGyroModule.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="AccelGyroModule.h" ex="false" tool="3" flavor2="0">
+      <item path="Modules/AccelGyro/AccelGyroModule.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="Libraries/ADS1015/ADS1015.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -359,10 +363,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="Old/LineFinder.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Old/LineFinder.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Robots/Robert/Robert.cpp" ex="false" tool="1" flavor2="0">
       </item>

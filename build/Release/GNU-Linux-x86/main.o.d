@@ -1,5 +1,6 @@
-build/Release/GNU-Linux-x86/main.o: main.cpp AccelGyroModule.h \
- Robots/Robert/Robert.h Robots/Robert/../../Modules/Motors/Motors.h \
+build/Release/GNU-Linux-x86/main.o: main.cpp \
+ Modules/AccelGyro/AccelGyroModule.h Robots/Robert/Robert.h \
+ Robots/Robert/../../Modules/Motors/Motors.h \
  Robots/Robert/../../Modules/Ultrasonic/UltrasonicSensor.h \
  Robots/Robert/../../Modules/Ultrasonic/../../Libraries/DigitalIO/DigitalHeader.h \
  Robots/Robert/../../Modules/Servos/Servos.h \
@@ -7,9 +8,10 @@ build/Release/GNU-Linux-x86/main.o: main.cpp AccelGyroModule.h \
  Robots/Robert/../../Modules/LineSensors/LineSensors.h \
  Robots/Robert/../../Modules/LineSensors/../../Libraries/MCP23008/MCP23008.h \
  Robots/Robotina/Robotina.h Robots/Robotina/../../Modules/Motors/Motors.h \
- Robots/Robotina/../../AccelGyroModule.h Libraries/Kalman/Kalman.h \
- Libraries/ADS1015/ADS1015.h Libraries/PCA9685/PCA9685.h \
- Libraries/Timer/AccurateTiming.h Libraries/BCMSetup/BCMSetup.h \
+ Robots/Robotina/../../Modules/AccelGyro/AccelGyroModule.h \
+ Libraries/Kalman/Kalman.h Libraries/ADS1015/ADS1015.h \
+ Libraries/PCA9685/PCA9685.h Libraries/Timer/AccurateTiming.h \
+ Libraries/BCMSetup/BCMSetup.h \
  Modules/AnalogModules/OpticalDistanceSensor.h \
  Modules/AnalogModules/../../Libraries/ADS1015/ADS1015.h \
  Modules/AnalogModules/LightSensor.h \
@@ -20,7 +22,7 @@ build/Release/GNU-Linux-x86/main.o: main.cpp AccelGyroModule.h \
  Modules/Ultrasonic/UltrasonicSensor.h Modules/Servos/Servos.h \
  Modules/Motors/Motors.h Modules/LineSensors/LineSensors.h
 
-AccelGyroModule.h:
+Modules/AccelGyro/AccelGyroModule.h:
 
 Robots/Robert/Robert.h:
 
@@ -42,7 +44,7 @@ Robots/Robotina/Robotina.h:
 
 Robots/Robotina/../../Modules/Motors/Motors.h:
 
-Robots/Robotina/../../AccelGyroModule.h:
+Robots/Robotina/../../Modules/AccelGyro/AccelGyroModule.h:
 
 Libraries/Kalman/Kalman.h:
 
