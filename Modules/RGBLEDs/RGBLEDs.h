@@ -10,9 +10,11 @@
 
 #include "../../Libraries/PCA9685/PCA9685.h"
 
+#define RGBLEDs_ADDRESS 0x04 // - Default Address
+
 class RGBLEDs {
 public:
-    RGBLEDs(uint8_t _addr = 0x01);
+    RGBLEDs(uint8_t _addr = 0x00);
     RGBLEDs(const RGBLEDs& orig);
     virtual ~RGBLEDs();
     

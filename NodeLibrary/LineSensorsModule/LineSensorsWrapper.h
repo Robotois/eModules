@@ -15,10 +15,13 @@ private:
   ~LineSensorsWrapper();
 
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void ReadSensors(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void ReadSensor(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void ReadLine(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void SetBackground(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+  static void readSensors(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void readSensor(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void readLine(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void setBackground(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+  static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static v8::Persistent<v8::Function> constructor;
 

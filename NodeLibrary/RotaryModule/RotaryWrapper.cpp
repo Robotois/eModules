@@ -15,6 +15,15 @@ RotaryWrapper::~RotaryWrapper(){
   delete rotarySensor;
 }
 
+void RotaryWrapper::release(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  RotaryWrapper* temp_obj = ObjectWrap::Unwrap<RotaryWrapper>(args.Holder());
+
+  delete temp_obj->rotarySensor;
+}
+
 void RotaryWrapper::Init(){
   Isolate* isolate = Isolate::GetCurrent();
   // Prepare consructor template
@@ -23,8 +32,9 @@ void RotaryWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"Value",getValue);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"ScaledValue",getScaledValue);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"value",getValue);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"scaledValue",getScaledValue);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
 }

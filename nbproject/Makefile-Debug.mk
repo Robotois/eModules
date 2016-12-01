@@ -43,11 +43,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/Libraries/MCP23008/MCP23008.o \
 	${OBJECTDIR}/Libraries/PCA9685/PCA9685.o \
 	${OBJECTDIR}/Libraries/Timer/AccurateTiming.o \
+	${OBJECTDIR}/Modules/AccelGyro/AccelGyroModule.o \
 	${OBJECTDIR}/Modules/AnalogModules/LightSensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o \
+	${OBJECTDIR}/Modules/Button/Button.o \
 	${OBJECTDIR}/Modules/LCD/LCDModule.o \
+	${OBJECTDIR}/Modules/LED/LED.o \
 	${OBJECTDIR}/Modules/LineSensors/LineSensors.o \
 	${OBJECTDIR}/Modules/Motors/Motors.o \
 	${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o \
@@ -122,6 +125,11 @@ ${OBJECTDIR}/Libraries/Timer/AccurateTiming.o: Libraries/Timer/AccurateTiming.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/Timer/AccurateTiming.o Libraries/Timer/AccurateTiming.cpp
 
+${OBJECTDIR}/Modules/AccelGyro/AccelGyroModule.o: Modules/AccelGyro/AccelGyroModule.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/AccelGyro
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AccelGyro/AccelGyroModule.o Modules/AccelGyro/AccelGyroModule.cpp
+
 ${OBJECTDIR}/Modules/AnalogModules/LightSensor.o: Modules/AnalogModules/LightSensor.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
 	${RM} "$@.d"
@@ -142,10 +150,20 @@ ${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o: Modules/AnalogModules/Te
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o Modules/AnalogModules/TemperatureSensor.cpp
 
+${OBJECTDIR}/Modules/Button/Button.o: Modules/Button/Button.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/Button
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/Button/Button.o Modules/Button/Button.cpp
+
 ${OBJECTDIR}/Modules/LCD/LCDModule.o: Modules/LCD/LCDModule.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Modules/LCD
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/LCD/LCDModule.o Modules/LCD/LCDModule.cpp
+
+${OBJECTDIR}/Modules/LED/LED.o: Modules/LED/LED.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Modules/LED
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/LED/LED.o Modules/LED/LED.cpp
 
 ${OBJECTDIR}/Modules/LineSensors/LineSensors.o: Modules/LineSensors/LineSensors.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Modules/LineSensors

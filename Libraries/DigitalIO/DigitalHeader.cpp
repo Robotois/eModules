@@ -31,6 +31,14 @@ DigitalHeader::DigitalHeader(uint8_t _io_header,uint8_t io1_dir,uint8_t io2_dir)
             io_pin1 = DIGITAL_HEADER4_1;
             io_pin2 = DIGITAL_HEADER4_2;
             break;
+        case DIGITAL_HEADER5:
+            io_pin1 = DIGITAL_HEADER5_1;
+            io_pin2 = DIGITAL_HEADER5_2;
+            break;
+        case DIGITAL_HEADER6:
+            io_pin1 = DIGITAL_HEADER6_1;
+            io_pin2 = DIGITAL_HEADER6_2;
+            break;
         default:
             printf("Wrong Header selection...\n");
             return;
@@ -66,6 +74,8 @@ DigitalHeader::DigitalHeader(const DigitalHeader& orig) {
 }
 
 DigitalHeader::~DigitalHeader() {
+    printf("[DigitalHeader] => BCM end...\n");     
+    
     bcm_end();
 }
 

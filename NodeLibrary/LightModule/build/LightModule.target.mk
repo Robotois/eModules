@@ -4,6 +4,9 @@ TOOLSET := target
 TARGET := LightModule
 DEFS_Debug := \
 	'-DNODE_GYP_MODULE_NAME=LightModule' \
+	'-DUSING_UV_SHARED=1' \
+	'-DUSING_V8_SHARED=1' \
+	'-DV8_DEPRECATION_WARNINGS=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-DBUILDING_NODE_EXTENSION' \
@@ -30,13 +33,16 @@ CFLAGS_CC_Debug := \
 	-std=gnu++0x
 
 INCS_Debug := \
-	-I/home/pi/.node-gyp/6.2.0/include/node \
-	-I/home/pi/.node-gyp/6.2.0/src \
-	-I/home/pi/.node-gyp/6.2.0/deps/uv/include \
-	-I/home/pi/.node-gyp/6.2.0/deps/v8/include
+	-I/home/pi/.node-gyp/6.5.0/include/node \
+	-I/home/pi/.node-gyp/6.5.0/src \
+	-I/home/pi/.node-gyp/6.5.0/deps/uv/include \
+	-I/home/pi/.node-gyp/6.5.0/deps/v8/include
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=LightModule' \
+	'-DUSING_UV_SHARED=1' \
+	'-DUSING_V8_SHARED=1' \
+	'-DV8_DEPRECATION_WARNINGS=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-DBUILDING_NODE_EXTENSION'
@@ -61,16 +67,17 @@ CFLAGS_CC_Release := \
 	-std=gnu++0x
 
 INCS_Release := \
-	-I/home/pi/.node-gyp/6.2.0/include/node \
-	-I/home/pi/.node-gyp/6.2.0/src \
-	-I/home/pi/.node-gyp/6.2.0/deps/uv/include \
-	-I/home/pi/.node-gyp/6.2.0/deps/v8/include
+	-I/home/pi/.node-gyp/6.5.0/include/node \
+	-I/home/pi/.node-gyp/6.5.0/src \
+	-I/home/pi/.node-gyp/6.5.0/deps/uv/include \
+	-I/home/pi/.node-gyp/6.5.0/deps/v8/include
 
 OBJS := \
 	$(obj).target/$(TARGET)/LightModule.o \
 	$(obj).target/$(TARGET)/LightWrapper.o \
 	$(obj).target/$(TARGET)/../../Modules/AnalogModules/LightSensor.o \
-	$(obj).target/$(TARGET)/../../Libraries/ADS1015/ADS1015.o
+	$(obj).target/$(TARGET)/../../Libraries/ADS1015/ADS1015.o \
+	$(obj).target/$(TARGET)/../../Libraries/Timer/AccurateTiming.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)

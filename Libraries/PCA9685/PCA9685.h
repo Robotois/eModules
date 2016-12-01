@@ -34,6 +34,7 @@ public:
     void allOff();
     void setPWM(uint8_t _channel, uint16_t _pwm);
     void setPWM(uint8_t _init_channel, uint8_t _channel_count, uint16_t *_pwm_array);
+    void setOn(uint8_t _channel);
 private:
     uint8_t slave_addr;
     uint16_t onTime, offTime;

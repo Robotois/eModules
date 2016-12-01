@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--<itemPath>AccelGyroModule.cpp</itemPath>-->
 <configurationDescriptor version="95">
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -38,7 +37,7 @@
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
-        <developmentServer>pi@192.168.54.103:22</developmentServer>
+        <developmentServer>pi@192.168.1.73:22</developmentServer>
         <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">

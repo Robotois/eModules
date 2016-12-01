@@ -13,6 +13,15 @@ RGBWrapper::~RGBWrapper(){
   delete rgb;
 }
 
+void RGBWrapper::release(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  RGBWrapper* temp_obj = ObjectWrap::Unwrap<RGBWrapper>(args.Holder());
+
+  delete temp_obj->rgb;
+}
+
 void RGBWrapper::Init(){
   Isolate* isolate = Isolate::GetCurrent();
   // Prepare consructor template
@@ -21,9 +30,10 @@ void RGBWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"SetRGB",SetRGB);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"BlinkRGB",BlinkRGB);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"setRGB",setRGB);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"blinkRGB",blinkRGB);
   NODE_SET_PROTOTYPE_METHOD(tpl,"ledOff",ledOff);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
 }
@@ -32,7 +42,7 @@ void RGBWrapper::New(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
-  uint8_t _add = 0x01;
+  uint8_t _add = 0x00;
   // If there are two params: First Param => i2c address, second => Port number
   // - Only one Param, this means that the given param is the Port Number,
   RGBWrapper* obj;
@@ -90,7 +100,7 @@ void RGBWrapper::NewInstance(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(instance);
 }
 
-void RGBWrapper::SetRGB(const FunctionCallbackInfo<Value>& args){
+void RGBWrapper::setRGB(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -112,7 +122,7 @@ void RGBWrapper::SetRGB(const FunctionCallbackInfo<Value>& args){
   // args.GetReturnValue().Set();
 }
 
-void RGBWrapper::BlinkRGB(const FunctionCallbackInfo<Value>& args){
+void RGBWrapper::blinkRGB(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 

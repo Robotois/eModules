@@ -15,25 +15,31 @@
 #include "LCDModule.h"
 
 LCDModule::LCDModule(uint8_t _addr) {
-    mcp = new MCP23008(_addr);
+    if(_addr > 3){ // - 2 bits for custom address
+        printf("Wrong slave address for the LCD Module...\n");
+        return;    
+    }
+
+    mcp = new MCP23008(LCD_ADDRESS | _addr);
     
-  _displayfunction = LCD_4BITMODE | LCD_2LINE | LCD_5x8DOTS;
-  
-  // the I/O expander pinout
-  _rs_pin = 1;
-  _rw_pin = 255;
-  _enable_pin = 2;
-  _backlight_pin = 7;
-  
-  _data_pins[0] = 3;  // really d4
-  _data_pins[1] = 4;  // really d5
-  _data_pins[2] = 5;  // really d6
-  _data_pins[3] = 6;  // really d7
-  _data_pins[4] = _rs_pin; // Reset Pin
-  _data_pins[5] = _enable_pin; // Enable Pin
-  _data_pins[6] = _backlight_pin;  // BackLight enable pin
-  
-  initializeLCD();
+    _displayfunction = LCD_4BITMODE | LCD_2LINE | LCD_5x8DOTS;
+
+    // the I/O expander pinout
+    _rs_pin = 0;
+    _rw_pin = 1;
+    _enable_pin = 2;
+    _backlight_pin = 3;
+
+    _data_pins[0] = 4;  // really d4
+    _data_pins[1] = 5;  // really d5
+    _data_pins[2] = 6;  // really d6
+    _data_pins[3] = 7;  // really d7
+    _data_pins[4] = _rs_pin; // Reset Pin
+    _data_pins[5] = _enable_pin; // Enable Pin
+    _data_pins[6] = _backlight_pin;  // BackLight enable pin
+    _data_pins[7] = _rw_pin;  // BackLight enable pin
+
+    initializeLCD();
 }
 
 LCDModule::LCDModule(const LCDModule& orig) {
@@ -45,10 +51,13 @@ LCDModule::~LCDModule() {
 
 void LCDModule::initializeLCD(){
     // - Set all the putput pins
-    mcp->setDir(_data_pins,MCP23008_OUTPUT,7);
+    mcp->setDir(_data_pins,MCP23008_OUTPUT,8);
     
     // - Enable the Backlight
     mcp->digitalWrite(_backlight_pin,MCP23008_HIGH);
+
+    // - RW operation
+    mcp->digitalWrite(_rw_pin,MCP23008_LOW);
     
 //    if(lines > 1){
 //        _displayfunction |= LCD_2LINE;

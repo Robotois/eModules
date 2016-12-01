@@ -39,8 +39,8 @@ Servos::~Servos() {
 void Servos::setAngle(uint8_t servoNumber, float degree){
     constrain(&degree,minTravel,maxTravel);
     offTime = centerOffTime + degree*angleTimeRatio;
-    if(servoNumber <1 and servoNumber > 6){
-        printf("Wrong Channel Selection for the PWM Module...\n");
+    if(servoNumber <1 and servoNumber > 3){
+        printf("Wrong Channel Selection for the Servo Module...\n");
         return;    
     }
     pwmModule->setPWM(servoNumber-1,offTime);

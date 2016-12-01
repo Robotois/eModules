@@ -12,6 +12,7 @@
 
 TemperatureSensor::TemperatureSensor(uint8_t _addr) {
     analogModule = new ADS1015(_addr);
+    tempRatio = 25.0f/0.750f;
 }
 
 TemperatureSensor::TemperatureSensor(const TemperatureSensor& orig) {
@@ -46,5 +47,5 @@ float TemperatureSensor::getTemperature(){
     selectPort(inputPort);
     float reading = analogModule->readInput();
 //    printf("Reading: %0.2f\n",reading);
-    return reading*(25.0f/0.750f);
+    return reading*tempRatio;
 }

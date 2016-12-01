@@ -15,8 +15,10 @@ private:
   ~LightWrapper();
 
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void Light(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void ScaledLight(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void light(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void scaledLight(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+  static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static v8::Persistent<v8::Function> constructor;
 

@@ -15,7 +15,9 @@ private:
   ~ServosWrapper();
 
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void SetAngle(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void setAngle(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+  static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static v8::Persistent<v8::Function> constructor;
 

@@ -8,11 +8,18 @@ Persistent<Function> TempWrapper::constructor;
 TempWrapper::TempWrapper(uint8_t _port, uint8_t _addr){
   tempSensor = new TemperatureSensor(_addr);
   tempSensor->selectPort(_port);
-  // printf("Here...\n");
 }
 
 TempWrapper::~TempWrapper(){
   delete tempSensor;
+}
+
+void TempWrapper::release(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  TempWrapper* temp_obj = ObjectWrap::Unwrap<TempWrapper>(args.Holder());
+  delete temp_obj->tempSensor;
 }
 
 void TempWrapper::Init(){
@@ -23,10 +30,8 @@ void TempWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"Temperature",Temperature);
-  // NODE_SET_PROTOTYPE_METHOD(tpl,"BCMEnd",BCMEnd);
-  // tpl->PrototypeTemplate()->Set(Nan::New("temperature").ToLocalChecked(),
-  //   Nan::New<v8::FunctionTemplate>(Temperature)->GetFunction());
+  NODE_SET_PROTOTYPE_METHOD(tpl,"temperature",temperature);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
 }
@@ -96,7 +101,7 @@ void TempWrapper::NewInstance(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(instance);
 }
 
-void TempWrapper::Temperature(const FunctionCallbackInfo<Value>& args){
+void TempWrapper::temperature(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 

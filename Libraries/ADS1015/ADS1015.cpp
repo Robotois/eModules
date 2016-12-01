@@ -38,7 +38,6 @@ ADS1015::ADS1015(const ADS1015& orig) {
 }
 
 ADS1015::~ADS1015() {
-//  printf("[ADS1015] => BCM end...\n");
     bcm_end();
 }
 

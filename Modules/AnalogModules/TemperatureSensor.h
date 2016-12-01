@@ -21,6 +21,7 @@ public:
 private:
     ADS1015 *analogModule;
     uint8_t inputPort;    
+    float tempRatio;
 };
 
 #endif	/* TEMPSENSOR_H */

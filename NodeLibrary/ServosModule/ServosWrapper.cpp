@@ -13,6 +13,14 @@ ServosWrapper::~ServosWrapper(){
   delete servos;
 }
 
+void ServosWrapper::release(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  ServosWrapper* temp_obj = ObjectWrap::Unwrap<ServosWrapper>(args.Holder());
+  delete temp_obj->servos;
+}
+
 void ServosWrapper::Init(){
   Isolate* isolate = Isolate::GetCurrent();
   // Prepare consructor template
@@ -21,7 +29,8 @@ void ServosWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"SetAngle",SetAngle);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"setAngle",setAngle);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
 }
@@ -88,7 +97,7 @@ void ServosWrapper::NewInstance(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(instance);
 }
 
-void ServosWrapper::SetAngle(const FunctionCallbackInfo<Value>& args){
+void ServosWrapper::setAngle(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 

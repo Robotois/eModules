@@ -22,8 +22,10 @@ PCA9685::PCA9685(uint8_t _addr) {
         printf("Wrong slave address for the PWM Module...\n");
         return;    
     }
-    
+        
     slave_addr = PCA9685_ADDRESS | _addr;
+
+//    printf("Slave Address: %d",slave_addr);
     
     bcm_init();
     
@@ -42,7 +44,7 @@ PCA9685::PCA9685(uint8_t _addr) {
 PCA9685::PCA9685(const PCA9685& orig) {
 }
 
-PCA9685::~PCA9685() {
+PCA9685::~PCA9685() {   
     bcm_end();
 }
 
@@ -169,6 +171,29 @@ void PCA9685::setPWM(uint8_t _channel, uint16_t _pwm){
     wBuf[3] = (uint8_t)offTime; 
     wBuf[4] = (uint8_t)(offTime >> 8);
     bcm2835_i2c_write(wBuf, 5);        
+}
+
+void PCA9685::setOn(uint8_t _channel){
+    selectModule();
+    if(_channel > 15){
+        printf("Wrong selection of the PWM channel...\n");
+        return;
+    }
+
+    if(invertedMode){
+        onTime = 0;
+        offTime = 4095;
+    }else{
+        onTime = 0;
+        offTime = 4095;
+    }
+
+    wBuf[0] = PCA9685_CH0_ON_L+(4*_channel);
+    wBuf[1] = (uint8_t)onTime; 
+    wBuf[2] = (uint8_t)(onTime >> 8);
+    wBuf[3] = (uint8_t)offTime; 
+    wBuf[4] = (uint8_t)(offTime >> 8);
+    bcm2835_i2c_write(wBuf, 5);           
 }
 
 void PCA9685::setPWM(uint8_t _init_channel, uint8_t _channel_count, uint16_t *_pwm_array){

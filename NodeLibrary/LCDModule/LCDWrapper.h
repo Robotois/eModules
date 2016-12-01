@@ -11,16 +11,18 @@ public:
   static void NewInstance(const v8::FunctionCallbackInfo<v8::Value>& args);
 
 private:
-  explicit LCDWrapper(uint8_t _add = 0x01);
+  explicit LCDWrapper(uint8_t _add = 0x00);
   ~LCDWrapper();
 
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
 
-  static void Message(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void Clear(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void Home(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void SetCursor(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void message(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void clear(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void home(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void setCursor(const v8::FunctionCallbackInfo<v8::Value>& args);
   static void bklBlink(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+  static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static v8::Persistent<v8::Function> constructor;
 

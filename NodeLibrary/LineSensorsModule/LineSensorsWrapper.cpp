@@ -14,6 +14,14 @@ LineSensorsWrapper::~LineSensorsWrapper(){
   delete lineSensors;
 }
 
+void LineSensorsWrapper::release(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  LineSensorsWrapper* temp_obj = ObjectWrap::Unwrap<LineSensorsWrapper>(args.Holder());
+  delete temp_obj->lineSensors;
+}
+
 void LineSensorsWrapper::Init(){
   Isolate* isolate = Isolate::GetCurrent();
   // Prepare consructor template
@@ -22,10 +30,11 @@ void LineSensorsWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"ReadSensors",ReadSensors);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"ReadSensor",ReadSensor);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"ReadLine",ReadLine);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"SetBackground",SetBackground);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"readSensors",readSensors);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"readSensor",readSensor);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"readLine",readLine);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"setBackground",setBackground);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
 }
@@ -34,7 +43,7 @@ void LineSensorsWrapper::New(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
-  uint8_t _add = 0x01;
+  uint8_t _add = 0x00;
   // If there are two params: First Param => i2c address, second => Port number
   // - Only one Param, this means that the given param is the Port Number,
   LineSensorsWrapper* obj;
@@ -92,7 +101,7 @@ void LineSensorsWrapper::NewInstance(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(instance);
 }
 
-void LineSensorsWrapper::ReadSensors(const FunctionCallbackInfo<Value>& args){
+void LineSensorsWrapper::readSensors(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -106,7 +115,7 @@ void LineSensorsWrapper::ReadSensors(const FunctionCallbackInfo<Value>& args){
   args.GetReturnValue().Set(Number::New(isolate,temp_obj->lineSensors->readSensors()));
 }
 
-void LineSensorsWrapper::ReadSensor(const FunctionCallbackInfo<Value>& args){
+void LineSensorsWrapper::readSensor(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -121,7 +130,7 @@ void LineSensorsWrapper::ReadSensor(const FunctionCallbackInfo<Value>& args){
   args.GetReturnValue().Set(Number::New(isolate,temp_obj->lineSensors->readSensor(_sensorNumber-1)));
 }
 
-void LineSensorsWrapper::ReadLine(const FunctionCallbackInfo<Value>& args){
+void LineSensorsWrapper::readLine(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -135,7 +144,7 @@ void LineSensorsWrapper::ReadLine(const FunctionCallbackInfo<Value>& args){
   args.GetReturnValue().Set(Number::New(isolate,temp_obj->lineSensors->readLine()));
 }
 
-void LineSensorsWrapper::SetBackground(const FunctionCallbackInfo<Value>& args){
+void LineSensorsWrapper::setBackground(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 

@@ -15,7 +15,9 @@ private:
   ~TempWrapper();
 
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void Temperature(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void temperature(const v8::FunctionCallbackInfo<v8::Value>& args);
+
+  static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static v8::Persistent<v8::Function> constructor;
 

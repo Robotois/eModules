@@ -12,7 +12,7 @@
 #include <bcm2835.h>
 
 #include "AccelGyroModule.h"
-#include "Libraries/Timer/AccurateTiming.h"
+#include "../../Libraries/Timer/AccurateTiming.h"
 
 const float AccelGyroModule::gyroScaleFactors[] = {131,65.5,32.8,16.4};
 const float AccelGyroModule::accelScaleFactors[] = {16384,8192,4096,2048};

@@ -13,6 +13,15 @@ LCDWrapper::~LCDWrapper(){
   delete lcd;
 }
 
+void LCDWrapper::release(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  LCDWrapper* temp_obj = ObjectWrap::Unwrap<LCDWrapper>(args.Holder());
+
+  delete temp_obj->lcd;
+}
+
 void LCDWrapper::Init(){
   Isolate* isolate = Isolate::GetCurrent();
   // Prepare consructor template
@@ -21,11 +30,12 @@ void LCDWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"Message",Message);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"Clear",Clear);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"Home",Home);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"SetCursor",SetCursor);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"message",message);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"clear",clear);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"home",home);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"setCursor",setCursor);
   NODE_SET_PROTOTYPE_METHOD(tpl,"bklBlink",bklBlink);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
 }
@@ -92,7 +102,7 @@ void LCDWrapper::NewInstance(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(instance);
 }
 
-void LCDWrapper::Message(const FunctionCallbackInfo<Value>& args){
+void LCDWrapper::message(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -103,7 +113,7 @@ void LCDWrapper::Message(const FunctionCallbackInfo<Value>& args){
   args.GetReturnValue().Set(Number::New(isolate,temp_obj->lcd->message(_msg)));
 }
 
-void LCDWrapper::Clear(const FunctionCallbackInfo<Value>& args){
+void LCDWrapper::clear(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -119,7 +129,7 @@ void LCDWrapper::bklBlink(const FunctionCallbackInfo<Value>& args){
   temp_obj->lcd->bklBlink();
 }
 
-void LCDWrapper::Home(const FunctionCallbackInfo<Value>& args){
+void LCDWrapper::home(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -127,7 +137,7 @@ void LCDWrapper::Home(const FunctionCallbackInfo<Value>& args){
   temp_obj->lcd->home();
 }
 
-void LCDWrapper::SetCursor(const FunctionCallbackInfo<Value>& args){
+void LCDWrapper::setCursor(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 

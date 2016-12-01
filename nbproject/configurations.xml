@@ -5,11 +5,14 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Libraries/ADS1015/ADS1015.h</itemPath>
+      <itemPath>Modules/AccelGyro/AccelGyroModule.h</itemPath>
       <itemPath>Libraries/Timer/AccurateTiming.h</itemPath>
       <itemPath>Libraries/BCMSetup/BCMSetup.h</itemPath>
+      <itemPath>Modules/Button/Button.h</itemPath>
       <itemPath>Libraries/DigitalIO/DigitalHeader.h</itemPath>
       <itemPath>Libraries/DigitalIO/DigitalIO.h</itemPath>
       <itemPath>Modules/LCD/LCDModule.h</itemPath>
+      <itemPath>Modules/LED/LED.h</itemPath>
       <itemPath>Modules/AnalogModules/LightSensor.h</itemPath>
       <itemPath>Modules/LineSensors/LineSensors.h</itemPath>
       <itemPath>Libraries/MCP23008/MCP23008.h</itemPath>
@@ -32,13 +35,16 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>Libraries/ADS1015/ADS1015.cpp</itemPath>
+      <itemPath>Modules/AccelGyro/AccelGyroModule.cpp</itemPath>
       <itemPath>Libraries/Timer/AccurateTiming.cpp</itemPath>
       <itemPath>Libraries/BCMSetup/BCMSetup.cpp</itemPath>
+      <itemPath>Modules/Button/Button.cpp</itemPath>
       <itemPath>Libraries/DigitalIO/DigitalHeader.cpp</itemPath>
       <itemPath>Libraries/DigitalIO/DigitalIO.cpp</itemPath>
       <itemPath>Libraries/Kalman/Kalman.cpp</itemPath>
       <itemPath>Libraries/Kalman/Kalman.h</itemPath>
       <itemPath>Modules/LCD/LCDModule.cpp</itemPath>
+      <itemPath>Modules/LED/LED.cpp</itemPath>
       <itemPath>Modules/AnalogModules/LightSensor.cpp</itemPath>
       <itemPath>Modules/LineSensors/LineSensors.cpp</itemPath>
       <itemPath>Libraries/MCP23008/MCP23008.cpp</itemPath>
@@ -85,12 +91,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Modules/AccelGyro/AccelGyroModule.cpp"
+      <item path="Modules/Button/Button.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Modules/AccelGyro/AccelGyroModule.h"
+      <item path="Modules/Button/Button.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -132,6 +138,16 @@
       <item path="Libraries/Timer/AccurateTiming.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Libraries/Timer/AccurateTiming.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Modules/AccelGyro/AccelGyroModule.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Modules/AccelGyro/AccelGyroModule.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="Modules/AnalogModules/LightSensor.cpp"
             ex="false"
@@ -176,6 +192,10 @@
       <item path="Modules/LCD/LCDModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Modules/LCD/LCDModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Modules/LED/LED.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/LED/LED.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Modules/LineSensors/LineSensors.cpp"
             ex="false"
@@ -245,12 +265,12 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Modules/AccelGyro/AccelGyroModule.cpp"
+      <item path="Modules/Button/Button.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Modules/AccelGyro/AccelGyroModule.h"
+      <item path="Modules/Button/Button.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -290,6 +310,16 @@
       <item path="Libraries/PCA9685/PCA9685.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Libraries/Timer/AccurateTiming.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/AccelGyro/AccelGyroModule.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Modules/AccelGyro/AccelGyroModule.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="Modules/AnalogModules/LightSensor.cpp"
             ex="false"
@@ -334,6 +364,10 @@
       <item path="Modules/LCD/LCDModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Modules/LCD/LCDModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Modules/LED/LED.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/LED/LED.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Modules/LineSensors/LineSensors.cpp"
             ex="false"

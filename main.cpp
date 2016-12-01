@@ -22,11 +22,15 @@
 #include "Libraries/PCA9685/PCA9685.h"
 #include "Libraries/Timer/AccurateTiming.h"
 #include "Libraries/BCMSetup/BCMSetup.h"
+#include "Libraries/DigitalIO/DigitalHeader.h"
+
 #include "Modules/AnalogModules/OpticalDistanceSensor.h"
 #include "Modules/AnalogModules/LightSensor.h"
 #include "Modules/AnalogModules/TemperatureSensor.h"
 #include "Modules/AnalogModules/RotarySensor.h"
 #include "Modules/RGBLEDs/RGBLEDs.h"
+#include "Modules/LED/LED.h"
+#include "Modules/Button/Button.h"
 #include "Modules/LCD/LCDModule.h"
 #include "Modules/Ultrasonic/UltrasonicSensor.h"
 #include "Modules/Servos/Servos.h"
@@ -75,7 +79,7 @@ void RGBTest();
  * 
  */
 int main(int argc, char** argv) {
-//    i2c_init();
+    i2c_init();
     
 //    AccelGyroModule * accelGyro = new AccelGyroModule();
 //    accelGyro->calibrateMPU();
@@ -108,11 +112,11 @@ int main(int argc, char** argv) {
 //    LEDModuleTest();
 //    RGBTest();
     
-    RotarySensor rotaty;
-    rotaty.selectPort(1);
-    float value;
-    printf("Rotary Input: %0.2f\n",rotaty.getValue());
-    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
+//    RotarySensor rotaty;
+//    rotaty.selectPort(1);
+//    float value;
+//    printf("Rotary Input: %0.2f\n",rotaty.getValue());
+//    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
 
 //    TemperatureSensor temp;
 //    temp.selectPort(1);
@@ -136,72 +140,94 @@ int main(int argc, char** argv) {
 //    printf("Raw Reading: %d\n",reading);
 
 //    uint8_t right_spaces;
-    LCDModule _lcd;
+//    LCDModule _lcd;
 //    _lcd.initializeLCD();
 //    _lcd.printChar('Y');
-    _lcd.message("Welcome to \nRobotois :D");
+//    _lcd.message("Welcome to \nRobotois :D");
 
-    mDelay(3000);
-    _lcd.clear();
-    _lcd.message("Value: ");
-    while(true){
-        value = rotaty.getValue();
-        printf("Rotary Input: %0.2f\n", value);
-        
-        string s(16, '\0');
-        auto written = std::snprintf(&s[0], s.size(), "%.2f", value);
-        s.resize(written);        
-        
-        _lcd.setCursor(0,7);
-        if(value > 2.5){ // - blink the backlight
-            _lcd.bklBlink();
-        }
-        _lcd.message(s);
-        mDelay(1000);
-    }
+//    mDelay(3000);
+//    _lcd.clear();
+//    _lcd.message("Value: ");
+//    while(true){
+//        value = rotaty.getValue();
+//        printf("Rotary Input: %0.2f\n", value);
+//        
+//        string s(16, '\0');
+//        auto written = std::snprintf(&s[0], s.size(), "%.2f", value);
+//        s.resize(written);        
+//        
+//        _lcd.setCursor(0,7);
+//        if(value > 2.5){ // - blink the backlight
+//            _lcd.bklBlink();
+//        }
+//        _lcd.message(s);
+//        mDelay(1000);
+//    }
 //    printf("RightSpaces: %d\n",right_spaces);
 //    _lcd.autoScroll(right_spaces);
 //    _lcd.scrollDisplayLeft();
 
-//    i2c_end();    
+    i2c_end();    
 
     return 0;
 }
 
 void RGBTest(){
     RGBLEDs rgbs;
-    rgbs.setRGB(1,128,0,128);
+    rgbs.setRGB(1,128,0,0);
 //    sleep(3);
-    rgbs.setRGB(2,0,206,209);
+    rgbs.setRGB(2,128,0,0);
 //    sleep(3);
-    rgbs.setRGB(3,128,128,0);
+    rgbs.setRGB(3,128,0,0);
+    
+    rgbs.setRGB(4,128,0,0);
+    
+    sleep(5);
+
+    rgbs.setRGB(1,0,128,0);
+//    sleep(3);
+    rgbs.setRGB(2,0,128,0);
+//    sleep(3);
+    rgbs.setRGB(3,0,128,0);
+    
+    rgbs.setRGB(4,0,128,0);
+    
+    sleep(5);
+
+    rgbs.setRGB(1,0,0,128);
+//    sleep(3);
+    rgbs.setRGB(2,0,0,128);
+//    sleep(3);
+    rgbs.setRGB(3,0,0,128);
+    
+    rgbs.setRGB(4,0,0,128);
+    
+    sleep(5);
 //    sleep(3);
 //    rgbs.setRGB(1,0,0,0);
     
-    while(true){
-        sleep(1);
-        rgbs.ledOff(1);
-        sleep(1);
-        rgbs.setRGB(1,128,0,128);
-    }
+//    while(true){
+//        sleep(1);
+//        rgbs.ledOff(1);
+//        sleep(1);
+//        rgbs.setRGB(1,128,0,128);
+//    }
 }
 
-void LEDModuleTest(){
-    uint8_t PIN = RPI_V2_GPIO_P1_32, PWM_CHANNEL  = 0;
-    uint16_t RANGE = 1024;
-    // Set the output pin to Alt Fun 5, to allow PWM channel 0 to be output there
-    bcm2835_gpio_fsel(PIN, BCM2835_GPIO_FSEL_OUTP);
-    uint16_t i = 0;
-    while (1)
-    {
-        bcm2835_gpio_write(PIN, LOW);
-        mDelay(250);
-        bcm2835_gpio_write(PIN, HIGH);
-        mDelay(250);
-        i++;
-        if(i>20)
-            return;
+void LEDModuleTest(){    
+    LED ledModule(6);
+    while (1){
+        ledModule.write(LOW);
+        mDelay(1000);
+        ledModule.write(HIGH);
+        mDelay(1000);
     }    
+
+//    Button buttonModule(1);
+//    while(1){
+//        printf("Button value: %d\n",buttonModule.read());
+//        mDelay(500);
+//    }    
 }
 
 void SleepTest(){
@@ -379,9 +405,9 @@ void ServoTest(){
     Servos *servos = new Servos();
 //    servos->initialize();
     while(1){
-        servos->setAngle(0,-90);
+        servos->setAngle(1,-90);
         mDelay(5000);
-        servos->setAngle(0,90);
+        servos->setAngle(1,90);
         mDelay(5000);
     }
     
@@ -465,18 +491,19 @@ void MotorModuleTest(){
 void LineSensorTest(){
     LineSensors *lineModule = new LineSensors();
 //    lineModule->initialize();
-    
+    float line = 0.0f;
     uint8_t inputs,singleInput;
 
     uint16_t i = 0;
     
     lineModule->setBackground(LINESENSORS_WHITE_BACKGROUND);
-    while(i<7500){
-//        lineModule->selectModule();
-        inputs = lineModule->readSensors();
-        singleInput = lineModule->readSensor(LINESENSORS_SENSOR1);
-        printf("Sensors: 0x%02X \tSingle Sensor: %d\n",inputs,singleInput);
-        mDelay(1000);
+    while(1){
+//        inputs = lineModule->readSensors();
+//        singleInput = lineModule->readSensor(LINESENSORS_SENSOR1);
+//        printf("Sensors: 0x%02X \tSingle Sensor: %d\n",inputs,singleInput);
+        line = lineModule->readLine();
+        printf("Line: %0.3f\n",line);
+        mDelay(500);
     }
 }
 

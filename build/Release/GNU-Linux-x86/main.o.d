@@ -11,13 +11,16 @@ build/Release/GNU-Linux-x86/main.o: main.cpp \
  Robots/Robotina/../../Modules/AccelGyro/AccelGyroModule.h \
  Libraries/Kalman/Kalman.h Libraries/ADS1015/ADS1015.h \
  Libraries/PCA9685/PCA9685.h Libraries/Timer/AccurateTiming.h \
- Libraries/BCMSetup/BCMSetup.h \
+ Libraries/BCMSetup/BCMSetup.h Libraries/DigitalIO/DigitalHeader.h \
  Modules/AnalogModules/OpticalDistanceSensor.h \
  Modules/AnalogModules/../../Libraries/ADS1015/ADS1015.h \
  Modules/AnalogModules/LightSensor.h \
  Modules/AnalogModules/TemperatureSensor.h \
  Modules/AnalogModules/RotarySensor.h Modules/RGBLEDs/RGBLEDs.h \
- Modules/RGBLEDs/../../Libraries/PCA9685/PCA9685.h \
+ Modules/RGBLEDs/../../Libraries/PCA9685/PCA9685.h Modules/LED/LED.h \
+ Modules/LED/../../Libraries/DigitalIO/DigitalHeader.h \
+ Modules/Button/Button.h \
+ Modules/Button/../../Libraries/DigitalIO/DigitalHeader.h \
  Modules/LCD/LCDModule.h Modules/LCD/../../Libraries/MCP23008/MCP23008.h \
  Modules/Ultrasonic/UltrasonicSensor.h Modules/Servos/Servos.h \
  Modules/Motors/Motors.h Modules/LineSensors/LineSensors.h
@@ -56,6 +59,8 @@ Libraries/Timer/AccurateTiming.h:
 
 Libraries/BCMSetup/BCMSetup.h:
 
+Libraries/DigitalIO/DigitalHeader.h:
+
 Modules/AnalogModules/OpticalDistanceSensor.h:
 
 Modules/AnalogModules/../../Libraries/ADS1015/ADS1015.h:
@@ -69,6 +74,14 @@ Modules/AnalogModules/RotarySensor.h:
 Modules/RGBLEDs/RGBLEDs.h:
 
 Modules/RGBLEDs/../../Libraries/PCA9685/PCA9685.h:
+
+Modules/LED/LED.h:
+
+Modules/LED/../../Libraries/DigitalIO/DigitalHeader.h:
+
+Modules/Button/Button.h:
+
+Modules/Button/../../Libraries/DigitalIO/DigitalHeader.h:
 
 Modules/LCD/LCDModule.h:
 

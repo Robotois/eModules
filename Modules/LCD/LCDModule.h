@@ -51,10 +51,12 @@
 #define LCD_5x10DOTS 0x04
 #define LCD_5x8DOTS 0x00
 
+#define LCD_ADDRESS 0x04 // - Default Address
+
 
 class LCDModule {
 public:
-    LCDModule(uint8_t _addr = 0x01);
+    LCDModule(uint8_t _addr = 0x00);
     LCDModule(const LCDModule& orig);
     virtual ~LCDModule();
     

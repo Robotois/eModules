@@ -14,6 +14,15 @@ LightWrapper::~LightWrapper(){
   delete lightSensor;
 }
 
+void LightWrapper::release(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  LightWrapper* temp_obj = ObjectWrap::Unwrap<LightWrapper>(args.Holder());
+
+  delete temp_obj->lightSensor;
+}
+
 void LightWrapper::Init(){
   Isolate* isolate = Isolate::GetCurrent();
   // Prepare consructor template
@@ -22,8 +31,10 @@ void LightWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"Light",Light);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"ScaledLight",ScaledLight);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"light",light);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"scaledLight",scaledLight);
+
+  NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
 }
@@ -93,7 +104,7 @@ void LightWrapper::NewInstance(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(instance);
 }
 
-void LightWrapper::Light(const FunctionCallbackInfo<Value>& args){
+void LightWrapper::light(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
@@ -102,7 +113,7 @@ void LightWrapper::Light(const FunctionCallbackInfo<Value>& args){
   args.GetReturnValue().Set(Number::New(isolate,temp_obj->lightSensor->getLight()));
 }
 
-void LightWrapper::ScaledLight(const FunctionCallbackInfo<Value>& args){
+void LightWrapper::scaledLight(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
