@@ -1,8 +1,12 @@
 var rModule = require('bindings')('RotaryModule');
+var EventEmitter = require('events').EventEmitter;
+var inherits = require('util').inherits;
 
 function RotaryModule(_port,_add = 0){
+  EventEmitter.call(this);
   var _self = this;
-  // console.log(_port, _add);
+  this.scaleFactor =  1024/1700;
+
   this.rotary = new rModule(_port,_add);
 
   process.on('SIGINT', function () {
@@ -21,6 +25,19 @@ RotaryModule.prototype.value = function(){
 RotaryModule.prototype.scaledValue = function (){
   return this.rotary.scaledValue();
 };
+
+RotaryModule.prototype.enableEvents = function () {
+  var _self = this;
+  var value, scaledValue;
+
+  setInterval(()=>{ // Tomar mediciones cada 200ms
+    value = Math.round(this.rotary.value() * 100)/100;
+    scaledValue = Math.round(this.scaleFactor * value);
+    _self.emit('Measurement',value,scaledValue);
+  },200)
+}
+
+inherits(RotaryModule,EventEmitter);
 
 module.exports = RotaryModule;
 // var rModule = require('bindings')('RotaryModule');

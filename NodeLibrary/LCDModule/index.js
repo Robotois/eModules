@@ -1,8 +1,14 @@
-var lcdModule = require('bindings')('LCDModule');
+var lcdModule = require('bindings')('LCDModule'),
+    sleep = require('sleep');
+
 function LCDModule(_add = 0){
   var _self = this;
 
   this.lcd = new lcdModule(_add);
+
+  this.lcd.message('Welcome to\nRobotois :D');
+  sleep.sleep(2);
+  this.lcd.clear();
 
   process.on('SIGINT', function () {
     _self.lcd.release();

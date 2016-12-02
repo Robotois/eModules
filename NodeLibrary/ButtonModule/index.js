@@ -19,25 +19,32 @@ function ButtonModule(header){
 }
 
 ButtonModule.prototype.read = function () {
-  var value = this.button.read();
-  return value;
+  return this.button.read();;
 };
 
 ButtonModule.prototype.enableEvents = function () {
   var _self = this;
-  var prevState = 0;
+  var prevState = 0,currentState;
 
-  function run(_prevState){
-    var currentState = _self.button.read();
-    if(currentState !== _prevState){
-      // console.log(currentState);
+  setInterval(()=>{
+    currentState = _self.button.read();
+    if(currentState !== prevState){
       _self.emit('ButtonChange',currentState);
+      prevState = currentState;
     }
+  },50);
 
-    setImmediate(run,currentState);
-  }
-
-  run(prevState);
+  // function run(_prevState){
+  //   var currentState = _self.button.read();
+  //   if(currentState !== _prevState){
+  //     // console.log(currentState);
+  //     _self.emit('ButtonChange',currentState);
+  //   }
+  //
+  //   setImmediate(run,currentState);
+  // }
+  //
+  // run(prevState);
 }
 
 inherits(ButtonModule,EventEmitter);
