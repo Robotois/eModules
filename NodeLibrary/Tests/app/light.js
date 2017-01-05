@@ -1,5 +1,5 @@
 const LIGHT = require('../../LightModule');
-const light = new LIGHT(3);
+const light = new LIGHT(1);
 
 let value = light.scaledLight();
 console.log(value);
