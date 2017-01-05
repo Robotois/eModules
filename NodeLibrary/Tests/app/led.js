@@ -1,14 +1,18 @@
 const LED  =  require('../../LEDModule');
 const led = new LED(2);
-// const led2 = new LED(3);
+const led2 = new LED(3);
+let interval;
 
-led.turnOff();
-// led2.blink();
+led.turnOn();
+// we blink led each second
+interval = setInterval(function () {
+  led2.blink();
+}, 1000);
 
-/*setTimeout(function () {
+setTimeout(function () {
   led.turnOff();
-  led2.turnOff();
-}, 20000);*/
+  clearInterval(interval);
+}, 15000);
 
 setInterval(()=>{ // Proceso en estado ocioso
   true;
