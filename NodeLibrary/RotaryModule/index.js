@@ -26,6 +26,10 @@ RotaryModule.prototype.scaledValue = function (){
   return this.rotary.scaledValue();
 };
 
+RotaryModule.prototype.getValue = function(){
+  return this.rotary.scaledValue();
+}
+
 RotaryModule.prototype.enableEvents = function () {
   var _self = this;
   var value, scaledValue;
@@ -40,11 +44,3 @@ RotaryModule.prototype.enableEvents = function () {
 inherits(RotaryModule,EventEmitter);
 
 module.exports = RotaryModule;
-// var rModule = require('bindings')('RotaryModule');
-// var rotaryModule = rModule(1);
-//
-// // console.log("The current Temperature is: "+tempModule.Temperature());
-//
-// setInterval(function () {
-//   console.log("Rotary measurement: " + rotaryModule.Value() + ", Scaled Rotary:" + rotaryModule.ScaledValue());
-// },500);

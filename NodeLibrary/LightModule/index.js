@@ -26,6 +26,10 @@ LightModule.prototype.scaledLight = function(){
   return this.light.scaledLight();
 }
 
+LightModule.prototype.getValue = function(){
+  return this.light.scaledLight();
+}
+
 LightModule.prototype.enableEvents = function (){
   var _self = this;
   var value, scaledValue;
@@ -40,8 +44,3 @@ LightModule.prototype.enableEvents = function (){
 inherits(LightModule,EventEmitter);
 
 module.exports = LightModule;
-// var lightModule = lModule(1);
-//
-// setInterval(function () {
-//   console.log("Light measurement: " + lightModule.Light() + ", Scaled Light:" + lightModule.ScaledLight());
-// },500);
