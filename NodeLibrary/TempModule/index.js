@@ -21,7 +21,7 @@ TemperatureModule.prototype.temperature = function (){
   return this.temp.temperature();
 }
 
-RotaryModule.prototype.getValue = function(){
+TemperatureModule.prototype.getValue = function(){
   return this.temp.temperature();
 }
 
