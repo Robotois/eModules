@@ -34,7 +34,7 @@ RotaryModule.prototype.enableEvents = function () {
     value = Math.round(this.rotary.value() * 100)/100;
     scaledValue = Math.round(this.scaleFactor * value);
     _self.emit('Measurement',value,scaledValue);
-  },200)
+  },100)
 }
 
 inherits(RotaryModule,EventEmitter);

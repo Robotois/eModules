@@ -496,7 +496,7 @@ void LineSensorTest(){
 
     uint16_t i = 0;
     
-    lineModule->setBackground(LINESENSORS_WHITE_BACKGROUND);
+    lineModule->setBackground(LINESENSORS_BLACK_BACKGROUND);
     while(1){
 //        inputs = lineModule->readSensors();
 //        singleInput = lineModule->readSensor(LINESENSORS_SENSOR1);

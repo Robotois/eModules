@@ -1,7 +1,10 @@
 var uModule = require('bindings')('UltrasonicModule')
+var EventEmitter = require('events').EventEmitter;
+var inherits = require('util').inherits;
 
 function UltrasonicModule(_header){
   var _self = this;
+  EventEmitter.call(this);
 
   this.ultrasonic = new uModule(_header);
 
@@ -17,6 +20,21 @@ function UltrasonicModule(_header){
 UltrasonicModule.prototype.distance = function (){
   return this.ultrasonic.distance();
 }
+
+UltrasonicModule.prototype.enableEvents = function(){
+  var dist;
+
+  setInterval(()=>{ // Mediciones cada 100ms
+    dist = this.distance();
+    this.emit('Measurement',dist);
+  },100);
+}
+
+UltrasonicModule.prototype.distToString = function(_dist){
+  return ("     " + _dist.toFixed(1).toString()).slice(-5);
+};
+
+inherits(UltrasonicModule,EventEmitter);
 
 module.exports = UltrasonicModule;
 

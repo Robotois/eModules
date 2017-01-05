@@ -31,7 +31,11 @@ TemperatureModule.prototype.enableEvents = function () {
     _self.emit('Measurement',value);
         // prevValue = currentValue;
     // }
-  },200)
+  },1000)
+}
+
+TemperatureModule.prototype.when = function(temp,callback){
+  if()
 }
 
 inherits(TemperatureModule,EventEmitter);

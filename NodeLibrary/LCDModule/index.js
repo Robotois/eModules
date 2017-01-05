@@ -20,8 +20,18 @@ function LCDModule(_add = 0){
 }
 
 LCDModule.prototype.message = function(_msg){
+  this.lcd.home();
   this.lcd.message(_msg);
 }
+
+LCDModule.prototype.row_1_msg = function(_msg){
+  this.message(_msg);
+};
+
+LCDModule.prototype.row_2_msg = function(_msg){
+  this.lcd.setCursor(2,1); // Posicionarse en el renglon 2 y columna 1
+  this.lcd.message(_msg);
+};
 
 LCDModule.prototype.setCursor = function(row,col){
   this.lcd.setCursor(row,col);
@@ -35,7 +45,7 @@ LCDModule.prototype.home = function(){
   this.lcd.home();
 }
 
-LCDModule.prototype.bklBlink = function(){
+LCDModule.prototype.blink = function(){
   this.lcd.bklBlink();
 }
 

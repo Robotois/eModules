@@ -14,6 +14,8 @@ function RGBModule(_add){
   });
 }
 
+// - Implementar la funcion turnOn => ["Nombre del led", "color en hexa"]
+
 RGBModule.prototype.setRGB = function(_ledNumber,_red,_green,_blue){
   this.rgb.setRGB(_ledNumber,_red,_green,_blue);
 };

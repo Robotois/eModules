@@ -47,7 +47,7 @@ uint8_t LineSensors::readSensors(){
     if(background == LINESENSORS_WHITE_BACKGROUND)
         return mcp->readGPIO()&0x1F;
     else
-        return ~(mcp->readGPIO()&0x1F);
+        return (~mcp->readGPIO()) & 0x1F;
 }
 
 uint8_t LineSensors::readSensor(uint8_t _sensor){
@@ -63,6 +63,7 @@ uint8_t LineSensors::readSensor(uint8_t _sensor){
 
 float LineSensors::readLine(){
     uint8_t inputs = readSensors();
+//    printf("Sensors: 0x%02X \n",inputs);
     
     if(inputs == 0x00)
         return -1.0;
@@ -76,7 +77,7 @@ float LineSensors::readLine(){
             cumSum += 100;
         }
     }
-    avg = avg/cumSum;
+    avg = avg/cumSum;    
 //    printf("%0.2f\n",avg);
     return avg;
 }

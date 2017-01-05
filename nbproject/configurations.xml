@@ -91,16 +91,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Modules/Button/Button.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/Button/Button.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Libraries/ADS1015/ADS1015.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Libraries/ADS1015/ADS1015.h" ex="false" tool="3" flavor2="0">
@@ -189,6 +179,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="Modules/Button/Button.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/Button/Button.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Modules/LCD/LCDModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Modules/LCD/LCDModule.h" ex="false" tool="3" flavor2="0">
@@ -265,16 +259,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Modules/Button/Button.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/Button/Button.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Libraries/ADS1015/ADS1015.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Libraries/ADS1015/ADS1015.h" ex="false" tool="3" flavor2="0">
@@ -360,6 +344,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="Modules/Button/Button.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Modules/Button/Button.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Modules/LCD/LCDModule.cpp" ex="false" tool="1" flavor2="0">
       </item>
