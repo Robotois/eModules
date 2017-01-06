@@ -33,18 +33,10 @@ ButtonModule.prototype.enableEvents = function () {
       prevState = currentState;
     }
   },50);
+}
 
-  // function run(_prevState){
-  //   var currentState = _self.button.read();
-  //   if(currentState !== _prevState){
-  //     // console.log(currentState);
-  //     _self.emit('ButtonChange',currentState);
-  //   }
-  //
-  //   setImmediate(run,currentState);
-  // }
-  //
-  // run(prevState);
+UltrasonicModule.prototype.when = function(callback){
+  callback();
 }
 
 inherits(ButtonModule,EventEmitter);

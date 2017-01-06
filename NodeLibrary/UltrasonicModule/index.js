@@ -18,12 +18,13 @@ UltrasonicModule.prototype.distance = function (){
   return this.ultrasonic.distance();
 }
 
+UltrasonicModule.prototype.when = function(value, callback){
+  setInterval(()=>{ // Tomar mediciones cada 200ms
+    console.log(this.ultrasonic.distance());
+    if (this.ultrasonic.distance() === value) {
+      callback();
+    }
+  }, 100)
+}
+
 module.exports = UltrasonicModule;
-
-// var distModule = uModule(1);
-
-// console.log("The current Temperature is: "+tempModule.Temperature());
-
-// setInterval(function () {
-//   console.log("The current Distance is: "+distModule.Distance());
-// },500);

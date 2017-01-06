@@ -41,6 +41,15 @@ RotaryModule.prototype.enableEvents = function () {
   },200)
 }
 
+RotaryModule.prototype.when = function(value, callback){
+  setInterval(()=>{ // Tomar mediciones cada 200ms
+    console.log(this.rotary.scaledValue());
+    if (this.rotary.scaledValue() === value) {
+      callback();
+    }
+  }, 100)
+}
+
 inherits(RotaryModule,EventEmitter);
 
 module.exports = RotaryModule;

@@ -40,10 +40,7 @@ LightModule.prototype.enableEvents = function (){
     _self.emit('Measurement',value,scaledValue);
   }, 200)
 }
-/* temperature.when('medir', 34, function () {
-  led.blink();
-}); */
-LightModule.prototype.when = function(eventName, value, callback){
+LightModule.prototype.when = function(value, callback){
   setInterval(()=>{ // Tomar mediciones cada 200ms
     console.log(this.light.scaledLight());
     if (this.light.scaledLight() === value) {

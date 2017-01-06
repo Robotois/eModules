@@ -31,22 +31,19 @@ TemperatureModule.prototype.enableEvents = function () {
 
   setInterval(()=>{ // Tomar mediciones cada 1s
     value = Math.round(_self.temp.temperature() * 100)/100;
-    // if(currentValue !== prevValue){ // Se emiten mediciones cuando el valor actual es diferente al previo
     _self.emit('Measurement',value);
-        // prevValue = currentValue;
-    // }
   },200)
+}
+
+TemperatureModule.prototype.when = function(value, callback){
+  setInterval(()=>{ // Tomar mediciones cada 200ms
+    console.log(this.temp.temperature());
+    if (this.temp.temperature() === value) {
+      callback();
+    }
+  }, 100)
 }
 
 inherits(TemperatureModule,EventEmitter);
 
 module.exports = TemperatureModule;
-
-
-// var tempModule = tModule(1);
-
-// console.log("The current Temperature is: "+tempModule.Temperature());
-
-// setInterval(function () {
-//   console.log("The current Temperature is: "+tempModule.Temperature());
-// },500);
