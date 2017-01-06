@@ -5,7 +5,7 @@ const light = new Light(3);
 const led = new Led(5);
 
 light.when('medir', 30, function () {
-    led.blink();
+  led.blink();
 });
 
 setInterval(()=>{ // Proceso en estado ocioso
