@@ -10,6 +10,7 @@ setInterval(function () {
   console.log('Valor de rotatorio: ' + rotatory.getValue());
   console.log('Valor de temperature: ' + temperature.getValue());
   console.log('Valor de luz: ' + light.getValue());
+  console.log('====================================');
 }, 1000);
 
 setInterval(()=>{ // Proceso en estado ocioso

@@ -27,7 +27,7 @@ RotaryModule.prototype.scaledValue = function (){
 };
 
 RotaryModule.prototype.getValue = function(){
-  return this.rotary.scaledValue();
+  return this.rotary.value();
 }
 
 RotaryModule.prototype.enableEvents = function () {
