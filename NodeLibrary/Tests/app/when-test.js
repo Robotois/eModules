@@ -2,7 +2,7 @@ const Light = require('../../LightModule');
 const Led  =  require('../../LEDModule');
 
 const light = new Light(3);
-const led = new LED(5);
+const led = new Led(5);
 
 light.when('medir', 30, function () {
     led.blink();
