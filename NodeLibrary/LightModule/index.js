@@ -38,7 +38,18 @@ LightModule.prototype.enableEvents = function (){
     value = Math.round(this.light.light() * 100)/100;
     scaledValue = Math.round(this.scaleFactor * value);
     _self.emit('Measurement',value,scaledValue);
-  },200)
+  }, 200)
+}
+/* temperature.when('medir', 34, function () {
+  led.blink();
+}); */
+LightModule.prototype.when = function(eventName, value, callback){
+  setInterval(()=>{ // Tomar mediciones cada 200ms
+    console.log(this.light.scaledLight());
+    if (this.light.scaledLight() === value) {
+      callback();
+    }
+  }, 100)
 }
 
 inherits(LightModule,EventEmitter);
