@@ -38,7 +38,7 @@ TemperatureModule.prototype.enableEvents = function () {
 TemperatureModule.prototype.when = function(value, callback){
   setInterval(()=>{ // Tomar mediciones cada 200ms
     console.log(Math.round(this.temp.temperature() * 100)/100);
-    if (this.temp.temperature() == value) {
+    if ((Math.round(this.temp.temperature() * 100)/100) == value) {
       callback();
     }
   }, 100)
