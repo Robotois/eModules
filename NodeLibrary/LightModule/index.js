@@ -44,7 +44,6 @@ LightModule.prototype.when = function(value, callback){
   setInterval(()=>{ // Tomar mediciones cada 200ms
     console.log(this.light.scaledLight());
     if (this.light.scaledLight() == value) {
-      console.log('hay que hacer el callback');
       callback();
     }
   }, 100)
