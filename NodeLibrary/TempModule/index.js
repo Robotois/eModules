@@ -22,7 +22,7 @@ TemperatureModule.prototype.temperature = function (){
 }
 
 TemperatureModule.prototype.getValue = function(){
-  return this.temp.temperature();
+  return Math.round(this.temp.temperature() * 100)/100;
 }
 
 TemperatureModule.prototype.enableEvents = function () {
@@ -37,8 +37,8 @@ TemperatureModule.prototype.enableEvents = function () {
 
 TemperatureModule.prototype.when = function(value, callback){
   setInterval(()=>{ // Tomar mediciones cada 200ms
-    console.log(this.temp.temperature());
-    if (this.temp.temperature() === value) {
+    console.log(Math.round(this.temp.temperature() * 100)/100);
+    if (this.temp.temperature() == value) {
       callback();
     }
   }, 100)

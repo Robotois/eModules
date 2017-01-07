@@ -44,7 +44,7 @@ RotaryModule.prototype.enableEvents = function () {
 RotaryModule.prototype.when = function(value, callback){
   setInterval(()=>{ // Tomar mediciones cada 200ms
     console.log(this.rotary.scaledValue());
-    if (this.rotary.scaledValue() === value) {
+    if (this.rotary.scaledValue() == value) {
       callback();
     }
   }, 100)
