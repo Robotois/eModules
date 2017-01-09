@@ -39,10 +39,8 @@ LCDModule.prototype.bklBlink = function(){
   this.lcd.bklBlink();
 }
 
+LCDModule.prototype.setText = function(msg){
+  this.lcd.message(msg);
+}
+
 module.exports = LCDModule;
-//
-// var lcd = lcdModule();
-//
-// // console.log("The current Temperature is: "+tempModule.Temperature());
-//
-// console.log("Sending message: "+lcd.Message("Welcome to \nRobotois :D"));
