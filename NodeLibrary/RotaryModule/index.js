@@ -42,10 +42,9 @@ RotaryModule.prototype.enableEvents = function () {
 }
 
 RotaryModule.prototype.when = function(value, callback) {
-  var value, scaledValue;
+  var scaledValue;
   setInterval(()=>{ // Tomar mediciones cada 200ms
-    value = Math.round(this.rotary.value() * 100)/100;
-    scaledValue = Math.round(this.scaleFactor * value);
+    scaledValue = Math.round(this.rotary.value() * 100)/100;
     console.log(scaledValue);
     if (scaledValue == value) {
       callback();
