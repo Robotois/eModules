@@ -26,7 +26,7 @@ LEDModule.prototype.flash = function () {
   this.led.write(0);
 };
 
-LCDModule.prototype.blink = function() {
+LEDModule.prototype.blink = function() {
   var interval = setInterval(()=>{
     this.flash();
   }, 300);
