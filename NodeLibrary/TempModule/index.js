@@ -41,7 +41,7 @@ TemperatureModule.prototype.when = function(value, callback){
     if ((Math.round(this.temp.temperature() * 100)/100) == value) {
       callback();
     }
-  }, 100)
+  }, 400)
 }
 
 inherits(TemperatureModule,EventEmitter);

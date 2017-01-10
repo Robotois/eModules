@@ -41,13 +41,16 @@ RotaryModule.prototype.enableEvents = function () {
   },200)
 }
 
-RotaryModule.prototype.when = function(value, callback){
+RotaryModule.prototype.when = function(value, callback) {
+  var value, scaledValue;
   setInterval(()=>{ // Tomar mediciones cada 200ms
-    console.log(this.rotary.scaledValue());
-    if (this.rotary.scaledValue() == value) {
+    value = Math.round(this.rotary.value() * 100)/100;
+    scaledValue = Math.round(this.scaleFactor * value);
+    console.log(scaledValue);
+    if (scaledValue == value) {
       callback();
     }
-  }, 100)
+  }, 400)
 }
 
 inherits(RotaryModule,EventEmitter);

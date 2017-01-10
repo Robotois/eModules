@@ -46,7 +46,7 @@ LightModule.prototype.when = function(value, callback){
     if (this.light.scaledLight() == value) {
       callback();
     }
-  }, 100)
+  }, 400)
 }
 
 inherits(LightModule,EventEmitter);
