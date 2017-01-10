@@ -35,7 +35,7 @@ LCDModule.prototype.home = function(){
   this.lcd.home();
 }
 
-LCDModule.prototype.bklBlink = function(){
+LCDModule.prototype.blink = function(){
   this.lcd.bklBlink();
 }
 
