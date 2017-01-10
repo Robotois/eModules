@@ -1,48 +1,52 @@
-var lcdModule = require('bindings')('LCDModule'),
-    sleep = require('sleep');
+var lcdModule = require('bindings')('LCDModule');
+var sleep = require('sleep');
 
-function LCDModule(_add = 0){
-  var _self = this;
-
+function LCDModule(_add = 0) {
+  var self = this;
   this.lcd = new lcdModule(_add);
 
-  this.lcd.message('Welcome to\nRobotois :D');
-  sleep.sleep(2);
-  this.lcd.clear();
-
   process.on('SIGINT', function () {
-    _self.lcd.release();
+    self.lcd.release();
   });
 
   process.on('SIGTERM', function () {
-    _self.lcd.release();
+    self.lcd.release();
   });
 }
 
-LCDModule.prototype.message = function(_msg){
+LCDModule.prototype.message = function(_msg) {
   this.lcd.message(_msg);
 }
 
-LCDModule.prototype.setCursor = function(row,col){
+LCDModule.prototype.setCursor = function(row,col) {
   this.lcd.setCursor(row,col);
 }
 
-LCDModule.prototype.clear = function(){
+LCDModule.prototype.clear = function() {
   this.lcd.clear();
 }
 
-LCDModule.prototype.home = function(){
+LCDModule.prototype.home = function() {
   this.lcd.home();
 }
 
-LCDModule.prototype.blink = function(){
-  this.lcd.bklBlink();
+LCDModule.prototype.blink = function() {
+  this.interval = setInterval(()=>{ // Proceso en estado ocioso
+    this.lcd.bklBlink();
+  }, 300);
 }
 
-LCDModule.prototype.setText = function(msg){
+LCDModule.prototype.setText = function(msg) {
   this.lcd.clear();
   this.lcd.home();
   this.lcd.message(msg);
+}
+
+LCDModule.prototype.reset = function(msg) {
+  if (this.interval) {
+    clearInterval(this.interval);
+  }
+  this.lcd.clear();
 }
 
 module.exports = LCDModule;
