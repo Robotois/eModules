@@ -40,6 +40,8 @@ LCDModule.prototype.blink = function(){
 }
 
 LCDModule.prototype.setText = function(msg){
+  this.lcd.clear();
+  this.lcd.home();
   this.lcd.message(msg);
 }
 
