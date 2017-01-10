@@ -37,16 +37,16 @@ LCDModule.prototype.blink = function() {
 }
 
 LCDModule.prototype.setText = function(msg) {
-  this.lcd.clear();
-  this.lcd.home();
-  this.lcd.message(msg);
+  this.reset();
+  this.message(msg);
 }
 
 LCDModule.prototype.reset = function(msg) {
   if (this.interval) {
     clearInterval(this.interval);
   }
-  this.lcd.clear();
+  this.clear();
+  this.home();
 }
 
 module.exports = LCDModule;
