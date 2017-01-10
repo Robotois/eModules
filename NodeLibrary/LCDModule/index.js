@@ -31,9 +31,13 @@ LCDModule.prototype.home = function() {
 }
 
 LCDModule.prototype.blink = function() {
-  this.interval = setInterval(()=>{ // Proceso en estado ocioso
+  var interval = setInterval(()=>{
     this.lcd.bklBlink();
   }, 300);
+
+  setTimeout(() => {
+    clearInterval(interval);
+  }, 2000);
 }
 
 LCDModule.prototype.setText = function(msg) {
@@ -42,9 +46,6 @@ LCDModule.prototype.setText = function(msg) {
 }
 
 LCDModule.prototype.reset = function(msg) {
-  if (this.interval) {
-    clearInterval(this.interval);
-  }
   this.clear();
   this.home();
 }
