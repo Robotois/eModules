@@ -35,11 +35,11 @@ ButtonModule.prototype.enableEvents = function () {
   },50);
 }
 
-ButtonModule.prototype.when = function(value, callback){
+ButtonModule.prototype.when = function(callback){
   const self = this;
   self.enableEvents();
   self.on('change', (state) => {
-    if (state == value) {
+    if (state) {
       callback();
     }
   });
