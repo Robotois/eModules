@@ -38,10 +38,12 @@ ButtonModule.prototype.enableEvents = function () {
 ButtonModule.prototype.when = function(value, callback){
   const self = this;
   var currentState = 0;
+  var done = false;
   setInterval(()=>{
     currentState = self.button.read();
-    if(value == currentState){
+    if(value == currentState && !done){
       callback();
+      done = true;
     }
   }, 50);
 }
