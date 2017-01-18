@@ -35,8 +35,15 @@ ButtonModule.prototype.enableEvents = function () {
   },50);
 }
 
-ButtonModule.prototype.when = function(callback){
-  callback();
+ButtonModule.prototype.when = function(value, callback){
+  const self = this;
+  var currentState = 0;
+  setInterval(()=>{
+    currentState = self.button.read();
+    if(value == currentState){
+      callback();
+    }
+  }, 50);
 }
 
 inherits(ButtonModule,EventEmitter);
