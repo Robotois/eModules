@@ -24,7 +24,7 @@ UltrasonicModule.prototype.when = function(value, callback){
     if (this.ultrasonic.distance() === value) {
       callback();
     }
-  }, 100)
+  }, 400)
 }
 
 module.exports = UltrasonicModule;

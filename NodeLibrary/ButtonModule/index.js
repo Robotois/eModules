@@ -35,7 +35,7 @@ ButtonModule.prototype.enableEvents = function () {
   },50);
 }
 
-UltrasonicModule.prototype.when = function(callback){
+ButtonModule.prototype.when = function(callback){
   callback();
 }
 
