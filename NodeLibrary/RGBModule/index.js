@@ -31,7 +31,7 @@ RGBModule.prototype.ledOff = function(){
   this.rgb.ledOff();
 }
 
-LEDModule.prototype.turnOn = function (_ledNumber, hexColor) {
+RGBModule.prototype.turnOn = function (_ledNumber, hexColor) {
   let rgbColor = hexToRGB(color)
   this.rgb.setRGB(_ledNumber, rgbColor[0], rgbColor[1], rgbColor[2]);
 };
