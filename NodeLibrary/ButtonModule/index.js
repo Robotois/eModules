@@ -29,10 +29,20 @@ ButtonModule.prototype.enableEvents = function () {
   setInterval(()=>{
     currentState = _self.button.read();
     if(currentState !== prevState){
-      _self.emit('ButtonChange',currentState);
+      _self.emit('change', currentState);
       prevState = currentState;
     }
-  },50);
+  }, 50);
+}
+
+ButtonModule.prototype.when = function(callback){
+  const self = this;
+  self.enableEvents();
+  self.on('change', (state) => {
+    if (state) {
+      callback();
+    }
+  });
 }
 
 inherits(ButtonModule,EventEmitter);

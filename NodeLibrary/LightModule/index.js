@@ -26,6 +26,10 @@ LightModule.prototype.scaledLight = function(){
   return this.light.scaledLight();
 }
 
+LightModule.prototype.getValue = function(){
+  return this.light.scaledLight();
+}
+
 LightModule.prototype.enableEvents = function (){
   var _self = this;
   var value, scaledValue;
@@ -34,14 +38,17 @@ LightModule.prototype.enableEvents = function (){
     value = Math.round(this.light.light() * 100)/100;
     scaledValue = Math.round(this.scaleFactor * value);
     _self.emit('Measurement',value,scaledValue);
-  },200)
+  }, 200)
+}
+LightModule.prototype.when = function(value, callback){
+  setInterval(()=>{ // Tomar mediciones cada 200ms
+    console.log(this.light.scaledLight());
+    if (this.light.scaledLight() == value) {
+      callback();
+    }
+  }, 400)
 }
 
 inherits(LightModule,EventEmitter);
 
 module.exports = LightModule;
-// var lightModule = lModule(1);
-//
-// setInterval(function () {
-//   console.log("Light measurement: " + lightModule.Light() + ", Scaled Light:" + lightModule.ScaledLight());
-// },500);

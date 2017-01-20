@@ -1,5 +1,10 @@
 var _rgbModule = require('bindings')('RGBModule');
-
+var hexToRGB = function(hex){
+  var r = hex >> 16;
+  var g = hex >> 8 & 0xFF;
+  var b = hex & 0xFF;
+  return [r,g,b];
+}
 function RGBModule(_add){
   var _self = this;
 
@@ -28,6 +33,10 @@ RGBModule.prototype.ledOff = function(){
   this.rgb.ledOff();
 }
 
+RGBModule.prototype.turnOn = function (ledNumber, hexColor) {
+  let rgbColor = hexToRGB(hexColor);
+  this.rgb.setRGB(ledNumber.replace('led', ''), rgbColor[0], rgbColor[1], rgbColor[2]);
+};
 module.exports = RGBModule;
 
 
