@@ -1,10 +1,10 @@
 var _rgbModule = require('bindings')('RGBModule');
-var hexToRGB = function(hex){
-  var r = hex >> 16;
-  var g = hex >> 8 & 0xFF;
-  var b = hex & 0xFF;
-  return [r,g,b];
-}
+
+function hexToR(h) { return parseInt((cutHex(h)).substring(0,2), 16); }
+function hexToG(h) { return parseInt((cutHex(h)).substring(2,4), 16); }
+function hexToB(h) { return parseInt((cutHex(h)).substring(4,6), 16); }
+function cutHex(h) { return (h.charAt(0)=="#") ? h.substring(1,7) : h; }
+
 function RGBModule(_add){
   var _self = this;
 
@@ -34,12 +34,8 @@ RGBModule.prototype.ledOff = function(){
 }
 
 RGBModule.prototype.turnOn = function (ledNumber, hexColor) {
-  let rgbColor = hexToRGB(hexColor.replace('#', ''));
   const led = ledNumber.replace('led', '') * 1;
-  console.log(led);
-  console.log(hexColor);
-  console.log(rgbColor);
-  this.rgb.setRGB(led, rgbColor[0], rgbColor[1], rgbColor[2]);
+  this.rgb.setRGB(led, hexToR(hexColor), hexToG(hexColor), hexToB(hexColor));
 };
 
 module.exports = RGBModule;
