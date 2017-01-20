@@ -41,4 +41,10 @@ RGBModule.prototype.turnOn = function (ledNumber, hexColor) {
   this.rgb.setRGB(led, rgbColor[0], rgbColor[1], rgbColor[2]);
 };
 
+RGBModule.prototype.blink = function (ledNumber, hexColor) {
+  let rgbColor = hexToRGB(hexColor);
+  const led = ledNumber.replace('led', '') * 1;
+  this.rgb.blinkRGB(led, rgbColor[0], rgbColor[1], rgbColor[2]);
+};
+
 module.exports = RGBModule;
