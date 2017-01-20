@@ -29,6 +29,9 @@ LCDModule.prototype.clear = function() {
 LCDModule.prototype.home = function() {
   this.lcd.home();
 }
+LCDModule.prototype.bklBlink = function() {
+  this.lcd.bklBlink();
+}
 
 LCDModule.prototype.blink = function() {
   var interval = setInterval(()=>{
