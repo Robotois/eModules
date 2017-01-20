@@ -1,9 +1,11 @@
 var _rgbModule = require('bindings')('RGBModule');
-
-function hexToR(h) { return parseInt((cutHex(h)).substring(0,2), 16); }
-function hexToG(h) { return parseInt((cutHex(h)).substring(2,4), 16); }
-function hexToB(h) { return parseInt((cutHex(h)).substring(4,6), 16); }
-function cutHex(h) { return (h.charAt(0)=="#") ? h.substring(1,7) : h; }
+var hexToRGB = function(hex){
+    const hex = hex.replace('#','');
+    const r = parseInt(hex.substring(0,2), 16);
+    const g = parseInt(hex.substring(2,4), 16);
+    const b = parseInt(hex.substring(4,6), 16);
+    return [r,g,b];;
+};
 
 function RGBModule(_add){
   var _self = this;
@@ -17,10 +19,9 @@ function RGBModule(_add){
   process.on('SIGTERM', function () {
     _self.rgb.release();
   });
-}
+};
 
 // - Implementar la funcion turnOn => ["Nombre del led", "color en hexa"]
-
 RGBModule.prototype.setRGB = function(_ledNumber,_red,_green,_blue){
   this.rgb.setRGB(_ledNumber,_red,_green,_blue);
 };
@@ -34,8 +35,9 @@ RGBModule.prototype.ledOff = function(){
 }
 
 RGBModule.prototype.turnOn = function (ledNumber, hexColor) {
+  let rgbColor = hexToRGB(hexColor);
   const led = ledNumber.replace('led', '') * 1;
-  this.rgb.setRGB(led, hexToR(hexColor), hexToG(hexColor), hexToB(hexColor));
+  this.rgb.setRGB(led, rgbColor[0], rgbColor[1], rgbColor[2]);
 };
 
 module.exports = RGBModule;
