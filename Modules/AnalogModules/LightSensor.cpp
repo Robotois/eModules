@@ -64,7 +64,7 @@ int16_t LightSensor::getScaledValue(){
     return (int16_t)(input * scaleFactor);
 }
 
-int16_t LightSensor::basicScaledValue(){
+int16_t LightSensor::getBasicScaledValue(){
     selectPort(inputPort);
     int16_t input = analogModule->readRawInput();
     return (int16_t)(input * basicScaleFactor);

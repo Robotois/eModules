@@ -36,7 +36,7 @@ TemperatureModule.prototype.enableEvents = function () {
 
   setInterval(()=>{ // Tomar mediciones cada 1s
     // value = Math.round(_self.temp.temperature() * 100)/100;
-    value = this.temp.getBasicValue();
+    value = this.getBasicValue();
     _self.emit('Measurement',value);
   }, 200)
 }

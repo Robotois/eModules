@@ -13,7 +13,7 @@ setInterval(()=>{ // Proceso en estado ocioso
   // lcd.row_1_msg("Value: "+rotary.getValue().toFixed(3));
   // lcd.row_2_msg("basic: "+rotary.getBasicValue());
   lcd.row_1_msg("Value: "+("    "+rotary.getScaledValue()).slice(-4));
-  lcd.row_2_msg("basic: "+rotary.basicScaledValue());
+  lcd.row_2_msg("basic: "+rotary.getBasicScaledValue());
 },100);
 
 setInterval(()=>{ // Proceso en estado ocioso

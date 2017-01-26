@@ -20,7 +20,7 @@ public:
     float getValue();
 //    float getBasicValue();
     int16_t getScaledValue();    
-    int16_t basicScaledValue();    
+    int16_t getBasicScaledValue();    
 private:
     ADS1015 *analogModule;
     uint8_t inputPort;

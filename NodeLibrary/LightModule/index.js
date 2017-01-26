@@ -35,8 +35,8 @@ LightModule.prototype.getScaledValue = function(){
   return this.light.getScaledValue();
 }
 
-LightModule.prototype.basicScaledValue = function(){
-  return this.light.basicScaledValue();
+LightModule.prototype.getBasicScaledValue = function(){
+  return this.light.getBasicScaledValue();
 }
 
 LightModule.prototype.enableEvents = function (){
@@ -47,7 +47,7 @@ LightModule.prototype.enableEvents = function (){
   setInterval(()=>{ // Tomar mediciones cada 200ms
     // value = Math.round(this.light.light() * 100)/100;
     // scaledValue = Math.round(this.scaleFactor * value);
-    scaledValue = this.light.basicScaledValue();
+    scaledValue = this.light.getBasicScaledValue();
     _self.emit('Measurement',scaledValue);
   }, 250)
 }
@@ -55,10 +55,10 @@ LightModule.prototype.enableEvents = function (){
 LightModule.prototype.when = function(value, callback){
   setInterval(()=>{ // Tomar mediciones cada 200ms
     // console.log(this.light.basicScaledLight());
-    if (this.light.basicScaledValue() == value) {
+    if (this.light.getBasicScaledValue() == value) {
       callback();
     }
-  }, 400)
+  }, 250)
 }
 
 inherits(LightModule,EventEmitter);

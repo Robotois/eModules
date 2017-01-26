@@ -64,7 +64,7 @@ int16_t RotarySensor::getScaledValue(){
     return (int16_t)(input * scaleFactor);
 }
 
-int16_t RotarySensor::basicScaledValue(){
+int16_t RotarySensor::getBasicScaledValue(){
     selectPort(inputPort);
     int16_t input = analogModule->readRawInput();
     return (int16_t)(input * basicScaleFactor);

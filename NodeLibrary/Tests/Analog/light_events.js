@@ -15,7 +15,7 @@ setInterval(()=>{ // Proceso en estado ocioso
     // lcd.row_1_msg("value: " + light.getValue().toFixed(3));
     // lcd.row_2_msg("basic: " + light.getBasicValue());
     lcd.row_1_msg("Scaled: " + ("   "+light.getScaledValue()).slice(-4));
-    lcd.row_2_msg("basic: " + light.basicScaledValue());
+    lcd.row_2_msg("basic: " + light.getBasicScaledValue());
 },1000);
 
 
