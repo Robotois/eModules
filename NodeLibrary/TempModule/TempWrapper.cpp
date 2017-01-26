@@ -30,7 +30,9 @@ void TempWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"temperature",temperature);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"getValue",getValue);
+  // NODE_SET_PROTOTYPE_METHOD(tpl,"getBasicValue",getBasicValue);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"getIntValue",getIntValue);
   NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
@@ -101,17 +103,29 @@ void TempWrapper::NewInstance(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(instance);
 }
 
-void TempWrapper::temperature(const FunctionCallbackInfo<Value>& args){
+void TempWrapper::getValue(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
   TempWrapper* temp_obj = ObjectWrap::Unwrap<TempWrapper>(args.Holder());
 
-  args.GetReturnValue().Set(Number::New(isolate,temp_obj->tempSensor->getTemperature()));
+  args.GetReturnValue().Set(Number::New(isolate,temp_obj->tempSensor->getValue()));
 }
 
-// void Temperature(){
-//   TemperatureSensor temp;
-//   temp.selectPort(3);
-//   printf("Temp Input: %0.2f\n",temp.getTemperature());
+// void TempWrapper::getBasicValue(const FunctionCallbackInfo<Value>& args){
+//   Isolate* isolate = Isolate::GetCurrent();
+//   HandleScope scope(isolate);
+//
+//   TempWrapper* temp_obj = ObjectWrap::Unwrap<TempWrapper>(args.Holder());
+//
+//   args.GetReturnValue().Set(Number::New(isolate,temp_obj->tempSensor->getBasicValue()));
 // }
+
+void TempWrapper::getIntValue(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  TempWrapper* temp_obj = ObjectWrap::Unwrap<TempWrapper>(args.Holder());
+
+  args.GetReturnValue().Set(Number::New(isolate,temp_obj->tempSensor->getIntValue()));
+}

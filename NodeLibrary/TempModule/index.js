@@ -17,12 +17,17 @@ function TemperatureModule(_port, _add = 0){
   });
 }
 
-TemperatureModule.prototype.temperature = function (){
-  return this.temp.temperature();
+TemperatureModule.prototype.getValue = function(){
+  return this.temp.getValue();
 }
 
-TemperatureModule.prototype.getValue = function(){
-  return Math.round(this.temp.temperature() * 100)/100;
+TemperatureModule.prototype.getBasicValue = function(){
+  var value = Math.round(this.temp.getValue() * 100)/100;
+  return value;
+}
+
+TemperatureModule.prototype.getIntValue = function(){
+  return this.temp.getIntValue();
 }
 
 TemperatureModule.prototype.enableEvents = function () {
@@ -30,15 +35,16 @@ TemperatureModule.prototype.enableEvents = function () {
   var value;
 
   setInterval(()=>{ // Tomar mediciones cada 1s
-    value = Math.round(_self.temp.temperature() * 100)/100;
+    // value = Math.round(_self.temp.temperature() * 100)/100;
+    value = this.temp.getBasicValue();
     _self.emit('Measurement',value);
-  }, 1000)
+  }, 200)
 }
 
 TemperatureModule.prototype.when = function(value, callback){
   setInterval(()=>{ // Tomar mediciones cada 200ms
-    console.log(Math.round(this.temp.temperature() * 100)/100);
-    if ((Math.round(this.temp.temperature() * 100)/100) == value) {
+    // console.log(Math.round(this.temp.temperature() * 100)/100);
+    if (this.temp.getIntValue() == value) {
       callback();
     }
   }, 400)

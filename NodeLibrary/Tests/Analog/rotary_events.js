@@ -5,10 +5,16 @@ var _rotary = require('../../RotaryModule'),
   rotary = new _rotary(1);
 rotary.enableEvents();
 
-rotary.on('Measurement',(_value,_scaledValue)=>{
-  lcd.home();
-  lcd.message(`Value: ${_value.toFixed(2)}`);
-});
+// rotary.on('Measurement',(_scaledValue)=>{
+//   lcd.message(`Value: ${_scaledValue}`);
+// });
+
+setInterval(()=>{ // Proceso en estado ocioso
+  // lcd.row_1_msg("Value: "+rotary.getValue().toFixed(3));
+  // lcd.row_2_msg("basic: "+rotary.getBasicValue());
+  lcd.row_1_msg("Value: "+("    "+rotary.getScaledValue()).slice(-4));
+  lcd.row_2_msg("basic: "+rotary.basicScaledValue());
+},100);
 
 setInterval(()=>{ // Proceso en estado ocioso
   true;

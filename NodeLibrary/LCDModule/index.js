@@ -15,6 +15,17 @@ function LCDModule(_add = 0) {
 }
 
 LCDModule.prototype.message = function(_msg) {
+  this.lcd.home();
+  this.lcd.message(_msg);
+}
+
+LCDModule.prototype.row_1_msg = function(_msg) {
+  this.lcd.setCursor(1,1);
+  this.lcd.message(_msg);
+}
+
+LCDModule.prototype.row_2_msg = function(_msg) {
+  this.lcd.setCursor(2,1);
   this.lcd.message(_msg);
 }
 
@@ -50,7 +61,7 @@ LCDModule.prototype.setText = function(msg) {
 
 LCDModule.prototype.reset = function(msg) {
   this.clear();
-  this.home();
+  // this.home();
 }
 
 module.exports = LCDModule;

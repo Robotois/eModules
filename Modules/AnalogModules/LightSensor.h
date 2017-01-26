@@ -16,12 +16,14 @@ public:
     virtual ~LightSensor();
     
     void selectPort(uint8_t _port);
-    float getLight();
-    int16_t getScaledLight();    
+    float getValue();
+//    float getBasicValue();
+    int16_t getScaledValue();    
+    int16_t basicScaledValue();    
 private:
     ADS1015 *analogModule;
     uint8_t inputPort;
-    float scaleFactor;
+    float scaleFactor,basicScaleFactor;
 
 };
 

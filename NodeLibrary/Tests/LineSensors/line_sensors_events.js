@@ -1,6 +1,6 @@
 var _line_sensors = require('../../LineSensorsModule'),
     line_sensors = new _line_sensors();
-line_sensors.setBackground("Black");
+// line_sensors.setBackground("Black");
 line_sensors.enableEvents();
 
 var _lcd = require('../../LCDModule'),

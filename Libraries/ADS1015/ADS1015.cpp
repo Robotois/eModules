@@ -62,11 +62,14 @@ void ADS1015::selectInput(uint8_t _inputAdd, uint8_t _gain){
         return;
     }
 
-    if(inputGain > 0x03){ // - Seleccion de entrada individual
+    if(inputGain > ADS1015_512_GAIN){ // - Seleccion de entrada individual
         printf("Invalid Gain...\n");
         return;
     }
     switch(inputGain){
+        case ADS1015_512_GAIN:
+            resolution = 0.512f/2048.0f; // - volts/(12 bits)
+            break;
         case ADS1015_1024_GAIN:
             resolution = 1.024f/2048.0f; // - volts/(11 bits)
             break;
@@ -106,7 +109,7 @@ int16_t ADS1015::readRawInput(){
 
 int16_t ADS1015::fullRangeMeas(uint16_t reading){
     if(reading > 0x07FF)
-        return -((4096 - reading)+1);
+        return -(4095 - reading);
     else
         return (int16_t)reading;
 }

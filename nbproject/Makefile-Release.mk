@@ -45,7 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Libraries/Timer/AccurateTiming.o \
 	${OBJECTDIR}/Modules/AccelGyro/AccelGyroModule.o \
 	${OBJECTDIR}/Modules/AnalogModules/LightSensor.o \
-	${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o \
+	${OBJECTDIR}/Modules/AnalogModules/PHSensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o \
 	${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o \
 	${OBJECTDIR}/Modules/Button/Button.o \
@@ -135,10 +135,10 @@ ${OBJECTDIR}/Modules/AnalogModules/LightSensor.o: Modules/AnalogModules/LightSen
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/LightSensor.o Modules/AnalogModules/LightSensor.cpp
 
-${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o: Modules/AnalogModules/OpticalDistanceSensor.cpp
+${OBJECTDIR}/Modules/AnalogModules/PHSensor.o: Modules/AnalogModules/PHSensor.cpp
 	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/OpticalDistanceSensor.o Modules/AnalogModules/OpticalDistanceSensor.cpp
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/PHSensor.o Modules/AnalogModules/PHSensor.cpp
 
 ${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o: Modules/AnalogModules/RotarySensor.cpp
 	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules

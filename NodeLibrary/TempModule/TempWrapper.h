@@ -15,7 +15,9 @@ private:
   ~TempWrapper();
 
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void temperature(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void getValue(const v8::FunctionCallbackInfo<v8::Value>& args);
+  // static void getBasicValue(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void getIntValue(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 

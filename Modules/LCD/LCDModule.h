@@ -69,7 +69,7 @@ public:
     void setBacklight(uint8_t status);
     void bklBlink();
     void noDisplay();
-    void setCursor(uint8_t col, uint8_t row);
+    void setCursor(uint8_t row, uint8_t col);
     void clear();
     void home();
     

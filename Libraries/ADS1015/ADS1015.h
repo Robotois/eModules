@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   ADS1015.h
  * Author: yova
  *
@@ -20,6 +20,7 @@
 #define ADS1015_SENSOR3 0x06 //- Sensor 3 address
 #define ADS1015_SENSOR4 0x07 //- Sensor 4 address
 
+#define ADS1015_512_GAIN 0x04 //- 0.512v gain
 #define ADS1015_1024_GAIN 0x03 //- 1.024v gain
 #define ADS1015_2048_GAIN 0x02 //- 2.048v gain
 #define ADS1015_4096_GAIN 0x01 //- 4.096v gain
@@ -33,7 +34,7 @@
 
 class ADS1015 {
 public:
-    ADS1015(uint8_t _addr = 0x00);    
+    ADS1015(uint8_t _addr = 0x00);
     ADS1015(const ADS1015& orig);
     virtual ~ADS1015();
 
@@ -42,13 +43,13 @@ public:
     float readInput();
     int16_t readRawInput();
     int16_t fullRangeMeas(uint16_t reading);
-   
+
     void selectModule();
 private:
     uint8_t addr; // - Direccion por default
     uint8_t inputAdd,inputGain;
     float resolution;
-    
+
     char rBuf[10],wBuf[10];
 
     void bcm_init();
@@ -56,4 +57,3 @@ private:
 };
 
 #endif	/* ADS1015_H */
-

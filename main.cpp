@@ -24,7 +24,8 @@
 #include "Libraries/BCMSetup/BCMSetup.h"
 #include "Libraries/DigitalIO/DigitalHeader.h"
 
-#include "Modules/AnalogModules/OpticalDistanceSensor.h"
+//#include "Modules/AnalogModules/OpticalDistanceSensor.h"
+#include "Modules/AnalogModules/PHSensor.h"
 #include "Modules/AnalogModules/LightSensor.h"
 #include "Modules/AnalogModules/TemperatureSensor.h"
 #include "Modules/AnalogModules/RotarySensor.h"
@@ -88,29 +89,41 @@ int main(int argc, char** argv) {
 //    robotina->loop();
 //    
 //    MotorModuleTest();
-    LineSensorTest();
+//    LineSensorTest();
 //    Robert *robertRobot = new Robert();
 //    robertRobot->LineFollower();
 //    LineFollower();
 //
-////    AccelGyroTest();
-////    AccelGyroTest2();
-////    armadilloTest();
-//
-////    kalmanTest2();
-////    yAnglekalmanTest(0.020);
-//    robotinaTest();
-//    
 //    UltrasonicTest();
 //    ServoTest();
 //    
-////    RobotRotationTest();
-////    MazeSolverTest();
-////    SleepTest();
-////    DigitalSensorTest();
-    
 //    LEDModuleTest();
 //    RGBTest();
+//    PHSensor ph;
+//    float phValue;
+//    LCDModule *_lcd = new LCDModule(0);
+//    while(1){
+//        ph.selectPort(4);
+//        phValue = ph.read();
+//        
+//        string phStr(6, '\0');
+//        auto written = std::snprintf(&phStr[0], phStr.size(), "%.2f  ", phValue);
+//        phStr.resize(written);    
+//
+//        string rawStr(6, '\0');
+//        auto written2 = std::snprintf(&rawStr[0], rawStr.size(), "%.2f  ", ph.readRaw());
+//        rawStr.resize(written2);    
+////        string printValue = (s+"  ").substr(0,5);
+//
+//        _lcd->message("phValue: " + phStr.substr(0,5));
+//        _lcd->setCursor(1,0);
+//        _lcd->message("raw: " + rawStr.substr(0,5));
+//        _lcd->home();
+////        printf("phValue: %0.2f\n",ph.read());
+//    //    printf("Raw Rotary Input: %d\n",ph.getScaledValue());
+//        mDelay(250);
+//    }
+
     
 //    RotarySensor rotaty;
 //    rotaty.selectPort(1);
@@ -122,11 +135,13 @@ int main(int argc, char** argv) {
 //    temp.selectPort(1);
 //    printf("Temp Input: %0.2f\n",temp.getTemperature());    
 
-//    LightSensor lightSensor;
-//    lightSensor.selectPort(1);
-//    printf("Light Input: %0.2f\n",lightSensor.getLight());
-//    printf("Raw Light Input: %d\n",lightSensor.getScaledLight());
-
+    while(1){
+        LightSensor lightSensor;
+        lightSensor.selectPort(3);
+        printf("Scaled: %d\n",lightSensor.getScaledValue());
+        printf("basicScaled: %d\n",lightSensor.basicScaledValue());
+        mDelay(250);
+    }
 //    OpticalDistanceSensor distanceSensor;
 //    distanceSensor.selectPort(1);
 //    printf("Distance: %0.4f\n",distanceSensor.getDistance());

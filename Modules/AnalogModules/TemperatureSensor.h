@@ -8,6 +8,8 @@
 #ifndef TEMPERATURESENSOR_H
 #define	TEMPERATURESENSOR_H
 
+#include <stdlib.h>
+
 #include "../../Libraries/ADS1015/ADS1015.h"
 
 class TemperatureSensor {
@@ -17,7 +19,9 @@ public:
     virtual ~TemperatureSensor();
     
     void selectPort(uint8_t _port);
-    float getTemperature();
+    float getValue();
+//    float getBasicValue();
+    int16_t getIntValue();
 private:
     ADS1015 *analogModule;
     uint8_t inputPort;    

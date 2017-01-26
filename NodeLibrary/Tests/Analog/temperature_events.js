@@ -5,10 +5,16 @@ var _temp = require('../../TempModule'),
   temp = new _temp(2);
 temp.enableEvents();
 
-temp.on('Measurement',(_value)=>{
-  lcd.home();
-  lcd.message("Temp [C]: " + _value.toFixed(2));
-});
+// temp.on('Measurement',(_value)=>{
+//   lcd.message("Temp [C]: " + _value);
+// });
+
+setInterval(()=>{ // Proceso en estado ocioso
+  // lcd.row_1_msg("Temp: " + temp.getValue().toFixed(3));
+  // lcd.row_2_msg("Basic: " + temp.getBasicValue());
+  lcd.row_1_msg("Temp: " + temp.getValue().toFixed(3));
+  lcd.row_2_msg("Int: " + temp.getIntValue());
+},250);
 
 setInterval(()=>{ // Proceso en estado ocioso
   true;

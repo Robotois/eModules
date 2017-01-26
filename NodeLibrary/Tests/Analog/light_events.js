@@ -5,10 +5,19 @@ var _light = require('../../LightModule'),
   light = new _light(3);
 light.enableEvents();
 
-light.on('Measurement', (_value,_scaledValue)=> {
-  lcd.home();
-  lcd.message("Light Value: \n" + _value.toFixed(2));
-})
+// light.on('Measurement', (_scaledValue)=> {
+//   // lcd.message("Light Value: \n" + _scaledValue);
+//   // lcd.row_1_msg("Light Value: " + _scaledValue)
+//   lcd.row_2_msg("Light Value: " + _scaledValue)
+// })
+
+setInterval(()=>{ // Proceso en estado ocioso
+    // lcd.row_1_msg("value: " + light.getValue().toFixed(3));
+    // lcd.row_2_msg("basic: " + light.getBasicValue());
+    lcd.row_1_msg("Scaled: " + ("   "+light.getScaledValue()).slice(-4));
+    lcd.row_2_msg("basic: " + light.basicScaledValue());
+},1000);
+
 
 setInterval(()=>{ // Proceso en estado ocioso
   true;

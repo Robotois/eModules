@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include<iostream>
+#include <cmath>
 #include "TemperatureSensor.h"
 
 TemperatureSensor::TemperatureSensor(uint8_t _addr) {
@@ -43,9 +44,40 @@ void TemperatureSensor::selectPort(uint8_t _port){
     }
 }
 
-float TemperatureSensor::getTemperature(){
+/**
+ * Temeperatura actual del sensor en grados centigrados. Se proporciona la maxima
+ * resolucion que se puede obtener, en este caso son 11 bits para valores mayores que 0
+ * grados.
+ * @return 
+ */
+float TemperatureSensor::getValue(){
     selectPort(inputPort);
     float reading = analogModule->readInput();
 //    printf("Reading: %0.2f\n",reading);
     return reading*tempRatio;
+}
+
+///**
+// * Temperatura en grados centigrados, pero se acota la resolucion a dos decimales.
+// * Con esto se obtiene una medicion "basica", puede ser usada para mostrar la temperatura
+// * en al display LCD por ejemplo
+// * @return 
+// */
+//float TemperatureSensor::getBasicValue(){
+//    selectPort(inputPort);
+//    float reading = analogModule->readInput();
+////    printf("Reading: %0.2f\n",reading);
+//    return std::round( (reading*tempRatio) * 100.0f)/100.0f;
+//}
+
+/**
+ * Se obtiene la Temperatura en grados centigrados, pero solo se obtiene la parte entera
+ * de la medicion, esta medicion es aun mas simple que getBasicValue.
+ * @return 
+ */
+int16_t TemperatureSensor::getIntValue(){
+    selectPort(inputPort);
+    float reading = analogModule->readInput();
+//    printf("Reading: %0.2f\n",reading);
+    return (int16_t)(reading*tempRatio);
 }

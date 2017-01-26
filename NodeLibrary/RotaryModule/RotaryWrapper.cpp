@@ -32,8 +32,10 @@ void RotaryWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"value",getValue);
-  NODE_SET_PROTOTYPE_METHOD(tpl,"scaledValue",getScaledValue);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"getValue",getValue);
+  // NODE_SET_PROTOTYPE_METHOD(tpl,"getBasicValue",getBasicValue);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"getScaledValue",getScaledValue);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"basicScaledValue",basicScaledValue);
   NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
@@ -113,6 +115,15 @@ void RotaryWrapper::getValue(const FunctionCallbackInfo<Value>& args){
   args.GetReturnValue().Set(Number::New(isolate,temp_obj->rotarySensor->getValue()));
 }
 
+// void RotaryWrapper::getBasicValue(const FunctionCallbackInfo<Value>& args){
+//   Isolate* isolate = Isolate::GetCurrent();
+//   HandleScope scope(isolate);
+//
+//   RotaryWrapper* temp_obj = ObjectWrap::Unwrap<RotaryWrapper>(args.Holder());
+//
+//   args.GetReturnValue().Set(Number::New(isolate,temp_obj->rotarySensor->getBasicValue()));
+// }
+
 void RotaryWrapper::getScaledValue(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
@@ -120,6 +131,15 @@ void RotaryWrapper::getScaledValue(const FunctionCallbackInfo<Value>& args){
   RotaryWrapper* temp_obj = ObjectWrap::Unwrap<RotaryWrapper>(args.Holder());
 
   args.GetReturnValue().Set(Number::New(isolate,temp_obj->rotarySensor->getScaledValue()));
+}
+
+void RotaryWrapper::basicScaledValue(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  RotaryWrapper* temp_obj = ObjectWrap::Unwrap<RotaryWrapper>(args.Holder());
+
+  args.GetReturnValue().Set(Number::New(isolate,temp_obj->rotarySensor->basicScaledValue()));
 }
 
 // void Temperature(){

@@ -14,7 +14,7 @@
 MCP23008::MCP23008(uint8_t _addr) {
     uint8_t result;
     
-    if(_addr > 3){ // - 3 bits for custom address
+    if(_addr > 0x07){ // - 3 bits for custom address
         printf("Wrong slave address for the Digital IO Module...\n");
         return;    
     }
