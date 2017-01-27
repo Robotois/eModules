@@ -5,8 +5,7 @@ var inherits = require('util').inherits;
 function LightModule(_port, _add = 0){
   EventEmitter.call(this);
   var _self = this;
-  // this.scaleFactor =  10/1700;
-
+  
   this.light = new lModule(_port,_add);
 
   process.on('SIGINT', function () {
@@ -41,24 +40,21 @@ LightModule.prototype.getBasicScaledValue = function(){
 
 LightModule.prototype.enableEvents = function (){
   var _self = this;
-  // var value, scaledValue;
   var scaledValue;
 
-  setInterval(()=>{ // Tomar mediciones cada 200ms
-    // value = Math.round(this.light.light() * 100)/100;
-    // scaledValue = Math.round(this.scaleFactor * value);
+  setInterval(()=>{
     scaledValue = this.light.getBasicScaledValue();
     _self.emit('Measurement',scaledValue);
-  }, 250)
+  }, 250); // Tomar mediciones cada 250ms
 }
 
 LightModule.prototype.when = function(value, callback){
-  setInterval(()=>{ // Tomar mediciones cada 200ms
-    // console.log(this.light.basicScaledLight());
+  setInterval(()=>{
+    console.log(this.light.getBasicScaledValue());
     if (this.light.getBasicScaledValue() == value) {
       callback();
     }
-  }, 250)
+  }, 250); // Tomar mediciones cada 250ms
 }
 
 inherits(LightModule,EventEmitter);

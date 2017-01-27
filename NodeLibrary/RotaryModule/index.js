@@ -35,32 +35,24 @@ RotaryModule.prototype.getBasicScaledValue = function (){
   return this.rotary.getBasicScaledValue();
 };
 
-// RotaryModule.prototype.getValue = function(){
-//   return this.rotary.value();
-// }
-
 RotaryModule.prototype.enableEvents = function () {
   var _self = this;
   var scaledValue;
 
-  setInterval(()=>{ // Tomar mediciones cada 200ms
-    // value = Math.round(this.rotary.value() * 100)/100;
-    // scaledValue = Math.round(this.scaleFactor * value);
+  setInterval(()=>{
     scaledValue = this.rotary.getBasicScaledValue();
     _self.emit('Measurement',scaledValue);
-  },100)
+  }, 100); // Tomar mediciones cada 100ms
 }
 
 RotaryModule.prototype.when = function(value, callback) {
-  // var scaledValue;
-  setInterval(()=>{ // Tomar mediciones cada 200ms
-    // scaledValue = Math.round(this.rotary.value() * 100)/100;
-    // console.log(scaledValue);
-    // basicScaledValue = this.rotary.basicScaledValue();
+  setInterval(()=>{
+    console.log(this.rotary.getBasicScaledValue());
     if (this.rotary.getBasicScaledValue() == value) {
       callback();
     }
-  }, 250)
+  }, 250); // Tomar mediciones cada 250ms
+
 }
 
 inherits(RotaryModule,EventEmitter);

@@ -34,20 +34,19 @@ TemperatureModule.prototype.enableEvents = function () {
   var _self = this;
   var value;
 
-  setInterval(()=>{ // Tomar mediciones cada 1s
-    // value = Math.round(_self.temp.temperature() * 100)/100;
+  setInterval(()=>{
     value = this.getBasicValue();
     _self.emit('Measurement',value);
-  }, 200)
+  }, 200); // Tomar mediciones cada 200 ms
 }
 
 TemperatureModule.prototype.when = function(value, callback){
-  setInterval(()=>{ // Tomar mediciones cada 200ms
-    // console.log(Math.round(this.temp.temperature() * 100)/100);
+  setInterval(()=>{
+    console.log(this.temp.getIntValue());
     if (this.temp.getIntValue() == value) {
       callback();
     }
-  }, 400)
+  }, 400); // Tomar mediciones cada 400ms
 }
 
 inherits(TemperatureModule,EventEmitter);

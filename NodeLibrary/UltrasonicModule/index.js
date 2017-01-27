@@ -24,10 +24,10 @@ UltrasonicModule.prototype.distance = function (){
 UltrasonicModule.prototype.enableEvents = function(){
   var dist;
 
-  setInterval(()=>{ // Mediciones cada 100ms
+  setInterval(()=>{
     dist = this.distance();
     this.emit('Measurement',dist);
-  },100);
+  }, 100); // Tomar mediciones cada 100ms
 }
 
 UltrasonicModule.prototype.distToString = function(_dist){
@@ -37,12 +37,12 @@ UltrasonicModule.prototype.distToString = function(_dist){
 inherits(UltrasonicModule,EventEmitter);
 
 UltrasonicModule.prototype.when = function(value, callback){
-  setInterval(()=>{ // Tomar mediciones cada 200ms
+  setInterval(()=>{
     console.log(this.ultrasonic.distance());
     if (this.ultrasonic.distance() === value) {
       callback();
     }
-  }, 400)
+  }, 400); // Tomar mediciones cada 400ms
 }
 
 module.exports = UltrasonicModule;
