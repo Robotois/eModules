@@ -42,8 +42,7 @@ TemperatureModule.prototype.enableEvents = function () {
 
 TemperatureModule.prototype.when = function(value, callback){
   setInterval(()=>{
-    console.log('********************');
-    console.log('++++' + this.temp.getIntValue());
+    console.log(this.temp.getIntValue());
     if (this.temp.getIntValue() == value) {
       callback();
     }
