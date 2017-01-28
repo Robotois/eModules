@@ -47,7 +47,7 @@ LightSensor.prototype.enableEvents = function (){
   }, 250); // Tomar mediciones cada 250ms
 }
 
-LightModule.prototype.when = function(value, callback) {
+LightSensor.prototype.when = function(value, callback) {
   setInterval(()=>{
     console.log(this.light.getBasicScaledValue());
     if (this.light.getBasicScaledValue() == value) {
