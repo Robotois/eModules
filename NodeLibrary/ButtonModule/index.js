@@ -32,7 +32,7 @@ ButtonModule.prototype.enableEvents = function () {
       _self.emit('change', currentState);
       prevState = currentState;
     }
-  }, 50);
+  }, 50); // Tomar mediciones cada 50ms
 }
 
 ButtonModule.prototype.when = function(callback){
