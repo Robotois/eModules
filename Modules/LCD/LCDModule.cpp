@@ -46,7 +46,6 @@ LCDModule::LCDModule(const LCDModule& orig) {
 }
 
 LCDModule::~LCDModule() {
-    delete mcp;
 }
 
 void LCDModule::initializeLCD(){
@@ -246,4 +245,14 @@ void LCDModule::setCursor(uint8_t row, uint8_t col){
         return;
     }
     command(LCD_SETDDRAMADDR | (offsets[row] + col));
+}
+
+void LCDModule::release(){
+    clear();
+    setBacklight(0);
+    noDisplay();
+    mcp->release();
+    delete mcp;    
+    
+    printf("[LCDModule] => Released\n");
 }

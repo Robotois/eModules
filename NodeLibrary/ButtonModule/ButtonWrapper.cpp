@@ -10,7 +10,7 @@ ButtonWrapper::ButtonWrapper(uint8_t _header){
 }
 
 ButtonWrapper::~ButtonWrapper(){
-  delete button;
+  // delete button;
 }
 
 void ButtonWrapper::release(const v8::FunctionCallbackInfo<v8::Value>& args){
@@ -18,7 +18,7 @@ void ButtonWrapper::release(const v8::FunctionCallbackInfo<v8::Value>& args){
   HandleScope scope(isolate);
 
   ButtonWrapper* temp_obj = ObjectWrap::Unwrap<ButtonWrapper>(args.Holder());
-
+  temp_obj->button->release();
   delete temp_obj->button;
 }
 
@@ -31,7 +31,7 @@ void ButtonWrapper::Init(){
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
   // Prototype
-  NODE_SET_PROTOTYPE_METHOD(tpl,"read",read);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"getValue",getValue);
   NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
   // NODE_SET_PROTOTYPE_METHOD(tpl,"BCMEnd",BCMEnd);
   // tpl->PrototypeTemplate()->Set(Nan::New("temperature").ToLocalChecked(),
@@ -99,13 +99,13 @@ void ButtonWrapper::NewInstance(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(instance);
 }
 
-void ButtonWrapper::read(const FunctionCallbackInfo<Value>& args){
+void ButtonWrapper::getValue(const FunctionCallbackInfo<Value>& args){
   Isolate* isolate = Isolate::GetCurrent();
   HandleScope scope(isolate);
 
   ButtonWrapper* temp_obj = ObjectWrap::Unwrap<ButtonWrapper>(args.Holder());
 
-  args.GetReturnValue().Set(Number::New(isolate,temp_obj->button->read()));
+  args.GetReturnValue().Set(Number::New(isolate,temp_obj->button->getValue()));
 }
 
 // void Temperature(){

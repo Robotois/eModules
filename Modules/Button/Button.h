@@ -17,7 +17,9 @@ public:
     Button(const Button& orig);
     virtual ~Button();
     
-    uint8_t read();
+    uint8_t getValue();
+    
+    void release();
 private:
     DigitalHeader *IOHeader;
     uint8_t state;

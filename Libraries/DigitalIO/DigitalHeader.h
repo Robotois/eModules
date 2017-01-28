@@ -36,11 +36,35 @@
 
 class DigitalHeader {
 public:
-    uint8_t io_pin1,io_pin2;
+    uint8_t io_pin1,io_pin2, io1_dir,io2_dir;
     DigitalHeader();
     DigitalHeader(uint8_t _io_header,uint8_t io1_dir,uint8_t io2_dir);
     DigitalHeader(const DigitalHeader& orig);
     virtual ~DigitalHeader();
+
+    void io1_asInput();    
+    void io1_asOutput();
+    void io1_write(uint8_t state);    
+    uint8_t io1_read();    
+    void io1_riseEnable();
+    bool io1_riseDetected();
+    void io1_fallEnable();
+    bool io1_fallDetected();
+    
+    void io2_asInput();
+    void io2_asOutput();
+    void io2_write(uint8_t state);    
+    uint8_t io2_read();    
+    void io2_riseEnable();
+    bool io2_riseDetected();
+    void io2_fallEnable();
+    bool io2_fallDetected();
+    
+    void release();
+private:
+    
+    void asOutput(uint8_t io_pin);
+    void asInput(uint8_t io_pin);
 
     void write(uint8_t io_pin,uint8_t state);
     uint8_t read(uint8_t io_pin);
@@ -50,13 +74,8 @@ public:
     void fallEnable(uint8_t io_pin);
     bool fallDetected(uint8_t io_pin);
 
-    void asOutput(uint8_t io_pin);
-    void asInput(uint8_t io_pin);
-private:
-    
     void bcm_init();
     void bcm_end();
-
 
 };
 

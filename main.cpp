@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
 //    robertRobot->LineFollower();
 //    LineFollower();
 //
-//    UltrasonicTest();
+    UltrasonicTest();
 //    ServoTest();
 //    
 //    LEDModuleTest();
@@ -135,16 +135,16 @@ int main(int argc, char** argv) {
 //    temp.selectPort(1);
 //    printf("Temp Input: %0.2f\n",temp.getTemperature());    
 
-    while(1){
-        LightSensor lightSensor;
-        lightSensor.selectPort(3);
-        printf("Scaled: %d\n",lightSensor.getScaledValue());
-        printf("basicScaled: %d\n",lightSensor.basicScaledValue());
-        mDelay(250);
-    }
+//    while(1){
+//        LightSensor lightSensor;
+//        lightSensor.selectPort(3);
+//        printf("Scaled: %d\n",lightSensor.getScaledValue());
+//        printf("basicScaled: %d\n",lightSensor.basicScaledValue());
+//        mDelay(250);
+//    }
 //    OpticalDistanceSensor distanceSensor;
 //    distanceSensor.selectPort(1);
-//    printf("Distance: %0.4f\n",distanceSensor.getDistance());
+//    printf("Distance: %0.4f\n",distanceSensor.getValue());
     
 //    ADS1015 *analog = new ADS1015;
 //    analog->selectInput(ADS1015_SENSOR2,ADS1015_4096_GAIN);
@@ -313,7 +313,7 @@ void MazeSolverTest(){
     robert->lookLeft();
     sleep(2);
     while(i <= 50){
-        distL = robert->ultrasonicSensor->getDistance();
+        distL = robert->ultrasonicSensor->getValue();
 
         // - Move Left
         if(distL >= 30){
@@ -323,7 +323,7 @@ void MazeSolverTest(){
             robert->turnLeft();
             robert->moveForward(maxSpeed,maxSpeed);
             uDelay(250000);
-            distL = robert->ultrasonicSensor->getDistance();
+            distL = robert->ultrasonicSensor->getValue();
             bcm2835_gpio_set_eds(digitalSensor);
         }
 
@@ -332,7 +332,7 @@ void MazeSolverTest(){
             robert->stop();
             
             robert->lookRight();
-            distR = robert->ultrasonicSensor->getDistance();
+            distR = robert->ultrasonicSensor->getValue();
             robert->lookLeft();
             
             if(distR >= 30){
@@ -349,7 +349,7 @@ void MazeSolverTest(){
             }
             
 //            uDelay(50000);
-            distL = robert->ultrasonicSensor->getDistance();
+            distL = robert->ultrasonicSensor->getValue();
 //            break;
             bcm2835_gpio_set_eds(digitalSensor);
         }
@@ -447,8 +447,9 @@ void ServoTest(){
 void UltrasonicTest(){
     float dist;
     UltrasonicSensor *ultrasonic = new UltrasonicSensor(1);
-    dist = ultrasonic->getDistance();
-    printf("Distance: %0.3f\n",dist);
+//    dist = ultrasonic->getValue();
+    printf("Distance: %0.3f\t IntDistance: %d\n",ultrasonic->getValue(),ultrasonic->getBasicValue());
+    ultrasonic->release();
 }
 
 void MotorModuleTest(){

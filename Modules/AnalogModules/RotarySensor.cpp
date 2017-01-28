@@ -22,7 +22,6 @@ RotarySensor::RotarySensor(const RotarySensor& orig) {
 }
 
 RotarySensor::~RotarySensor() {
-    delete analogModule;
 }
 
 void RotarySensor::selectPort(uint8_t _port){
@@ -61,11 +60,17 @@ float RotarySensor::getValue(){
 int16_t RotarySensor::getScaledValue(){
     selectPort(inputPort);
     int16_t input = analogModule->readRawInput();
-    return (int16_t)(input * scaleFactor);
+    return (int16_t)(std::round(input * scaleFactor));
 }
 
 int16_t RotarySensor::getBasicScaledValue(){
     selectPort(inputPort);
     int16_t input = analogModule->readRawInput();
-    return (int16_t)(input * basicScaleFactor);
+    return (int16_t)(std::round(input * basicScaleFactor));
+}
+
+void RotarySensor::release(){
+    printf("[RotarySensor] => Released\n");
+    analogModule->release();
+    delete analogModule;
 }

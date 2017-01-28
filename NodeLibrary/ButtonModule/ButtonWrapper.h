@@ -15,7 +15,7 @@ private:
   ~ButtonWrapper();
 
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
-  static void read(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void getValue(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 

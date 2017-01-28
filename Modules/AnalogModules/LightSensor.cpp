@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include<iostream>
-#include <math.h>
+#include <cmath>
 #include "LightSensor.h"
 
 LightSensor::LightSensor(uint8_t _addr) {
@@ -22,7 +22,6 @@ LightSensor::LightSensor(const LightSensor& orig) {
 }
 
 LightSensor::~LightSensor() {
-    delete analogModule;
 }
 
 void LightSensor::selectPort(uint8_t _port){
@@ -61,11 +60,17 @@ float LightSensor::getValue(){
 int16_t LightSensor::getScaledValue(){
     selectPort(inputPort);
     int16_t input = analogModule->readRawInput();
-    return (int16_t)(input * scaleFactor);
+    return (int16_t)(std::round(input * scaleFactor));
 }
 
 int16_t LightSensor::getBasicScaledValue(){
     selectPort(inputPort);
     int16_t input = analogModule->readRawInput();
-    return (int16_t)(input * basicScaleFactor);
+    return (int16_t)(std::round(input * basicScaleFactor));
+}
+
+void LightSensor::release(){
+    printf("[LightSensor] => Released\n");
+    analogModule->release();
+    delete analogModule;
 }

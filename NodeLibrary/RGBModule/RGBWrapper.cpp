@@ -10,7 +10,7 @@ RGBWrapper::RGBWrapper(uint8_t _add){
 }
 
 RGBWrapper::~RGBWrapper(){
-  delete rgb;
+  // delete rgb;
 }
 
 void RGBWrapper::release(const FunctionCallbackInfo<Value>& args){
@@ -18,7 +18,7 @@ void RGBWrapper::release(const FunctionCallbackInfo<Value>& args){
   HandleScope scope(isolate);
 
   RGBWrapper* temp_obj = ObjectWrap::Unwrap<RGBWrapper>(args.Holder());
-
+  temp_obj->rgb->release();
   delete temp_obj->rgb;
 }
 
@@ -33,6 +33,7 @@ void RGBWrapper::Init(){
   NODE_SET_PROTOTYPE_METHOD(tpl,"setRGB",setRGB);
   NODE_SET_PROTOTYPE_METHOD(tpl,"blinkRGB",blinkRGB);
   NODE_SET_PROTOTYPE_METHOD(tpl,"ledOff",ledOff);
+  NODE_SET_PROTOTYPE_METHOD(tpl,"allOff",allOff);
   NODE_SET_PROTOTYPE_METHOD(tpl,"release",release);
 
   constructor.Reset(isolate,tpl->GetFunction());
@@ -161,4 +162,13 @@ void RGBWrapper::ledOff(const FunctionCallbackInfo<Value>& args){
   RGBWrapper* temp_obj = ObjectWrap::Unwrap<RGBWrapper>(args.Holder());
   temp_obj->rgb->ledOff(ledNumber);
   // args.GetReturnValue().Set();
+}
+
+void RGBWrapper::allOff(const FunctionCallbackInfo<Value>& args){
+  Isolate* isolate = Isolate::GetCurrent();
+  HandleScope scope(isolate);
+
+  RGBWrapper* temp_obj = ObjectWrap::Unwrap<RGBWrapper>(args.Holder());
+  // temp_obj->rgb->release();
+  temp_obj->rgb->allOff();
 }

@@ -19,6 +19,8 @@ public:
     virtual ~LED();
     
     void write(uint8_t state);
+    
+    void release();
 private:
     DigitalHeader *IOHeader;
 };

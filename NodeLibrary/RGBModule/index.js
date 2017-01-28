@@ -28,11 +28,15 @@ RGBModule.prototype.setRGB = function(_ledNumber,_red,_green,_blue){
 };
 
 RGBModule.prototype.blinkRGB = function(_ledNumber,_red,_green,_blue){
-  this.rgb.blinkRGB(_ledNumber,_red,_green,_blue);
+  this.rgb.setRGB(_ledNumber,_red,_green,_blue);
+  setTimeOut(function(){
+    this.rgb.ledOff(_ledNumber);
+  },1000);
+  // this.rgb.blinkRGB(_ledNumber,_red,_green,_blue);
 };
 
-RGBModule.prototype.ledOff = function(){
-  this.rgb.ledOff();
+RGBModule.prototype.turnOff = function(ledNumber){
+  this.rgb.ledOff(ledNumber);
 }
 
 RGBModule.prototype.turnOn = function (ledNumber, hexColor) {
@@ -46,5 +50,13 @@ RGBModule.prototype.blink = function (ledNumber, hexColor) {
   const led = ledNumber.replace('led', '') * 1;
   this.rgb.blinkRGB(led, rgbColor[0], rgbColor[1], rgbColor[2]);
 };
+
+RGBModule.prototype.allOff = function(){
+  this.rgb.allOff();
+}
+
+RGBModule.prototype.release = function(){
+  this.rgb.release();
+}
 
 module.exports = RGBModule;

@@ -45,6 +45,7 @@ public:
     int16_t fullRangeMeas(uint16_t reading);
 
     void selectModule();
+    void release();
 private:
     uint8_t addr; // - Direccion por default
     uint8_t inputAdd,inputGain;

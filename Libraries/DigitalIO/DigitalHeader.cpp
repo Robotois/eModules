@@ -13,7 +13,7 @@
 DigitalHeader::DigitalHeader() {
 }
 
-DigitalHeader::DigitalHeader(uint8_t _io_header,uint8_t io1_dir,uint8_t io2_dir) {
+DigitalHeader::DigitalHeader(uint8_t _io_header,uint8_t _io1_dir,uint8_t _io2_dir) {
     switch (_io_header){
         case DIGITAL_HEADER1:
             io_pin1 = DIGITAL_HEADER1_1;
@@ -45,7 +45,8 @@ DigitalHeader::DigitalHeader(uint8_t _io_header,uint8_t io1_dir,uint8_t io2_dir)
     }
     
     bcm_init();
-    
+    io1_dir = _io1_dir;
+    io2_dir = _io2_dir;
     switch(io1_dir){
         case AS_INPUT:
             asInput(io_pin1);
@@ -74,16 +75,90 @@ DigitalHeader::DigitalHeader(const DigitalHeader& orig) {
 }
 
 DigitalHeader::~DigitalHeader() {
-    printf("[DigitalHeader] => BCM end...\n");     
-    
-    bcm_end();
 }
+
+/**
+ * High level functions, they are intended for an intuitive interaction with the IO
+ * pins
+ */
+
+void DigitalHeader::io1_asInput(){
+    asInput(io_pin1);
+}
+
+void DigitalHeader::io1_asOutput(){
+    asOutput(io_pin1);
+}
+
+void DigitalHeader::io1_write(uint8_t state){
+    write(io_pin1,state);
+}
+
+uint8_t DigitalHeader::io1_read(){
+    return read(io_pin1);
+}
+
+void DigitalHeader::io1_riseEnable(){
+    riseEnable(io_pin1);
+}
+
+bool DigitalHeader::io1_riseDetected(){
+    return riseDetected(io_pin1);
+}
+
+void DigitalHeader::io1_fallEnable(){
+    fallEnable(io_pin1);
+}
+
+bool DigitalHeader::io1_fallDetected(){
+    return fallDetected(io_pin1);
+}
+
+
+
+void DigitalHeader::io2_asInput(){
+    asInput(io_pin2);
+}
+
+void DigitalHeader::io2_asOutput(){
+    asOutput(io_pin2);
+}
+
+void DigitalHeader::io2_write(uint8_t state){
+    write(io_pin2,state);
+}
+
+uint8_t DigitalHeader::io2_read(){
+    return read(io_pin2);
+}
+
+void DigitalHeader::io2_riseEnable(){
+    riseEnable(io_pin2);
+}
+
+bool DigitalHeader::io2_riseDetected(){
+    return riseDetected(io_pin2);
+}
+
+void DigitalHeader::io2_fallEnable(){
+    fallEnable(io_pin2);
+}
+
+bool DigitalHeader::io2_fallDetected(){
+    return fallDetected(io_pin2);
+}
+
+
+/**
+ * Low level functions, it is provided a direct management of the IO pins.
+ */
 
 /**
  * Set the IO pin as output.
  */
 void DigitalHeader::asOutput(uint8_t io_pin){
     bcm2835_gpio_fsel(io_pin, BCM2835_GPIO_FSEL_OUTP);
+    bcm2835_gpio_write(io_pin, 0);
 }
 
 /**
@@ -173,4 +248,18 @@ void DigitalHeader::bcm_init(){
 
 void DigitalHeader::bcm_end(){
     bcm2835_close();    
+}
+
+void DigitalHeader::release(){    
+    if(io1_dir == AS_INPUT){
+        bcm2835_gpio_set_pud(io_pin1, BCM2835_GPIO_PUD_OFF);
+    }else{
+        bcm2835_gpio_write(io_pin1, 0);
+    }
+    if(io2_dir == AS_INPUT){
+        bcm2835_gpio_set_pud(io_pin2, BCM2835_GPIO_PUD_OFF);
+    }else{
+        bcm2835_gpio_write(io_pin2, 0);
+    }
+    bcm_end();
 }

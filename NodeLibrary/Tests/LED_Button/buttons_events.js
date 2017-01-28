@@ -5,7 +5,7 @@ var _buttons = require('../../ButtonModule'),
   buttons = new _buttons(1);
 buttons.enableEvents();
 
-buttons.on('ButtonChange',(_state) => {
+buttons.on('change',(_state) => {
   led.write(_state);
 });
 

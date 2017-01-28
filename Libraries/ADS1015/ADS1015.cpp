@@ -38,7 +38,6 @@ ADS1015::ADS1015(const ADS1015& orig) {
 }
 
 ADS1015::~ADS1015() {
-    bcm_end();
 }
 
 void ADS1015::selectModule(){
@@ -142,4 +141,8 @@ void ADS1015::bcm_init(){
 void ADS1015::bcm_end(){
     bcm2835_i2c_end();
     bcm2835_close();
+}
+
+void ADS1015::release(){
+    bcm_end();
 }

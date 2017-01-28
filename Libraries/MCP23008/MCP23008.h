@@ -45,6 +45,8 @@ public:
     void writeMultiGPIO(uint8_t* pin_array, uint8_t pin_data, uint8_t pin_count);
     void digitalWrite(uint8_t pin, uint8_t val);
     uint8_t digitalRead(uint8_t pin);
+    
+    void release();
 private:
     uint8_t slave_addr;
     char rBuf[10],wBuf[10];

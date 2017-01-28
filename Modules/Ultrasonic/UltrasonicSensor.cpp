@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <chrono>
+#include <cmath>
 #include "../../Libraries/Timer/AccurateTiming.h"
 
 UltrasonicSensor::UltrasonicSensor() {}
@@ -47,19 +48,24 @@ UltrasonicSensor::~UltrasonicSensor() {
 void UltrasonicSensor::initialize(uint8_t header){
     // The first IO pin must be stablished as Output since it its the Trigger Pin.
     // The second IO pin of the header is the Echo pin of the sensor, so it is an input.
+    // Trigger is on the io_pin1, echo in on the io_pin2
     IOHeader = new DigitalHeader(header,AS_OUTPUT,AS_INPUT);
     // We save the io adresses just to simplify their usage.
     triggerPin = IOHeader->io_pin1;
     echoPin = IOHeader->io_pin2;
 }
 
-double UltrasonicSensor::getDistance(){
+float UltrasonicSensor::getValue(){
     return measure(2);
+}
+
+uint8_t UltrasonicSensor::getBasicValue(){
+    return (uint8_t)(std::round(measure(2)));
 }
 
 float UltrasonicSensor::measure(uint8_t samples){
     unsigned int echoSum = 0; // Echo length sum [us]
-    float average = 0;
+    float average = 0.0f;
     unsigned int microseconds;
     unsigned int maxWaitTime = 60000; // 30ms => half the mearuse cycle
 
@@ -85,12 +91,15 @@ unsigned int UltrasonicSensor::readSensor(){
 
     // High enable, cuando se detecta un alto se dispara un evento EDS (Event Detect Status)
     // - Enviar el trigger
-    IOHeader->write(triggerPin,HIGH);
+//    IOHeader->write(triggerPin,HIGH);
+    IOHeader->io1_write(HIGH);
     uDelay(10); // 10us de trigger
-    IOHeader->write(triggerPin,LOW);
+//    IOHeader->write(triggerPin,LOW);
+    IOHeader->io1_write(LOW);
     
     // - Rise Event Enable
-    IOHeader->riseEnable(echoPin);    
+//    IOHeader->riseEnable(echoPin);    
+    IOHeader->io2_riseEnable();    
 
     echoTime = readEcho();
     return echoTime;
@@ -105,15 +114,18 @@ unsigned int UltrasonicSensor::readEcho(){
 
     while(true){        
       // Echo Signal has arrived
-        if(IOHeader->riseDetected(echoPin)){
+//        if(IOHeader->riseDetected(echoPin)){
+        if(IOHeader->io2_riseDetected()){
             // -- Start measuring the Echo time length
             startTime = std::chrono::high_resolution_clock::now();
             // -- Enble fall edge event on the echo pin
-            IOHeader->fallEnable(echoPin);
+//            IOHeader->fallEnable(echoPin);
+            IOHeader->io2_fallEnable();
 
             while(true){
                 // -- Echo has reached the end
-                if(IOHeader->fallDetected(echoPin)){
+//                if(IOHeader->fallDetected(echoPin)){
+                if(IOHeader->io2_fallDetected()){
 
                       elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
                       microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();
@@ -148,17 +160,20 @@ bool UltrasonicSensor::connectionTest(){
     
     
     // - Send the trigger
-    IOHeader->write(triggerPin,HIGH);
+//    IOHeader->write(triggerPin,HIGH);
+    IOHeader->io1_write(HIGH);
     uDelay(10); // 10us de trigger
-    IOHeader->write(triggerPin,LOW);
+//    IOHeader->write(triggerPin,LOW);
+    IOHeader->io1_write(LOW);
     
     // - Rise Event Enable
-    IOHeader->riseEnable(echoPin);    
+//    IOHeader->riseEnable(echoPin);    
+    IOHeader->io2_riseEnable();    
     
-
     while(true){        
         // Echo Signal has arrived
-        if(IOHeader->riseDetected(echoPin)){
+//        if(IOHeader->riseDetected(echoPin)){
+        if(IOHeader->io2_riseDetected()){
             mDelay(60);
             return true;
         }
@@ -173,4 +188,10 @@ bool UltrasonicSensor::connectionTest(){
         }
     }
     return false;    
+}
+
+void UltrasonicSensor::release(){
+    printf("[UltrasonicSensor] => Released\n");     
+    IOHeader->release();
+    delete IOHeader;
 }

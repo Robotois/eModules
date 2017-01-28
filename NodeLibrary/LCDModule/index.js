@@ -64,4 +64,10 @@ LCDModule.prototype.reset = function(msg) {
   // this.home();
 }
 
+LCDModule.prototype.release = function(msg) {
+  this.lcd.release();
+  // this.home();
+}
+
+
 module.exports = LCDModule;

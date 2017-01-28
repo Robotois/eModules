@@ -9,17 +9,17 @@ function ButtonModule(header){
 
   process.on('SIGINT', function () {
     _self.button.release();
-    process.exit();
+    // process.exit();
   });
 
   process.on('SIGTERM', function () {
     _self.button.release();
-    process.exit();
+    // process.exit();
   });
 }
 
-ButtonModule.prototype.read = function () {
-  return this.button.read();
+ButtonModule.prototype.getValue = function () {
+  return this.button.getValue();
 };
 
 ButtonModule.prototype.enableEvents = function () {
@@ -27,7 +27,7 @@ ButtonModule.prototype.enableEvents = function () {
   var prevState = 0,currentState;
 
   setInterval(()=>{
-    currentState = _self.button.read();
+    currentState = _self.button.getValue();
     if(currentState !== prevState){
       _self.emit('change', currentState);
       prevState = currentState;
@@ -43,6 +43,10 @@ ButtonModule.prototype.when = function(callback){
       callback();
     }
   });
+}
+
+ButtonModule.prototype.release = function () {
+    this.button.release();
 }
 
 inherits(ButtonModule,EventEmitter);

@@ -7,12 +7,12 @@ function LEDModule(header){
 
   process.on('SIGINT', function () {
     _self.led.release();
-    process.exit();
+    // process.exit();
   });
 
   process.on('SIGTERM', function () {
     _self.led.release();
-    process.exit();
+    // process.exit();
   });
 }
 
@@ -43,5 +43,9 @@ LEDModule.prototype.turnOn = function () {
 LEDModule.prototype.turnOff = function () {
   this.led.write(0);
 };
+
+LEDModule.prototype.release = function (){
+  this.led.release();
+}
 
 module.exports = LEDModule;

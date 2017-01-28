@@ -22,6 +22,8 @@ public:
     float getValue();
 //    float getBasicValue();
     int16_t getIntValue();
+    
+    void release();
 private:
     ADS1015 *analogModule;
     uint8_t inputPort;    

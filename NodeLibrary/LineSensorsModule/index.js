@@ -43,7 +43,6 @@ LineSensorsModule.prototype.enableEvents = function(){
   },100);
 }
 
-
 LineSensorsModule.prototype.sensorsToString = function(_sensors){
   return ("00000" + _sensors.toString(2)).slice(-5);
 };

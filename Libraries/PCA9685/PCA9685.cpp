@@ -45,7 +45,6 @@ PCA9685::PCA9685(const PCA9685& orig) {
 }
 
 PCA9685::~PCA9685() {   
-    bcm_end();
 }
 
 void PCA9685::selectModule(){
@@ -255,4 +254,8 @@ void PCA9685::bcm_init(){
 void PCA9685::bcm_end(){
     bcm2835_i2c_end();
     bcm2835_close();    
+}
+
+void PCA9685::release(){
+    bcm_end();    
 }

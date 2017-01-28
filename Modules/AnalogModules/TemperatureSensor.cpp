@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include<iostream>
+#include <iostream>
 #include <cmath>
 #include "TemperatureSensor.h"
 
@@ -20,7 +20,6 @@ TemperatureSensor::TemperatureSensor(const TemperatureSensor& orig) {
 }
 
 TemperatureSensor::~TemperatureSensor() {
-    delete analogModule;
 }
 
 void TemperatureSensor::selectPort(uint8_t _port){
@@ -79,5 +78,11 @@ int16_t TemperatureSensor::getIntValue(){
     selectPort(inputPort);
     float reading = analogModule->readInput();
 //    printf("Reading: %0.2f\n",reading);
-    return (int16_t)(reading*tempRatio);
+    return (int16_t)(std::round(reading*tempRatio));
+}
+
+void TemperatureSensor::release(){
+    printf("[TemperatureSensor] => Released\n");
+    analogModule->release();
+    delete analogModule;
 }

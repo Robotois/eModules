@@ -10,7 +10,7 @@ LEDWrapper::LEDWrapper(uint8_t _header){
 }
 
 LEDWrapper::~LEDWrapper(){
-  delete led;
+  // delete led;
 }
 
 void LEDWrapper::release(const v8::FunctionCallbackInfo<v8::Value>& args){
@@ -18,7 +18,7 @@ void LEDWrapper::release(const v8::FunctionCallbackInfo<v8::Value>& args){
   HandleScope scope(isolate);
 
   LEDWrapper* temp_obj = ObjectWrap::Unwrap<LEDWrapper>(args.Holder());
-
+  temp_obj->led->release();
   delete temp_obj->led;
 }
 

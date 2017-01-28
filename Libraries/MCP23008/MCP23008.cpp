@@ -40,7 +40,6 @@ MCP23008::MCP23008(const MCP23008& orig) {
 }
 
 MCP23008::~MCP23008() {
-    bcm_end();
 }
 
 void MCP23008::selectModule(){
@@ -226,4 +225,8 @@ void MCP23008::bcm_init(){
 void MCP23008::bcm_end(){
     bcm2835_i2c_end();
     bcm2835_close();    
+}
+
+void MCP23008::release(){
+    bcm_end();    
 }

@@ -192,20 +192,20 @@ void Robert::stop(){
 double Robert::leftDistance(){
     lookLeft();
 //    uDelay(300000);
-    return ultrasonicSensor->getDistance();    
+    return ultrasonicSensor->getValue();    
 }
 
 double Robert::rightDistance(){
     lookRight();
 //    uDelay(500000);
-    return ultrasonicSensor->getDistance();    
+    return ultrasonicSensor->getValue();    
 }
 
 double Robert::frontDistance(){
 //    servos->selectModule();
     servos->setAngle(0,0.0);
 //    uDelay(500000);
-    return ultrasonicSensor->getDistance();    
+    return ultrasonicSensor->getValue();    
 }
 
 void Robert::lookLeft(){

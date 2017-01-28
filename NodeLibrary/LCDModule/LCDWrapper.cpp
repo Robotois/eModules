@@ -10,7 +10,7 @@ LCDWrapper::LCDWrapper(uint8_t _add){
 }
 
 LCDWrapper::~LCDWrapper(){
-  delete lcd;
+  // delete lcd;
 }
 
 void LCDWrapper::release(const FunctionCallbackInfo<Value>& args){
@@ -18,7 +18,7 @@ void LCDWrapper::release(const FunctionCallbackInfo<Value>& args){
   HandleScope scope(isolate);
 
   LCDWrapper* temp_obj = ObjectWrap::Unwrap<LCDWrapper>(args.Holder());
-
+  temp_obj->lcd->release();
   delete temp_obj->lcd;
 }
 

@@ -1,7 +1,7 @@
 var _lcd = require('../../LCDModule'),
   lcd = new _lcd();
 
-var _light = require('../../LightModule'),
+var _light = require('../../LightSensor'),
   light = new _light(3);
 light.enableEvents();
 

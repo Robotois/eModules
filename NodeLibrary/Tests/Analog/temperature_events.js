@@ -1,7 +1,7 @@
 var _lcd = require('../../LCDModule'),
   lcd = new _lcd();
 
-var _temp = require('../../TempModule'),
+var _temp = require('../../TemperatureSensor'),
   temp = new _temp(2);
 temp.enableEvents();
 
@@ -12,6 +12,8 @@ temp.enableEvents();
 setInterval(()=>{ // Proceso en estado ocioso
   // lcd.row_1_msg("Temp: " + temp.getValue().toFixed(3));
   // lcd.row_2_msg("Basic: " + temp.getBasicValue());
+  // var intValue = temp.getIntValue();
+  // console.log(intValue);
   lcd.row_1_msg("Temp: " + temp.getValue().toFixed(3));
   lcd.row_2_msg("Int: " + temp.getIntValue());
 },250);

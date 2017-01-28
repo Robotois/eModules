@@ -21,12 +21,15 @@ public:
     void setRGB(uint8_t _led_number,uint8_t _red_code,uint8_t _green_code,uint8_t _blue_code);
     void blinkRGB(uint8_t _led_number,uint8_t _red_code,uint8_t _green_code,uint8_t _blue_code);
     void ledOff(uint8_t _led_number);
+    void allOff();
+    
+    void release();
 private:
     float pwmRatio;
     PCA9685 *pwmModule;
     uint16_t *rgbCode;
     
-    uint8_t leds_status[3];
+    bool powerOn;
 
 };
 

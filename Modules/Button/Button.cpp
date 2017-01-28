@@ -6,6 +6,7 @@
  */
 
 #include <stdint.h>
+#include <cstdio>
 
 #include "Button.h"
 
@@ -17,12 +18,16 @@ Button::Button(const Button& orig) {
 }
 
 Button::~Button() {
-    delete IOHeader;
 }
 
-uint8_t Button::read(){
-    state = IOHeader->read(IOHeader->io_pin1);
+uint8_t Button::getValue(){
+    state = IOHeader->io1_read();
     // - Using pull-up resistors, it would return the inverted value.
     return (state ^ (uint8_t)0x01);
 }
 
+void Button::release(){
+    printf("[ButtonModule] => Released\n");
+    IOHeader->release();
+    delete IOHeader;
+}

@@ -1,7 +1,7 @@
 var _lcd = require('../../LCDModule'),
   lcd = new _lcd();
 
-var _rotary = require('../../RotaryModule'),
+var _rotary = require('../../RotarySensor'),
   rotary = new _rotary(1);
 rotary.enableEvents();
 

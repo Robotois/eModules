@@ -18,6 +18,7 @@ private:
   static void setRGB(const v8::FunctionCallbackInfo<v8::Value>& args);
   static void blinkRGB(const v8::FunctionCallbackInfo<v8::Value>& args);
   static void ledOff(const v8::FunctionCallbackInfo<v8::Value>& args);
+  static void allOff(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   static void release(const v8::FunctionCallbackInfo<v8::Value>& args);
 

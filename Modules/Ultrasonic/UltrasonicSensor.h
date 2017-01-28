@@ -18,11 +18,14 @@ public:
     UltrasonicSensor(const UltrasonicSensor& orig);
     virtual ~UltrasonicSensor();
     
-    double getDistance();
+    float getValue();
+    uint8_t getBasicValue();
+    
     void initialize(uint8_t header);
     
     bool connectionTest();
 
+    void release();
 private:
     DigitalHeader *IOHeader;
     uint8_t triggerPin, echoPin;
