@@ -47,6 +47,7 @@ RotarySensor.prototype.enableEvents = function () {
 
 RotarySensor.prototype.when = function(value, callback) {
   setInterval(()=>{ // Tomar mediciones cada 200ms
+    console.log(this.light.getBasicScaledValue());
     if (this.rotary.getBasicScaledValue() == value) {
       callback();
     }

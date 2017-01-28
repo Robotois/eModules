@@ -42,7 +42,7 @@ TemperatureSensor.prototype.enableEvents = function () {
 
 TemperatureSensor.prototype.when = function(value, callback){
   setInterval(()=>{ // Tomar mediciones cada 200ms
-    // console.log(Math.round(this.temp.temperature() * 100)/100);
+    console.log(this.temp.getIntValue());
     if (this.temp.getIntValue() == value) {
       callback();
     }
