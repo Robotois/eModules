@@ -41,15 +41,18 @@ UltrasonicSensor.prototype.distToString = function(_dist){
 inherits(UltrasonicSensor,EventEmitter);
 
 UltrasonicSensor.prototype.when = function(value, callback){
-  setInterval(()=>{ // Tomar mediciones cada 200ms
-    console.log(this.ultrasonic.getBasicValue());
-    if (this.ultrasonic.getBasicValue() === value) {
-      callback();
-    }
-  }, 500)
+  if (!this.interval) {
+    setInterval(()=>{ // Tomar mediciones cada 200ms
+      console.log(this.ultrasonic.getBasicValue());
+      if (this.ultrasonic.getBasicValue() === value) {
+        callback();
+      }
+    }, 500);
+  }
 }
 
 UltrasonicSensor.prototype.release = function (){
+  clearInterval(this.interval);
   this.ultrasonic.release();
 }
 
