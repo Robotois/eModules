@@ -48,15 +48,18 @@ LightSensor.prototype.enableEvents = function (){
 }
 
 LightSensor.prototype.when = function(value, callback) {
-  setInterval(()=>{
-    console.log(this.light.getBasicScaledValue());
-    if (this.light.getBasicScaledValue() == value) {
-      callback();
-    }
-  }, 250); // Tomar mediciones cada 250ms
+  if (!this.interval) {
+    setInterval(()=>{
+      console.log(this.light.getBasicScaledValue());
+      if (this.light.getBasicScaledValue() == value) {
+        callback();
+      }
+    }, 250); // Tomar mediciones cada 250ms
+  }
 }
 
-LightSensor.prototype.release = function(){
+LightSensor.prototype.release = function() {
+  clearInterval(this.interval);
   this.light.release();
 }
 

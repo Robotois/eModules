@@ -41,12 +41,19 @@ TemperatureSensor.prototype.enableEvents = function () {
 }
 
 TemperatureSensor.prototype.when = function(value, callback){
-  setInterval(()=>{ // Tomar mediciones cada 200ms
-    console.log(this.temp.getIntValue());
-    if (this.temp.getIntValue() == value) {
-      callback();
-    }
-  }, 400); // Tomar mediciones cada 400ms
+  if (!this.interval) {
+    this.interval = setInterval(()=>{ // Tomar mediciones cada 200ms
+      console.log(this.temp.getIntValue());
+      if (this.temp.getIntValue() == value) {
+        callback();
+      }
+    }, 400); // Tomar mediciones cada 400ms
+  }
+}
+
+TemperatureSensor.prototype.release = function() {
+  clearInterval(this.interval);
+  this.temp.release();
 }
 
 inherits(TemperatureSensor,EventEmitter);
