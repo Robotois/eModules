@@ -48,7 +48,7 @@ RotarySensor.prototype.enableEvents = function () {
 RotarySensor.prototype.when = function(value, callback) {
   if (!this.interval) {
     setInterval(()=>{
-      console.log(this.light.getBasicScaledValue());
+      console.log('Rotatorio: ' + this.light.getBasicScaledValue());
       if (this.rotary.getBasicScaledValue() == value) {
         callback();
       }
