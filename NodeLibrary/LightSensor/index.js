@@ -7,11 +7,11 @@ function LightSensor(_port, _add = 0){
   var _self = this;
   this.light = new lSensor(_port,_add);
 
-  process.on('SIGINT', function () {
+ process.on('SIGINT', function () {
     _self.light.release();
   });
 
-  process.on('SIGTERM', function () {
+ process.on('SIGTERM', function () {
     _self.light.release();
   });
 }
@@ -41,7 +41,7 @@ LightSensor.prototype.enableEvents = function (){
   var _self = this;
   var scaledValue;
 
-  setInterval(()=>{
+ setInterval(()=>{
     scaledValue = this.light.getBasicScaledValue();
     _self.emit('Measurement',scaledValue);
   }, 250); // Tomar mediciones cada 250ms
