@@ -9,12 +9,10 @@ function ButtonModule(header){
 
   process.on('SIGINT', function () {
     _self.button.release();
-    // process.exit();
   });
 
   process.on('SIGTERM', function () {
     _self.button.release();
-    // process.exit();
   });
 }
 

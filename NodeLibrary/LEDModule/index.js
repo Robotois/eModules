@@ -7,12 +7,10 @@ function LEDModule(header){
 
   process.on('SIGINT', function () {
     _self.led.release();
-    // process.exit();
   });
 
   process.on('SIGTERM', function () {
     _self.led.release();
-    // process.exit();
   });
 }
 

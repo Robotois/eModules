@@ -61,12 +61,10 @@ LCDModule.prototype.setText = function(msg) {
 
 LCDModule.prototype.reset = function(msg) {
   this.clear();
-  // this.home();
 }
 
 LCDModule.prototype.release = function(msg) {
   this.lcd.release();
-  // this.home();
 }
 
 
