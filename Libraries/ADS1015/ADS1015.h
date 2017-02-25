@@ -26,11 +26,34 @@
 #define ADS1015_4096_GAIN 0x01 //- 4.096v gain
 #define ADS1015_6144_GAIN 0x00 //- 6.144v gain
 
+#define ADS1015_512_RES 0.512f/2048.0f //- 4.096v resolution
+#define ADS1015_1024_RES 1.024f/2048.0f //- 4.096v resolution
+#define ADS1015_2048_RES 2.048f/2048.0f //- 6.144v resolution
+#define ADS1015_4096_RES 4.096f/2048.0f //- 4.096v resolution
+#define ADS1015_6144_RES 6.144f/2048.0f //- 6.144v resolution
+
 #define ADS1015_128SPS 0x00 //- Data Rate: 128 Samples Per Second
 #define ADS1015_250SPS 0x01 //- Data Rate: 250 Samples Per Second
 #define ADS1015_490SPS 0x02 //- Data Rate: 490 Samples Per Second
 #define ADS1015_920SPS 0x03 //- Data Rate: 920 Samples Per Second
 #define ADS1015_1600SPS 0x04 //- Data Rate: 1600 Samples Per Second
+
+
+// --- Config Register: Upper Byte
+#define ADS1015_CONF_REG_OS_SINGLE 0x80  // Operational Status, begin single conversion
+
+#define ADS1015_CONF_REG_MODE_SINGLE 0x01  // Power-down single-shot mode (Default)
+
+// --- Config Register: Lower Byte
+#define ADS1015_CONF_REG_DR_1600SPS 0x80  // 1600SPS (Default)
+
+#define ADS1015_CONF_REG_COMP_MODE_TRAD 0x00  // Traditional comparator with histeresis (Default)
+
+#define ADS1015_CONF_REG_COMP_POL_AL 0x00  // Active-LOW (Default)
+
+#define ADS1015_CONF_REG_COMP_LAT_NL 0x00  // Non-Latching (Default)
+
+#define ADS1015_CONF_REG_COMP_QUE_DC 0x03  // Disable the comparator and put ALERT/RDY in high state (default)
 
 class ADS1015 {
 public:

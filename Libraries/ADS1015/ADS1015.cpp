@@ -55,6 +55,12 @@ void ADS1015::selectInput(uint8_t _inputAdd, uint8_t _gain){
     selectModule();
     inputAdd = _inputAdd;
     inputGain = _gain;
+    uint8_t config_low = ADS1015_CONF_REG_COMP_QUE_DC |
+                      ADS1015_CONF_REG_COMP_LAT_NL |
+                      ADS1015_CONF_REG_COMP_POL_AL |
+                      ADS1015_CONF_REG_COMP_MODE_TRAD |
+                      ADS1015_CONF_REG_DR_1600SPS;
+    uint8_t config_high = ADS1015_CONF_REG_MODE_SINGLE;
 
     if(inputAdd < 0x04 or inputAdd > 0x07){ // - Seleccion de entrada individual
         printf("Invalid Input...\n");
@@ -67,32 +73,40 @@ void ADS1015::selectInput(uint8_t _inputAdd, uint8_t _gain){
     }
     switch(inputGain){
         case ADS1015_512_GAIN:
-            resolution = 0.512f/2048.0f; // - volts/(12 bits)
+            resolution = ADS1015_512_RES;
             break;
         case ADS1015_1024_GAIN:
-            resolution = 1.024f/2048.0f; // - volts/(11 bits)
+            resolution = ADS1015_1024_RES;
             break;
         case ADS1015_2048_GAIN:
-            resolution = 2.048f/2048.0f; // - volts/(11 bits)
+            resolution = ADS1015_2048_RES;
             break;
         case ADS1015_4096_GAIN:
-            resolution = 4.096f/2048.0f; // - volts/(11 bits)
+            resolution = ADS1015_4096_RES;
             break;
         case ADS1015_6144_GAIN:
-            resolution = 6.144f/2048.0f; // - volts/(11 bits)
+            resolution = ADS1015_6144_RES;
             break;
     }
 
     wBuf[0] = ADS1015_CONFIG_REG;
-    // - The upper Byte
-    wBuf[1] = (uint8_t)(inputAdd << 4) | (uint8_t)(inputGain << 1);
-    // - Lower Byte => 128 SPS, Disble Comparator
-    wBuf[2] = (uint8_t)(ADS1015_128SPS<<4) | 0x03;
+    // -- Upper Byte, set the input channel and input gain;
+    config_high |= (uint8_t)(inputAdd << 4) | (uint8_t)(inputGain << 1);
+    // - 
+    config_high |= ADS1015_CONF_REG_OS_SINGLE;
+ 
+    wBuf[1] = config_high;
+    // - Lower Byte => 128 SPS, Disable Comparator
+    wBuf[2] = config_low;
 
     bcm2835_i2c_write(wBuf, 3);
-    uDelay(1000);
+    mDelay(1);
 }
 
+/**
+ * Returns the ADC Conversion Register, returns a 12 bit register.
+ * @return 
+ */
 int16_t ADS1015::readRawInput(){
     selectModule();
     uint16_t input = 0x00;

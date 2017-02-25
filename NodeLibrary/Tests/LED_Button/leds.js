@@ -1,10 +1,12 @@
-var _leds  =  require('../LEDModule'),
-  leds = new _leds(2);
-var _buttons = require('../ButtonModule'),
-  buttons = new _buttons(1);
+var _leds  =  require('../../LEDModule'),
+  led = new _leds(2);
 
-var _loops = require('../loops'),
-  loops = new _loops();
+led.write(1);
+// var _buttons = require('../ButtonModule'),
+//   buttons = new _buttons(1);
+
+// var _loops = require('../loops'),
+//   loops = new _loops();
 
 // loops.forever(()=>{
 //   leds.setLED(buttons.readButton());
@@ -27,10 +29,10 @@ var _loops = require('../loops'),
 //     leds.setLED2(buttons.readButton2());
 //   });
 
-setInterval(()=>{
-  // console.log(buttons.readButton());
-  leds.led_blink();
-},1000);
+// setInterval(()=>{
+//   // console.log(buttons.readButton());
+//   leds.led_blink();
+// },1000);
 
 process.on('SIGINT', function () {
   // leds.unexport();

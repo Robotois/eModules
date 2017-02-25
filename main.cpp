@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
 //    robertRobot->LineFollower();
 //    LineFollower();
 //
-    UltrasonicTest();
+//    UltrasonicTest();
 //    ServoTest();
 //    
 //    LEDModuleTest();
@@ -131,17 +131,17 @@ int main(int argc, char** argv) {
 //    printf("Rotary Input: %0.2f\n",rotaty.getValue());
 //    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
 
-//    TemperatureSensor temp;
-//    temp.selectPort(1);
-//    printf("Temp Input: %0.2f\n",temp.getTemperature());    
+    TemperatureSensor temp;
+    temp.selectPort(1);
+//    printf("Temp Input: %0.2f\n",temp.getValue());    
+    LightSensor lightSensor;
+    lightSensor.selectPort(3);
 
-//    while(1){
-//        LightSensor lightSensor;
-//        lightSensor.selectPort(3);
-//        printf("Scaled: %d\n",lightSensor.getScaledValue());
-//        printf("basicScaled: %d\n",lightSensor.basicScaledValue());
-//        mDelay(250);
-//    }
+    while(1){
+        printf("Temp[C]: %d\n",temp.getIntValue());
+        printf("Light: %d\n",lightSensor.getBasicScaledValue());
+        mDelay(250);
+    }
 //    OpticalDistanceSensor distanceSensor;
 //    distanceSensor.selectPort(1);
 //    printf("Distance: %0.4f\n",distanceSensor.getValue());

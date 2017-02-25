@@ -50,7 +50,7 @@ LightSensor.prototype.enableEvents = function (){
 LightSensor.prototype.when = function(value, callback) {
   if (!this.interval) {
     setInterval(()=>{
-      console.log(this.light.getBasicScaledValue());
+      console.log("Luz: "+this.light.getBasicScaledValue());
       if (this.light.getBasicScaledValue() == value) {
         callback();
       }
