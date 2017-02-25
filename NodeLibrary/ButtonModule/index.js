@@ -40,6 +40,7 @@ ButtonModule.prototype.when = function(callback){
   self.enableEvents();
   self.on('change', (state) => {
     if (state) {
+      console.log('Botón: ' + state);
       callback();
     }
   });

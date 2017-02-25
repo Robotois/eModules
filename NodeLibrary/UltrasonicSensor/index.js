@@ -43,7 +43,7 @@ inherits(UltrasonicSensor,EventEmitter);
 UltrasonicSensor.prototype.when = function(value, callback){
   if (!this.interval) {
     setInterval(()=>{ // Tomar mediciones cada 200ms
-      console.log(this.ultrasonic.getBasicValue());
+      console.log('Distancia: ' + this.ultrasonic.getBasicValue());
       if (this.ultrasonic.getBasicValue() === value) {
         callback();
       }
