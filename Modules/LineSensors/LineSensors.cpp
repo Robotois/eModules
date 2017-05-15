@@ -61,7 +61,7 @@ uint8_t LineSensors::readSensor(uint8_t _sensor){
     return (_sensorsReading >> _sensor) & 0x01;
 }
 
-float LineSensors::readLine(){
+int16_t LineSensors::readLine(){
     uint8_t inputs = readSensors();
 //    printf("Sensors: 0x%02X \n",inputs);
     
@@ -78,8 +78,7 @@ float LineSensors::readLine(){
         }
     }
     avg = avg/cumSum;    
-//    printf("%0.2f\n",avg);
-    return avg;
+    return (int16_t)avg;
 }
 
 void LineSensors::setBackground(uint8_t _bg){

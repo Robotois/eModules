@@ -57,7 +57,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Modules/Servos/Servos.o \
 	${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o \
 	${OBJECTDIR}/Robots/Robert/Robert.o \
-	${OBJECTDIR}/Robots/Robotina/Robotina.o \
 	${OBJECTDIR}/main.o
 
 
@@ -194,11 +193,6 @@ ${OBJECTDIR}/Robots/Robert/Robert.o: Robots/Robert/Robert.cpp
 	${MKDIR} -p ${OBJECTDIR}/Robots/Robert
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Robots/Robert/Robert.o Robots/Robert/Robert.cpp
-
-${OBJECTDIR}/Robots/Robotina/Robotina.o: Robots/Robotina/Robotina.cpp
-	${MKDIR} -p ${OBJECTDIR}/Robots/Robotina
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Robots/Robotina/Robotina.o Robots/Robotina/Robotina.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

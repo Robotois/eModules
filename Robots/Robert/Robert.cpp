@@ -32,7 +32,7 @@ void Robert::LineFollower(){
         
 //    motorModule->maPWM(0); // - Left Motor
 //    motorModule->mbPWM(0); // - Left Motor
-//    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->clockwise); // - Left, Right
+//    motorModule->motorsControl(MOTORS_COUNTER_CLOCKWISE,MOTORS_CLOCKWISE); // - Left, Right
 //    motorModule->mbControl(); // - Right Motor
     
 //    lineModule->initialize();
@@ -80,7 +80,7 @@ void Robert::LineFollower(){
         }
 //        printf("PowerDifference: %0.5f, maPWM: %0.2f, mbPWM: %0.2f\n",powerDifference,maPWM,mbPWM);
 //        motorModule->selectModule();
-        motorModule->drivePWMs((int16_t)(maPWM*10),(int16_t)(mbPWM*10));
+        motorModule->drivePWM((int16_t)(maPWM*10),(int16_t)(mbPWM*10));
         // - 1[ms] de muestreo
         uDelay(10000);
         i++;
@@ -90,7 +90,7 @@ void Robert::LineFollower(){
         }
     }
 //    motorModule->selectModule();
-    motorModule->motorsControl(motorModule->stop,motorModule->stop); // - Left, Right
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP); // - Left, Right
 }
 
 void Robert::MazeSolver(){
@@ -138,54 +138,54 @@ void Robert::turnAround(){
     motorModule->selectModule();
 //    moveBackward();
 //    uDelay(150000);
-    motorModule->motorsControl(motorModule->stop,motorModule->stop);
-    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->counter_clockwise);
-    motorModule->motorsSpeed(120,120);
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP);
+    motorModule->motorsControl(MOTORS_COUNTER_CLOCKWISE,MOTORS_COUNTER_CLOCKWISE);
+    motorModule->drivePWM(120,120);
     uDelay(850000);
-    motorModule->motorsControl(motorModule->stop,motorModule->stop);
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP);
 }
 
 void Robert::turnRight(){
     motorModule->selectModule();
 //    moveBackward();
 //    uDelay(150000);
-    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->counter_clockwise);
-    motorModule->motorsSpeed(120,120);
+    motorModule->motorsControl(MOTORS_COUNTER_CLOCKWISE,MOTORS_COUNTER_CLOCKWISE);
+    motorModule->drivePWM(120,120);
     uDelay(450000);
-    motorModule->motorsControl(motorModule->stop,motorModule->stop);
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP);
 }
 
 void Robert::turnLeft(){
     motorModule->selectModule();
 //    moveBackward();
 //    uDelay(150000);
-    motorModule->motorsControl(motorModule->clockwise,motorModule->clockwise);
-    motorModule->motorsSpeed(120,120);
+    motorModule->motorsControl(MOTORS_CLOCKWISE,MOTORS_CLOCKWISE);
+    motorModule->drivePWM(120,120);
     uDelay(450000);
-    motorModule->motorsControl(motorModule->stop,motorModule->stop);
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP);
 }
 
 void Robert::moveForward(){
     motorModule->selectModule();
-    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->clockwise);
-    motorModule->motorsSpeed(150,150);
+    motorModule->motorsControl(MOTORS_COUNTER_CLOCKWISE,MOTORS_CLOCKWISE);
+    motorModule->drivePWM(150,150);
 }
 
 void Robert::moveForward(uint16_t maSpeed,uint16_t mbSpeed){
     motorModule->selectModule();
-    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->clockwise);
-    motorModule->motorsSpeed(maSpeed,mbSpeed);
+    motorModule->motorsControl(MOTORS_COUNTER_CLOCKWISE,MOTORS_CLOCKWISE);
+    motorModule->drivePWM(maSpeed,mbSpeed);
 }
 
 void Robert::moveBackward(){
     motorModule->selectModule();
-    motorModule->motorsControl(motorModule->clockwise,motorModule->counter_clockwise);
-    motorModule->motorsSpeed(150,150);
+    motorModule->motorsControl(MOTORS_CLOCKWISE,MOTORS_COUNTER_CLOCKWISE);
+    motorModule->drivePWM(150,150);
 }
 
 void Robert::stop(){
     motorModule->selectModule();
-    motorModule->motorsControl(motorModule->stop,motorModule->stop);
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP);
     motorModule->motorsPWM(0,0);
 }
 

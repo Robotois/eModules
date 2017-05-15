@@ -18,14 +18,16 @@ public:
     
     void initialize();
     void setAngle(uint8_t servoNumber,float degree);
+    void release();
 private:
     float minTravel, maxTravel;
     // - Configuracion de tiempos, 800->2200 usec => 165 degrees
-//    static const uint16_t minOnTime = 164,maxOnTime = 450;
+//    static const uint16_t minOnTime = 164,maxOnTime = 451, delay = 410;
+
     // - Configuracion de tiempos, 700->2300 usec => 180 degrees
     static const uint16_t minOnTime = 143,maxOnTime = 471;
     // - Variables para almacenar los tiempos ON/OFF actuales.
-    uint16_t onTime, offTime,maxOffTime,halfOffTime,centerOffTime;
+    uint16_t onTime, offTime,centerOffTime;
     float angleTimeRatio;
     
     PCA9685 *pwmModule;

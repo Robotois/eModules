@@ -150,7 +150,7 @@ void LineSensorsWrapper::setBackground(const FunctionCallbackInfo<Value>& args){
 
   if(args.Length() != 1){
     isolate->ThrowException(Exception::TypeError(
-    String::NewFromUtf8(isolate, "Wrong arguments...")));
+    String::NewFromUtf8(isolate, "Wrong arguments for setBackground...")));
   }
 
   uint8_t _background;
@@ -159,10 +159,15 @@ void LineSensorsWrapper::setBackground(const FunctionCallbackInfo<Value>& args){
   String::Utf8Value msg(args[0]->ToString());
   std::string _msg = std::string(*msg);
 
-  if(_msg == "White"){
+  if(_msg == "white"){
     _background = LINESENSORS_WHITE_BACKGROUND;
   }else{
-    _background = LINESENSORS_BLACK_BACKGROUND;
+    if(_msg == "black"){
+      _background = LINESENSORS_BLACK_BACKGROUND;
+    }else{
+      isolate->ThrowException(Exception::TypeError(
+      String::NewFromUtf8(isolate, "Wrong background...")));
+    }
   }
   temp_obj->lineSensors->setBackground(_background);
   // args.GetReturnValue().Set(Number::New(isolate,));

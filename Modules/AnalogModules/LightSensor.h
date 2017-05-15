@@ -17,14 +17,14 @@ public:
     
     void selectPort(uint8_t _port);
     float getValue();
-//    float getBasicValue();
-    int16_t getScaledValue();    
-    int16_t getBasicScaledValue();    
+    float getBasicValue();
+    uint8_t getScaledValue();    
+//    int16_t getBasicScaledValue();    
     void release();
 private:
     ADS1015 *analogModule;
     uint8_t inputPort;
-    float scaleFactor,basicScaleFactor;
+    float scaleFactor;
 
 };
 

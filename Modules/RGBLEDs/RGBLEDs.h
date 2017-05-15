@@ -22,6 +22,7 @@ public:
     void blinkRGB(uint8_t _led_number,uint8_t _red_code,uint8_t _green_code,uint8_t _blue_code);
     void ledOff(uint8_t _led_number);
     void allOff();
+    void allOn(uint8_t _red_code,uint8_t _green_code,uint8_t _blue_code);
     
     void release();
 private:

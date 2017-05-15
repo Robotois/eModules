@@ -161,38 +161,24 @@ void LCDModule::noDisplay(){
   command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
 
-
 void LCDModule::printChar(char _char){
     send(_char,MCP23008_HIGH);
 }
 
-uint8_t LCDModule::message(std::string _string){
-    uint8_t right_spaces = 0, length = 0;
-    for(char& c:_string){
-        length++;
-        if(c == '\n'){
+void LCDModule::message(std::string _string){
+    uint8_t length = 1;
+    for(char& c:_string){        
+        if(length == 16 or c == '\n'){
             nextLine();
-            right_spaces = length;
+            if(length == 16){
+                printChar(c);
+            }
             length = 0;
         }else{
             printChar(c);
+            length++;
         }
     }
-    
-    if(length > right_spaces){
-        right_spaces = length;
-    }
-    
-    if(right_spaces > 40){
-       right_spaces =  24;
-    }else{
-        if(right_spaces >= 16)
-            right_spaces -= 16; 
-        else
-            right_spaces = 0;
-    }
-    
-    return right_spaces;
 }
 
 void LCDModule::autoScroll(uint8_t right_spaces){
@@ -241,7 +227,7 @@ void LCDModule::home(){
 void LCDModule::setCursor(uint8_t row, uint8_t col){
     uint8_t offsets[] = {0x00,0x40};
     if(row > 1){ // - row param => 0-1
-        printf("Worg Row selection for the LCD Display...\n");
+        printf("Wrong Row selection for the LCD Display...\n");
         return;
     }
     command(LCD_SETDDRAMADDR | (offsets[row] + col));
@@ -251,7 +237,6 @@ void LCDModule::release(){
     clear();
     setBacklight(0);
     noDisplay();
-    mcp->release();
     delete mcp;    
     
     printf("[LCDModule] => Released\n");

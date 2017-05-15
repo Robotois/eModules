@@ -7,12 +7,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>rfs://pi@192.168.1.71:22/home/pi/Projects/eModules/Modules/AnalogModules/RotarySensor.h</file>
-            <file>rfs://pi@192.168.1.71:22/home/pi/Projects/eModules/Modules/AnalogModules/TemperatureSensor.cpp</file>
-            <file>rfs://pi@192.168.1.71:22/home/pi/Projects/eModules/main.cpp</file>
-            <file>rfs://pi@192.168.1.71:22/home/pi/Projects/eModules/Modules/AnalogModules/LightSensor.h</file>
-            <file>rfs://pi@192.168.1.71:22/home/pi/Projects/eModules/Modules/AnalogModules/LightSensor.cpp</file>
-            <file>rfs://pi@192.168.1.71:22/home/pi/Projects/eModules/Modules/AnalogModules/TemperatureSensor.h</file>
+            <file>rfs://pi@192.168.1.70:22/home/pi/Robotois/eModules/main.cpp</file>
+            <file>rfs://pi@192.168.1.70:22/home/pi/Robotois/eModules/Modules/Motors/Motors.cpp</file>
         </group>
     </open-files>
 </project-private>

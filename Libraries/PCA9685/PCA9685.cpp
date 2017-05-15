@@ -257,5 +257,6 @@ void PCA9685::bcm_end(){
 }
 
 void PCA9685::release(){
+    allOff();
     bcm_end();    
 }

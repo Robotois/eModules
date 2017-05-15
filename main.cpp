@@ -12,12 +12,12 @@
 #include <cmath>
 #include <chrono>
 
-#include "Modules/AccelGyro/AccelGyroModule.h"
+//#include "Modules/AccelGyro/AccelGyroModule.h"
 
-#include "Robots/Robert/Robert.h"
-#include "Robots/Robotina/Robotina.h"
+//#include "Robots/Robert/Robert.h"
+//#include "Robots/Robotina/Robotina.h"
 
-#include "Libraries/Kalman/Kalman.h"
+//#include "Libraries/Kalman/Kalman.h"
 #include "Libraries/ADS1015/ADS1015.h"
 #include "Libraries/PCA9685/PCA9685.h"
 #include "Libraries/Timer/AccurateTiming.h"
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
 //    robotina->setup();
 //    robotina->loop();
 //    
-//    MotorModuleTest();
+    MotorModuleTest();
 //    LineSensorTest();
 //    Robert *robertRobot = new Robert();
 //    robertRobot->LineFollower();
@@ -131,17 +131,19 @@ int main(int argc, char** argv) {
 //    printf("Rotary Input: %0.2f\n",rotaty.getValue());
 //    printf("Raw Rotary Input: %d\n",rotaty.getScaledValue());
 
-    TemperatureSensor temp;
-    temp.selectPort(1);
-//    printf("Temp Input: %0.2f\n",temp.getValue());    
-    LightSensor lightSensor;
-    lightSensor.selectPort(3);
-
-    while(1){
-        printf("Temp[C]: %d\n",temp.getIntValue());
-        printf("Light: %d\n",lightSensor.getBasicScaledValue());
-        mDelay(250);
-    }
+//    TemperatureSensor temp;
+//    temp.selectPort(1);
+////    printf("Temp Input: %0.2f\n",temp.getValue());    
+//    LightSensor lightSensor;
+//    lightSensor.selectPort(3);
+//
+//    while(1){
+////        printf("Temp[C]: %d\n",temp.getIntValue());
+//        printf("Light value: %2f\n",lightSensor.getValue());
+//        printf("Light basic Value: %2f\n",lightSensor.getBasicValue());
+//        printf("Light scaled Value: %d\n\n",lightSensor.getScaledValue());
+//        mDelay(1000);
+//    }
 //    OpticalDistanceSensor distanceSensor;
 //    distanceSensor.selectPort(1);
 //    printf("Distance: %0.4f\n",distanceSensor.getValue());
@@ -285,137 +287,6 @@ void DigitalSensorTest(){
     
 }
 
-void MazeSolverTest(){
-    Robert *robert = new Robert();
-    unsigned int i = 0;
-    
-    float kp = 2,ki = 0.001,kd = 15, currentError, prevError = 0, maxSpeed = 100, currentSpeed = 30,
-            integral  = 0, speedDifference, distRef = 15;
-    
-    uint16_t maSpeed, mbSpeed;
-    
-    double distL,distR,distF;
-    
-    uint8_t digitalSensor = RPI_V2_GPIO_P1_18;
-
-    bcm2835_gpio_fsel(digitalSensor,BCM2835_GPIO_FSEL_INPT);
-    bcm2835_gpio_set_pud(digitalSensor, BCM2835_GPIO_PUD_UP);
-    bcm2835_gpio_len(digitalSensor); 
-    bcm2835_gpio_set_eds(digitalSensor);
-//    distL = leftDistance();
-//    distR = rightDistance();
-//    distF = frontDistance();
-    
-    robert->motorModule->selectModule();
-    robert->motorModule->motorsPWM(0,0);
-    robert->motorModule->motorsControl(Motors::counter_clockwise,Motors::clockwise); // - Left, Right
-    
-    robert->lookLeft();
-    sleep(2);
-    while(i <= 50){
-        distL = robert->ultrasonicSensor->getValue();
-
-        // - Move Left
-        if(distL >= 30){
-            robert->moveForward(maxSpeed,maxSpeed);
-            uDelay(550000);
-            robert->stop();
-            robert->turnLeft();
-            robert->moveForward(maxSpeed,maxSpeed);
-            uDelay(250000);
-            distL = robert->ultrasonicSensor->getValue();
-            bcm2835_gpio_set_eds(digitalSensor);
-        }
-
-        // - Wall on front
-        if(bcm2835_gpio_eds(digitalSensor)){
-            robert->stop();
-            
-            robert->lookRight();
-            distR = robert->ultrasonicSensor->getValue();
-            robert->lookLeft();
-            
-            if(distR >= 30){
-//                robert->moveForward(maxSpeed,maxSpeed);
-//                uDelay(50000);
-//                robert->stop();
-                robert->turnRight();
-                robert->moveForward(maxSpeed,maxSpeed);
-                uDelay(250000);
-            }else{
-                robert->turnAround();
-                robert->moveForward(maxSpeed,maxSpeed);
-                uDelay(200000);
-            }
-            
-//            uDelay(50000);
-            distL = robert->ultrasonicSensor->getValue();
-//            break;
-            bcm2835_gpio_set_eds(digitalSensor);
-        }
-        
-        currentError = distRef - distL;
-        
-        integral += currentError;
-        speedDifference = kp* currentError + ki*integral + kd*(currentError - prevError);
-        prevError = currentError;
-        
-        if(speedDifference < 0.0){
-            maSpeed = maxSpeed + speedDifference;
-            mbSpeed = maxSpeed;
-        }else{
-            maSpeed = maxSpeed;
-            mbSpeed = maxSpeed - speedDifference;
-        }
-        
-        robert->moveForward(maSpeed,mbSpeed);
-        
-//        // -- Follow Left Wall
-//        distL = robert->leftDistance();
-//        // - Left wall is close
-//        if(distL <= 20 and distL > 15){
-//            robert->moveForward(100,120); // * Move forward with left inclination
-//        }
-//        
-//        // - Too close to left wall
-//        if(distL <= 15){
-//            robert->moveForward(120,100); // * Move forward with right inclination
-//        }
-        
-//        if(currentSpeed < maxSpeed){
-//            currentSpeed += 10;
-//        }
-        
-//        uDelay(15000);
-
-        i++;
-    }
-    robert->stop();
-}
-
-void RobertTest(){
-    Robert *robertRobot = new Robert();
-    
-    robertRobot->turnLeft();
-    sleep(1);
-    robertRobot->turnRight();
-    sleep(1);
-    robertRobot->moveForward();
-    sleep(1);
-    robertRobot->moveBackward();
-    sleep(1);
-    robertRobot->stop();    
-}
-
-void RobotRotationTest(){
-    Motors *motorModule = new Motors();
-    motorModule->selectModule();
-    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->counter_clockwise);
-    motorModule->motorsSpeed(120,120);
-    usleep(435000);
-    motorModule->motorsControl(motorModule->stop,motorModule->stop);
-}
-
 void ServoTest(){
     Servos *servos = new Servos();
 //    servos->initialize();
@@ -454,54 +325,26 @@ void UltrasonicTest(){
 
 void MotorModuleTest(){
     Motors *motorModule = new Motors();
-//    motorModule->selectModule();
-//    motorModule->motorsBasicTest();
-    motorModule->motorsBasicSpeedTest();
-//    motorModule->motorsSpeed(100,100);
-//    mDelay(5000);
-//    motorModule->motorsSetup25D();
-//    motorModule->driveSpeeds(25,25);
-//    mDelay(20);
-//    motorModule->driveSpeeds(50,50);
-//    mDelay(20);
-//    motorModule->driveSpeeds(75,75);
-//    mDelay(20);
-//    motorModule->driveSpeeds(100,100);
-//    mDelay(20);
-//    motorModule->driveSpeeds(150,150);
-//    mDelay(20);
-//    motorModule->driveSpeeds(25,25);
-//    mDelay(20);
-//    motorModule->driveSpeeds(-25,-25);
-//    mDelay(20);
-//    motorModule->driveSpeeds(-50,-50);
-//    mDelay(20);
-//    motorModule->driveSpeeds(-75,-75);
-//    mDelay(20);
-//    motorModule->driveSpeeds(-100,-100);
-//    mDelay(20);
-//    motorModule->motorsControl(Motors::stop,Motors::stop);
-    
-//    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->clockwise);
-//    uint16_t rpms = 10;
-//    for(int i = 0; i < 600 ; i++){
-//        motorModule->motorsSpeed(rpms,rpms);
-//        rpms += 5;
-//        if(rpms > 400){
-//            rpms = 10;
-//        }
-//        usleep(20000);
-//    }
-//    motorModule->motorsControl(motorModule->stop,motorModule->stop);
-    
-//    motorModule->motorsBasicTest();
-//    motorModule->maBasicTest();
-//    motorModule->maFullSpeedTest();
-//    motorModule->maPIDResponse();
-
-//    motorModule->mbBasicTest();
-//    motorModule->mbFullSpeedTest();
-//    motorModule->mbPIDResponse();
+    mDelay(1000);
+    motorModule->drivePWM(10,10);
+    mDelay(2000);
+    motorModule->drivePWM(30,20);
+    mDelay(2000);
+    motorModule->drivePWM(50,50);
+    mDelay(2000);
+    motorModule->drivePWM(75,75);
+    mDelay(2000);
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP);
+    mDelay(2000);
+    motorModule->drivePWM(-10,-10);
+    mDelay(2000);
+    motorModule->drivePWM(-30,-30);
+    mDelay(2000);
+    motorModule->drivePWM(-50,-50);
+    mDelay(2000);
+    motorModule->drivePWM(-75,-75);
+    mDelay(2000);
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP);
 }
 
 void LineSensorTest(){
@@ -512,13 +355,13 @@ void LineSensorTest(){
 
     uint16_t i = 0;
     
-    lineModule->setBackground(LINESENSORS_BLACK_BACKGROUND);
+//    lineModule->setBackground(LINESENSORS_BLACK_BACKGROUND);
     while(1){
-//        inputs = lineModule->readSensors();
-//        singleInput = lineModule->readSensor(LINESENSORS_SENSOR1);
-//        printf("Sensors: 0x%02X \tSingle Sensor: %d\n",inputs,singleInput);
-        line = lineModule->readLine();
-        printf("Line: %0.3f\n",line);
+        inputs = lineModule->readSensors();
+        singleInput = lineModule->readSensor(LINESENSORS_SENSOR1);
+        printf("Sensors: 0x%02X \tSingle Sensor: %d\n",inputs,singleInput);
+//        line = lineModule->readLine();
+//        printf("Line: %0.3f\n",line);
         mDelay(500);
     }
 }
@@ -591,292 +434,292 @@ void LineFollower(){
         }
     }
 //    motorModule->selectModule();
-    motorModule->motorsControl(motorModule->stop,motorModule->stop);
+    motorModule->motorsControl(MOTORS_STOP,MOTORS_STOP);
 //    motorModule->mbControl(motorModule->stop);
 }
 
-void kalmanTest2(){
-    float dt = 0.010,timer, integral = 0;
-    string fileName = "yAngleResults.csv";
-    
-    Kalman kalmanX; // Create the Kalman instances
-    Kalman kalmanY;
-
-    auto startTime = std::chrono::high_resolution_clock::now();
-    auto elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
-        
-    // - CSV Dataset
-    float pos,poshat,posmeas, vel, velhat;
-    // - Archivo CSV con los resultados del filtro.
-    ofstream outputFile(fileName.c_str(),ios_base::out);
-    if ( ! outputFile.is_open() ){    
-        cout << "El archivo: "+fileName+" no se pudo abrir!!" << '\n';    
-        exit(1);
-    }
-    
-    outputFile<<"\"time\",\"measured_angle\",\"estimated_angle\",\"estimated_drift\""<<endl;
-    
-    AccelGyroModule *accelGyro = new AccelGyroModule();
-    accelGyro->initialize();
-    accelGyro->selectModule();
-    accelGyro->getMeas();
-
-    kalmanX.setAngle(accelGyro->getXAngle()); // Set starting angle
-    kalmanY.setAngle(accelGyro->getYAngle());
-
-    uint16_t t = 0;
-    uDelay((unsigned int)(1000*dt)*1000);
-    while(t < 1000){
-        elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
-        long long microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();      
-        timer = (double)(microseconds) / 1000000; // Calculate delta time
-//        printf("dt: %0.5f\n",timer);
-        startTime = std::chrono::high_resolution_clock::now();
-        
-//        accelGyro->getAccelMeas();
-//        accelGyro->getGyroMeas();
-        accelGyro->getMeas();
-        posmeas = accelGyro->getYAngle();
-        poshat = kalmanY.getAngle(posmeas,accelGyro->getXGyro(),timer);
-//        u = accelGyro->getXW();
-//        // - Use a constant commanded acceleration of 1 foot/sec^2.
-//        u = 1;
-//        // - Simulate the linear system.
-//        randValue1 = (rand() % 10000)*randStep - 1;
-//        randValue2 = (rand() % 10000)*randStep - 1;
-//        processNoise = accelnoise*((fvec){(dt*dt/2)*randValue1,dt*randValue2});
-//        x = A * x + B * u + processNoise;
-//        // - Simulate the noisy measurement
-//        randValue1 = (rand() % 10000)*randStep - 1;
-//        mNoise = measnoise * randValue1;
-//        y = C * x + mNoise;
-        // - Extrapolate the most recent state estimate to the present time.
-//        x_hat = A * x_hat + B * u;
-//        if(x_hat(0) > 360){
-////            cout<<"Here1!!"<<endl;
-//            x_hat(0) = (float)x_hat(0) -360;
-//        }
-//        if(x_hat(0) < 0){
-////            cout<<"Here2!!"<<endl;
-//            x_hat(0) = 360-(float)x_hat(0);
-//        }
-        // - Form the Innovation vector.
-//        Inn = y - C * x_hat;
-        // - Compute the covariance of the Innovation.
-//        cout<<"Here3!!"<<endl;
-//        s = C * P * C.t() + Sz;
-        // - Form the Kalman Gain matrix.
-//        K = A * P * C.t() * s.i();
-        // - Update the state estimate.
-//        x_hat = x_hat + K * Inn;
-        // - Compute the covariance of the estimation error.
-//        P = A * P * A.t() - A * P * C.t() * s.i() * C * P * A.t() + Sw;
-        
-//        cout<<"Here!!"<<endl;
-//        pos = x(0);
-//        posmeas = y(0);
-//        poshat = x_hat(0);
-//        vel = x(1);
-//        velhat = x_hat(1);        
-        outputFile<<t<<','<<posmeas<<','<<poshat<<','<<velhat<<','<<endl;  
-        integral += poshat;
-        uDelay((unsigned int)(1000*dt)*1000);
-        t++;
-    }
-    printf("Average Offset: %0.5f \n",integral / 1000);
-    outputFile.close();
-}
-
-void robotinaTest(){
-    uint8_t stopButton = RPI_V2_GPIO_P1_11;
-
-    bcm2835_gpio_fsel(stopButton,BCM2835_GPIO_FSEL_INPT);
-    bcm2835_gpio_set_pud(stopButton, BCM2835_GPIO_PUD_DOWN);
-    bcm2835_gpio_hen(stopButton);
-//    bcm2835_gpio_set_eds(stopButton);
-    
-    // - Plotting variables
-    string fileName;
-    // - CSV Dataset
-//    float angle;
-    // - Archivo CSV con los resultados.
-    ofstream outputFile;    
-    // - Plotting DataSet
-    fileName = "yAngleResults.csv";
-    outputFile.open(fileName.c_str(),ios_base::out);
-    if ( ! outputFile.is_open() ){    
-        cout << "El archivo: "+fileName+" no se pudo abrir!!" << '\n';    
-        exit(1);
-    }
-    outputFile<<"\"time\",\"angle\",\"control\",\"mean_error\""<<endl;    
-    
-//    float filtered_angle = 0, sample = 0, last_sample = 0;   
-//    float angle_integral = 0;
-    float dt = 0.005f;
-    float targetAngle = 0.5f,currentAngleMeas,currentGyroMeas,currentAngle, 
-            currentError,prevError = 0.0f,
-            controlSignal,maPWM, mbPWM,maSpeed, mbSpeed, ControlPWMRatio = 10,
-        kp = 5.0f,ki = 0.001f,kd = 30.0f,integral = 0.0f,
-        kp_fb,ki_fb,kd_fb;
-
-    unsigned long int timerCount;
-    auto startTime = std::chrono::high_resolution_clock::now();
-    auto elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
-        
-    Motors *motorModule = new Motors();
-    motorModule->selectModule();
-    motorModule->motorsSetup25D();
-//    motorModule->motorsPWM(0,0); // - Left Motor
-
-    
+//void kalmanTest2(){
+//    float dt = 0.010,timer, integral = 0;
+//    string fileName = "yAngleResults.csv";
+//    
 //    Kalman kalmanX; // Create the Kalman instances
-    Kalman kalmanY;
-    AccelGyroModule *accelGyro = new AccelGyroModule();
-    if(accelGyro->testConnection()){
-        printf("AccelGyro Module connection successful...\n");
-    }else{
-        printf("AccelGyro Module connection failed!!!\n");
-        return;
-    }
-    accelGyro->initialize();
-    accelGyro->selectModule();
-    accelGyro->getMeas();
-
-    // - Get Starting angle
+//    Kalman kalmanY;
+//
+//    auto startTime = std::chrono::high_resolution_clock::now();
+//    auto elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
+//        
+//    // - CSV Dataset
+//    float pos,poshat,posmeas, vel, velhat;
+//    // - Archivo CSV con los resultados del filtro.
+//    ofstream outputFile(fileName.c_str(),ios_base::out);
+//    if ( ! outputFile.is_open() ){    
+//        cout << "El archivo: "+fileName+" no se pudo abrir!!" << '\n';    
+//        exit(1);
+//    }
+//    
+//    outputFile<<"\"time\",\"measured_angle\",\"estimated_angle\",\"estimated_drift\""<<endl;
+//    
+//    AccelGyroModule *accelGyro = new AccelGyroModule();
+//    accelGyro->initialize();
+//    accelGyro->selectModule();
+//    accelGyro->getMeas();
+//
 //    kalmanX.setAngle(accelGyro->getXAngle()); // Set starting angle
 //    kalmanY.setAngle(accelGyro->getYAngle());
-//    angle_integral = accelGyro->getRoll();
-    currentAngleMeas = accelGyro->getRoll();
-//    integral += currentAngleMeas / 200;
-    kalmanY.setAngle(currentAngleMeas);
-//    accelGyro->kalman_yInit(dt+0.002);
-
-    
-    uint16_t t = 0;
-    unsigned int dt_us = (1000000*dt);
-    mDelay(2);
-    auto loopTimer = std::chrono::high_resolution_clock::now();    
-    while(1){
-        if(bcm2835_gpio_eds(stopButton)){
-            bcm2835_gpio_set_eds(stopButton);
-            motorModule->motorsControl(Motors::stop,Motors::stop);
-            printf("Bye Bye...\n");
-            return;
-        }
-        
-//        elapsedTime = std::chrono::high_resolution_clock::now() - loopTimer;
-//        timerCount = std::chrono::duration_cast<std::chrono::milliseconds>(elapsedTime).count();      
-//        dt = (float)(timerCount) / 1000.0f; // Calculate delta time
-//        printf("dt: %0.5f\n",timer);
-//        loopTimer = std::chrono::high_resolution_clock::now();
-        
-//        accelGyro->getAccelMeas();
-//        accelGyro->getGyroMeas();
-        accelGyro->selectModule();
-        accelGyro->getMeas();
-        currentAngleMeas = accelGyro->getRoll();
-        currentGyroMeas = accelGyro->getXGyro();
-        currentAngle = kalmanY.getAngle(currentAngleMeas,currentGyroMeas,dt);
-//        angle_integral += currentAngle;
-
-//        sample = currentAngle;
-//        filtered_angle = 0.996 * (filtered_angle + sample - last_sample);
-//        last_sample = sample;
-        
-//        accelGyro->selectModule();
-//        currentAngle = accelGyro->kalman_yAngle();
-
-        currentError = targetAngle - currentAngle;
-        integral += currentError;
-        integral = constrain(integral, -10.0f, 10.0f);
-
-//        if(currentError < 0){
-//            currentError *= 1.75;
-//        }else{
-//            currentError *= 0.75;
-//        }
-        
-//        if(currentError < 0){
-//            currentError = - currentError*currentError;
-//        }else{
-//            currentError = currentError*currentError;
-//        }
-        
-        motorModule->selectModule();
-        if(abs(currentAngle) >= 45.0){
-            motorModule->motorsControl(Motors::stop,Motors::stop);
-            accelGyro->outputFile.close();
-            cout << "I'm Falling!!!"<< '\n';    
-            return;
-        }
-        
-        // - PID Control
-        kp_fb = currentError*kp;
-        ki_fb = integral*ki;
-        kd_fb = (currentError - prevError)*kd;
-        controlSignal = kp_fb + ki_fb + kd_fb;
-        prevError = currentError;
-//        printf("CurrentAngle: %0.5f; ControlSignal: %0.5f\n",currentAngle,controlSignal);        
-        
-//        if(controlSignal >= 0.0){ // - Move Forward
-////            motorModule->motorsControl(Motors::clockwise,Motors::counter_clockwise);
 //
-////            maPWM = controlSignal;
-////            mbPWM = controlSignal;
-//            maSpeed= controlSignal;
-//            mbSpeed = controlSignal;
-//        }else{ // - Move Backward
-//            motorModule->motorsControl(Motors::counter_clockwise,Motors::clockwise);
-//
-////            maPWM = -controlSignal;
-////            mbPWM = -controlSignal;
-//
-//            maSpeed= -controlSignal;
-//            mbSpeed= -controlSignal;
-//        }
-        
-//        if(maPWM > 100.0){
-//           maPWM = 100.0; 
-//        }
-//        if(mbPWM > 100.0){
-//           mbPWM = 100.0; 
-//        }
-//        if(maSpeed > 300.0){
-//           maSpeed = 300.0; 
-//        }
-//        if(mbSpeed > 300.0){
-//           mbSpeed = 300.0; 
-//        }
-        controlSignal *= ControlPWMRatio;
-        motorModule->drivePWMs((int)controlSignal,(int)controlSignal);
-//        motorModule->driveSpeeds((int)controlSignal,(int)controlSignal);
-        
-//        outputFile<<t<<','<<currentAngle<<','<<controlSignal<<','<<angle_integral/t<<endl;            
-        elapsedTime = std::chrono::high_resolution_clock::now() - loopTimer;  
-        timerCount = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();
-        while (timerCount < dt_us){
-            elapsedTime = std::chrono::high_resolution_clock::now() - loopTimer;  
-            timerCount = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();
-        }
-        loopTimer = std::chrono::high_resolution_clock::now();            
-//        uDelay(dtus);
+//    uint16_t t = 0;
+//    uDelay((unsigned int)(1000*dt)*1000);
+//    while(t < 1000){
+//        elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
+//        long long microseconds = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();      
+//        timer = (double)(microseconds) / 1000000; // Calculate delta time
+////        printf("dt: %0.5f\n",timer);
+//        startTime = std::chrono::high_resolution_clock::now();
+//        
+////        accelGyro->getAccelMeas();
+////        accelGyro->getGyroMeas();
+//        accelGyro->getMeas();
+//        posmeas = accelGyro->getYAngle();
+//        poshat = kalmanY.getAngle(posmeas,accelGyro->getXGyro(),timer);
+////        u = accelGyro->getXW();
+////        // - Use a constant commanded acceleration of 1 foot/sec^2.
+////        u = 1;
+////        // - Simulate the linear system.
+////        randValue1 = (rand() % 10000)*randStep - 1;
+////        randValue2 = (rand() % 10000)*randStep - 1;
+////        processNoise = accelnoise*((fvec){(dt*dt/2)*randValue1,dt*randValue2});
+////        x = A * x + B * u + processNoise;
+////        // - Simulate the noisy measurement
+////        randValue1 = (rand() % 10000)*randStep - 1;
+////        mNoise = measnoise * randValue1;
+////        y = C * x + mNoise;
+//        // - Extrapolate the most recent state estimate to the present time.
+////        x_hat = A * x_hat + B * u;
+////        if(x_hat(0) > 360){
+//////            cout<<"Here1!!"<<endl;
+////            x_hat(0) = (float)x_hat(0) -360;
+////        }
+////        if(x_hat(0) < 0){
+//////            cout<<"Here2!!"<<endl;
+////            x_hat(0) = 360-(float)x_hat(0);
+////        }
+//        // - Form the Innovation vector.
+////        Inn = y - C * x_hat;
+//        // - Compute the covariance of the Innovation.
+////        cout<<"Here3!!"<<endl;
+////        s = C * P * C.t() + Sz;
+//        // - Form the Kalman Gain matrix.
+////        K = A * P * C.t() * s.i();
+//        // - Update the state estimate.
+////        x_hat = x_hat + K * Inn;
+//        // - Compute the covariance of the estimation error.
+////        P = A * P * A.t() - A * P * C.t() * s.i() * C * P * A.t() + Sw;
+//        
+////        cout<<"Here!!"<<endl;
+////        pos = x(0);
+////        posmeas = y(0);
+////        poshat = x_hat(0);
+////        vel = x(1);
+////        velhat = x_hat(1);        
+//        outputFile<<t<<','<<posmeas<<','<<poshat<<','<<velhat<<','<<endl;  
+//        integral += poshat;
+//        uDelay((unsigned int)(1000*dt)*1000);
 //        t++;
-    }
-    motorModule->selectModule();
-    motorModule->motorsControl(Motors::stop,Motors::stop);
-    motorModule->motorsPWM(0,0);
-//    motorModule->mbControl(motorModule->stop);
-    outputFile.close();
-}
-
-float constrain(float value, float min, float max){
-    if(value < min)
-        return min;
-    if(value > max)
-        return max;
-    
-    return value;
-}
+//    }
+//    printf("Average Offset: %0.5f \n",integral / 1000);
+//    outputFile.close();
+//}
+//
+//void robotinaTest(){
+//    uint8_t stopButton = RPI_V2_GPIO_P1_11;
+//
+//    bcm2835_gpio_fsel(stopButton,BCM2835_GPIO_FSEL_INPT);
+//    bcm2835_gpio_set_pud(stopButton, BCM2835_GPIO_PUD_DOWN);
+//    bcm2835_gpio_hen(stopButton);
+////    bcm2835_gpio_set_eds(stopButton);
+//    
+//    // - Plotting variables
+//    string fileName;
+//    // - CSV Dataset
+////    float angle;
+//    // - Archivo CSV con los resultados.
+//    ofstream outputFile;    
+//    // - Plotting DataSet
+//    fileName = "yAngleResults.csv";
+//    outputFile.open(fileName.c_str(),ios_base::out);
+//    if ( ! outputFile.is_open() ){    
+//        cout << "El archivo: "+fileName+" no se pudo abrir!!" << '\n';    
+//        exit(1);
+//    }
+//    outputFile<<"\"time\",\"angle\",\"control\",\"mean_error\""<<endl;    
+//    
+////    float filtered_angle = 0, sample = 0, last_sample = 0;   
+////    float angle_integral = 0;
+//    float dt = 0.005f;
+//    float targetAngle = 0.5f,currentAngleMeas,currentGyroMeas,currentAngle, 
+//            currentError,prevError = 0.0f,
+//            controlSignal,maPWM, mbPWM,maSpeed, mbSpeed, ControlPWMRatio = 10,
+//        kp = 5.0f,ki = 0.001f,kd = 30.0f,integral = 0.0f,
+//        kp_fb,ki_fb,kd_fb;
+//
+//    unsigned long int timerCount;
+//    auto startTime = std::chrono::high_resolution_clock::now();
+//    auto elapsedTime = std::chrono::high_resolution_clock::now() - startTime;
+//        
+//    Motors *motorModule = new Motors();
+//    motorModule->selectModule();
+//    motorModule->motorsSetup25D();
+////    motorModule->motorsPWM(0,0); // - Left Motor
+//
+//    
+////    Kalman kalmanX; // Create the Kalman instances
+//    Kalman kalmanY;
+//    AccelGyroModule *accelGyro = new AccelGyroModule();
+//    if(accelGyro->testConnection()){
+//        printf("AccelGyro Module connection successful...\n");
+//    }else{
+//        printf("AccelGyro Module connection failed!!!\n");
+//        return;
+//    }
+//    accelGyro->initialize();
+//    accelGyro->selectModule();
+//    accelGyro->getMeas();
+//
+//    // - Get Starting angle
+////    kalmanX.setAngle(accelGyro->getXAngle()); // Set starting angle
+////    kalmanY.setAngle(accelGyro->getYAngle());
+////    angle_integral = accelGyro->getRoll();
+//    currentAngleMeas = accelGyro->getRoll();
+////    integral += currentAngleMeas / 200;
+//    kalmanY.setAngle(currentAngleMeas);
+////    accelGyro->kalman_yInit(dt+0.002);
+//
+//    
+//    uint16_t t = 0;
+//    unsigned int dt_us = (1000000*dt);
+//    mDelay(2);
+//    auto loopTimer = std::chrono::high_resolution_clock::now();    
+//    while(1){
+//        if(bcm2835_gpio_eds(stopButton)){
+//            bcm2835_gpio_set_eds(stopButton);
+//            motorModule->motorsControl(Motors::stop,Motors::stop);
+//            printf("Bye Bye...\n");
+//            return;
+//        }
+//        
+////        elapsedTime = std::chrono::high_resolution_clock::now() - loopTimer;
+////        timerCount = std::chrono::duration_cast<std::chrono::milliseconds>(elapsedTime).count();      
+////        dt = (float)(timerCount) / 1000.0f; // Calculate delta time
+////        printf("dt: %0.5f\n",timer);
+////        loopTimer = std::chrono::high_resolution_clock::now();
+//        
+////        accelGyro->getAccelMeas();
+////        accelGyro->getGyroMeas();
+//        accelGyro->selectModule();
+//        accelGyro->getMeas();
+//        currentAngleMeas = accelGyro->getRoll();
+//        currentGyroMeas = accelGyro->getXGyro();
+//        currentAngle = kalmanY.getAngle(currentAngleMeas,currentGyroMeas,dt);
+////        angle_integral += currentAngle;
+//
+////        sample = currentAngle;
+////        filtered_angle = 0.996 * (filtered_angle + sample - last_sample);
+////        last_sample = sample;
+//        
+////        accelGyro->selectModule();
+////        currentAngle = accelGyro->kalman_yAngle();
+//
+//        currentError = targetAngle - currentAngle;
+//        integral += currentError;
+//        integral = constrain(integral, -10.0f, 10.0f);
+//
+////        if(currentError < 0){
+////            currentError *= 1.75;
+////        }else{
+////            currentError *= 0.75;
+////        }
+//        
+////        if(currentError < 0){
+////            currentError = - currentError*currentError;
+////        }else{
+////            currentError = currentError*currentError;
+////        }
+//        
+//        motorModule->selectModule();
+//        if(abs(currentAngle) >= 45.0){
+//            motorModule->motorsControl(Motors::stop,Motors::stop);
+//            accelGyro->outputFile.close();
+//            cout << "I'm Falling!!!"<< '\n';    
+//            return;
+//        }
+//        
+//        // - PID Control
+//        kp_fb = currentError*kp;
+//        ki_fb = integral*ki;
+//        kd_fb = (currentError - prevError)*kd;
+//        controlSignal = kp_fb + ki_fb + kd_fb;
+//        prevError = currentError;
+////        printf("CurrentAngle: %0.5f; ControlSignal: %0.5f\n",currentAngle,controlSignal);        
+//        
+////        if(controlSignal >= 0.0){ // - Move Forward
+//////            motorModule->motorsControl(Motors::clockwise,Motors::counter_clockwise);
+////
+//////            maPWM = controlSignal;
+//////            mbPWM = controlSignal;
+////            maSpeed= controlSignal;
+////            mbSpeed = controlSignal;
+////        }else{ // - Move Backward
+////            motorModule->motorsControl(Motors::counter_clockwise,Motors::clockwise);
+////
+//////            maPWM = -controlSignal;
+//////            mbPWM = -controlSignal;
+////
+////            maSpeed= -controlSignal;
+////            mbSpeed= -controlSignal;
+////        }
+//        
+////        if(maPWM > 100.0){
+////           maPWM = 100.0; 
+////        }
+////        if(mbPWM > 100.0){
+////           mbPWM = 100.0; 
+////        }
+////        if(maSpeed > 300.0){
+////           maSpeed = 300.0; 
+////        }
+////        if(mbSpeed > 300.0){
+////           mbSpeed = 300.0; 
+////        }
+//        controlSignal *= ControlPWMRatio;
+//        motorModule->drivePWMs((int)controlSignal,(int)controlSignal);
+////        motorModule->driveSpeeds((int)controlSignal,(int)controlSignal);
+//        
+////        outputFile<<t<<','<<currentAngle<<','<<controlSignal<<','<<angle_integral/t<<endl;            
+//        elapsedTime = std::chrono::high_resolution_clock::now() - loopTimer;  
+//        timerCount = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();
+//        while (timerCount < dt_us){
+//            elapsedTime = std::chrono::high_resolution_clock::now() - loopTimer;  
+//            timerCount = std::chrono::duration_cast<std::chrono::microseconds>(elapsedTime).count();
+//        }
+//        loopTimer = std::chrono::high_resolution_clock::now();            
+////        uDelay(dtus);
+////        t++;
+//    }
+//    motorModule->selectModule();
+//    motorModule->motorsControl(Motors::stop,Motors::stop);
+//    motorModule->motorsPWM(0,0);
+////    motorModule->mbControl(motorModule->stop);
+//    outputFile.close();
+//}
+//
+//float constrain(float value, float min, float max){
+//    if(value < min)
+//        return min;
+//    if(value > max)
+//        return max;
+//    
+//    return value;
+//}
 //void xAnglekalmanTest(float dt){ // - dt en s
 //    string fileName = "xAngleResults.csv";
 //    float measnoise = 5.0, accelNoise = 0.5,driftNoise = 0.5,u;
@@ -1328,4 +1171,135 @@ void i2c_end(){
 //            break;
 //    }
 //
+//}
+
+//void MazeSolverTest(){
+//    Robert *robert = new Robert();
+//    unsigned int i = 0;
+//    
+//    float kp = 2,ki = 0.001,kd = 15, currentError, prevError = 0, maxSpeed = 100, currentSpeed = 30,
+//            integral  = 0, speedDifference, distRef = 15;
+//    
+//    uint16_t maSpeed, mbSpeed;
+//    
+//    double distL,distR,distF;
+//    
+//    uint8_t digitalSensor = RPI_V2_GPIO_P1_18;
+//
+//    bcm2835_gpio_fsel(digitalSensor,BCM2835_GPIO_FSEL_INPT);
+//    bcm2835_gpio_set_pud(digitalSensor, BCM2835_GPIO_PUD_UP);
+//    bcm2835_gpio_len(digitalSensor); 
+//    bcm2835_gpio_set_eds(digitalSensor);
+////    distL = leftDistance();
+////    distR = rightDistance();
+////    distF = frontDistance();
+//    
+//    robert->motorModule->selectModule();
+//    robert->motorModule->motorsPWM(0,0);
+//    robert->motorModule->motorsControl(Motors::counter_clockwise,Motors::clockwise); // - Left, Right
+//    
+//    robert->lookLeft();
+//    sleep(2);
+//    while(i <= 50){
+//        distL = robert->ultrasonicSensor->getValue();
+//
+//        // - Move Left
+//        if(distL >= 30){
+//            robert->moveForward(maxSpeed,maxSpeed);
+//            uDelay(550000);
+//            robert->stop();
+//            robert->turnLeft();
+//            robert->moveForward(maxSpeed,maxSpeed);
+//            uDelay(250000);
+//            distL = robert->ultrasonicSensor->getValue();
+//            bcm2835_gpio_set_eds(digitalSensor);
+//        }
+//
+//        // - Wall on front
+//        if(bcm2835_gpio_eds(digitalSensor)){
+//            robert->stop();
+//            
+//            robert->lookRight();
+//            distR = robert->ultrasonicSensor->getValue();
+//            robert->lookLeft();
+//            
+//            if(distR >= 30){
+////                robert->moveForward(maxSpeed,maxSpeed);
+////                uDelay(50000);
+////                robert->stop();
+//                robert->turnRight();
+//                robert->moveForward(maxSpeed,maxSpeed);
+//                uDelay(250000);
+//            }else{
+//                robert->turnAround();
+//                robert->moveForward(maxSpeed,maxSpeed);
+//                uDelay(200000);
+//            }
+//            
+////            uDelay(50000);
+//            distL = robert->ultrasonicSensor->getValue();
+////            break;
+//            bcm2835_gpio_set_eds(digitalSensor);
+//        }
+//        
+//        currentError = distRef - distL;
+//        
+//        integral += currentError;
+//        speedDifference = kp* currentError + ki*integral + kd*(currentError - prevError);
+//        prevError = currentError;
+//        
+//        if(speedDifference < 0.0){
+//            maSpeed = maxSpeed + speedDifference;
+//            mbSpeed = maxSpeed;
+//        }else{
+//            maSpeed = maxSpeed;
+//            mbSpeed = maxSpeed - speedDifference;
+//        }
+//        
+//        robert->moveForward(maSpeed,mbSpeed);
+//        
+////        // -- Follow Left Wall
+////        distL = robert->leftDistance();
+////        // - Left wall is close
+////        if(distL <= 20 and distL > 15){
+////            robert->moveForward(100,120); // * Move forward with left inclination
+////        }
+////        
+////        // - Too close to left wall
+////        if(distL <= 15){
+////            robert->moveForward(120,100); // * Move forward with right inclination
+////        }
+//        
+////        if(currentSpeed < maxSpeed){
+////            currentSpeed += 10;
+////        }
+//        
+////        uDelay(15000);
+//
+//        i++;
+//    }
+//    robert->stop();
+//}
+//
+//void RobertTest(){
+//    Robert *robertRobot = new Robert();
+//    
+//    robertRobot->turnLeft();
+//    sleep(1);
+//    robertRobot->turnRight();
+//    sleep(1);
+//    robertRobot->moveForward();
+//    sleep(1);
+//    robertRobot->moveBackward();
+//    sleep(1);
+//    robertRobot->stop();    
+//}
+
+//void RobotRotationTest(){
+//    Motors *motorModule = new Motors();
+//    motorModule->selectModule();
+//    motorModule->motorsControl(motorModule->counter_clockwise,motorModule->counter_clockwise);
+//    motorModule->motorsSpeed(120,120);
+//    usleep(435000);
+//    motorModule->motorsControl(motorModule->stop,motorModule->stop);
 //}

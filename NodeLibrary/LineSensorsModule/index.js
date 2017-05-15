@@ -34,13 +34,14 @@ LineSensorsModule.prototype.setBackground = function(_str){
 }
 
 LineSensorsModule.prototype.enableEvents = function(){
-  var sensors, line;// cumSum = 0,avg = 0.0,i = 0;
-
-  setInterval(()=>{ // Medicionies cada 100ms
-    sensors = this.readSensors();
-    line = this.readLine();
-    this.emit('Measurement', sensors,line);
-  },100);
+  var line;//
+  if(!this.eventInterval){
+    this.eventInterval = setInterval(()=>{ // Medicionies cada 100ms
+      sensors = this.readSensors();
+      line = this.readLine();
+      this.emit('change',line,sensors);
+    },100);
+  }
 }
 
 LineSensorsModule.prototype.sensorsToString = function(_sensors){
@@ -51,11 +52,12 @@ LineSensorsModule.prototype.lineToString = function(_line){
   return ("     " + _line.toFixed(1).toString()).slice(-5);
 };
 
+LineSensorsModule.prototype.release = function() {
+  // clearInterval(this.interval);
+  clearInterval(this.eventInterval);
+  this.line.release();
+}
+
 inherits(LineSensorsModule,EventEmitter);
 
 module.exports = LineSensorsModule;
-// var lineSensors = LineSensors();
-//
-// setInterval(function () {
-//   console.log("Sensors: "+lineSensors.ReadSensors() + ", Sensor 1: " + lineSensors.ReadSensor(1) + ", Line: " + lineSensors.ReadLine());
-// },500);

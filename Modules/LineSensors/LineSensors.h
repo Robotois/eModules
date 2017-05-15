@@ -29,7 +29,7 @@ public:
     
     // - Establecer Configuracion
     uint8_t  readSensors();
-    float readLine();
+    int16_t readLine();
     void setBackground(uint8_t _bg);
     uint8_t readSensor(uint8_t _sensor);
 private:

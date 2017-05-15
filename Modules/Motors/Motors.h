@@ -7,59 +7,58 @@
 
 #ifndef MOTORS_H
 #define	MOTORS_H
+
 #include <stdint.h>
+#include <stdlib.h>
+
+#define MOTORS_MOTOR1_CONN 0x01
+#define MOTORS_MOTOR2_CONN 0x02
+#define MOTORS_CLOCKWISE 0x02
+#define MOTORS_COUNTER_CLOCKWISE 0x01
 #define MOTORS_STOP 0x00
+#define MOTORS_MAX_USER_SPEED (int16_t)100
+#define MOTORS_MAX_SPEED (int16_t)1000
+
+// --- Function Registers
+#define MOTORS_M1_CONTROL 0x00 // Register for motor 1 control
+#define MOTORS_M2_CONTROL 0x01 // Register for motor 2 control
+#define MOTORS_M1_PWM 0x02 // Address of the lower byte for the PWM of motor 1
+//#define MOTORS_M1_PWM_BYTE2 0x03 // Address of the upper byte for the PWM of motor 1
+#define MOTORS_M2_PWM 0x04 // Address of the lower byte for the PWM of motor 2
+//#define MOTORS_M2_PWM_BYTE2 0x05 // Address of the upper byte for the PWM of motor 2
 
 class Motors {
 public:
     char rBuf[10]; // - Max length
     char wBuf[10]; // - Max length
     uint8_t slave_address;
-    static const uint8_t clockwise = 2;
-    static const uint8_t counter_clockwise = 1;
-    static const uint8_t stop = 0;
-
+        
     Motors(uint8_t _add = 0x00);
     Motors(const Motors& orig);
     virtual ~Motors();
     
     void selectModule();
     
-    void motorsSetup25D();
-    void maSetup(float gearBox);
-    void maControl(uint8_t control);
-    void maPWM(int16_t pwmReal);
-    void maSpeed(int16_t rpm);
+    void motor1Control(uint8_t control);
+    void motor2Control(uint8_t control);
+    void motorsControl(uint8_t m1Control,uint8_t m2Control);
 
-    void mbSetup(float gearBox);
-    void mbControl(uint8_t control);
-    void mbPWM(int16_t pwmReal);
-    void mbSpeed(int16_t rpm);
-    
-    void motorsControl(uint8_t maControl,uint8_t mbControl);
-//    void motorsPWM(float maPWM, float mbPWM);
-    void motorsPWM(int16_t maPWM, int16_t mbPWM);
-    void drivePWMs(int16_t maPWM, int16_t mbPWM);
-    void motorsSpeed(int16_t maSpeed, int16_t mbSpeed);
-    void driveSpeeds(int16_t maSpeed,int16_t mbSpeed);
-    void GetEncoderTicks(long *LeftEncodetTicks, long *RightEncoderTicks);
-    void ResetEncoderCounters();
-    
-    void maBasicTest();
-    void motorsBasicTest();
-    void motorsBasicSpeedTest();
-    void maFullSpeedTest();
-    void maPIDResponse();
+    void motor1PWM(float pwm);
+    void motor2PWM(float pwm);
+    void motorsPWM(float m1PWM, float m2PWM);
 
-    void mbBasicTest();
-    void mbFullSpeedTest();
-    void mbPIDResponse();
+    void drivePWM(float m1PWM, float m2PWM);
 
-    void configPause();
+    void release();
 private:
-    int16_t ma_pwm, mb_pwm,ma_speed,mb_speed;
+    uint8_t leftMotor;
+    uint8_t rightMotor;
+    // The final integer value for PWM, this is the value that goes to the Motor
+    // Module.
+    int16_t realMotor1PWM, realMotor2PWM;
     
-    void constrain(int16_t *value,int16_t min, int16_t max);
+    int16_t constrainPWM(float value);
+    int16_t constrain(int16_t value, int16_t min, int16_t max);
     void bcm_init();
     void bcm_end();
 

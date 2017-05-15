@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--<itemPath>Modules/AnalogModules/OpticalDistanceSensor.h</itemPath>-->
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
@@ -17,12 +18,10 @@
       <itemPath>Modules/LineSensors/LineSensors.h</itemPath>
       <itemPath>Libraries/MCP23008/MCP23008.h</itemPath>
       <itemPath>Modules/Motors/Motors.h</itemPath>
-      <!--<itemPath>Modules/AnalogModules/OpticalDistanceSensor.h</itemPath>-->
       <itemPath>Libraries/PCA9685/PCA9685.h</itemPath>
       <itemPath>Modules/AnalogModules/PHSensor.h</itemPath>
       <itemPath>Modules/RGBLEDs/RGBLEDs.h</itemPath>
       <itemPath>Robots/Robert/Robert.h</itemPath>
-      <itemPath>Robots/Robotina/Robotina.h</itemPath>
       <itemPath>Modules/AnalogModules/RotarySensor.h</itemPath>
       <itemPath>Modules/Servos/Servos.h</itemPath>
       <itemPath>Modules/AnalogModules/TemperatureSensor.h</itemPath>
@@ -50,12 +49,10 @@
       <itemPath>Modules/LineSensors/LineSensors.cpp</itemPath>
       <itemPath>Libraries/MCP23008/MCP23008.cpp</itemPath>
       <itemPath>Modules/Motors/Motors.cpp</itemPath>
-      <!--<itemPath>Modules/AnalogModules/OpticalDistanceSensor.cpp</itemPath>-->
       <itemPath>Libraries/PCA9685/PCA9685.cpp</itemPath>
       <itemPath>Modules/AnalogModules/PHSensor.cpp</itemPath>
       <itemPath>Modules/RGBLEDs/RGBLEDs.cpp</itemPath>
       <itemPath>Robots/Robert/Robert.cpp</itemPath>
-      <itemPath>Robots/Robotina/Robotina.cpp</itemPath>
       <itemPath>Modules/AnalogModules/RotarySensor.cpp</itemPath>
       <itemPath>Modules/Servos/Servos.cpp</itemPath>
       <itemPath>Modules/AnalogModules/TemperatureSensor.cpp</itemPath>
@@ -151,16 +148,6 @@
             tool="3"
             flavor2="0">
       </item>
-<!--      <item path="Modules/AnalogModules/OpticalDistanceSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>-->
-<!--      <item path="Modules/AnalogModules/OpticalDistanceSensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>-->
       <item path="Modules/AnalogModules/PHSensor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Modules/AnalogModules/PHSensor.h" ex="false" tool="3" flavor2="0">
@@ -229,10 +216,6 @@
       <item path="Robots/Robert/Robert.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Robots/Robert/Robert.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Robots/Robotina/Robotina.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Robots/Robotina/Robotina.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -321,16 +304,6 @@
             tool="3"
             flavor2="0">
       </item>
-<!--      <item path="Modules/AnalogModules/OpticalDistanceSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/OpticalDistanceSensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>-->
       <item path="Modules/AnalogModules/PHSensor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Modules/AnalogModules/PHSensor.h" ex="false" tool="3" flavor2="0">
@@ -399,10 +372,6 @@
       <item path="Robots/Robert/Robert.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Robots/Robert/Robert.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Robots/Robotina/Robotina.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Robots/Robotina/Robotina.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -110,7 +110,8 @@ void LCDWrapper::message(const FunctionCallbackInfo<Value>& args){
   String::Utf8Value msg(args[0]->ToString());
   std::string _msg = std::string(*msg);
 
-  args.GetReturnValue().Set(Number::New(isolate,temp_obj->lcd->message(_msg)));
+  temp_obj->lcd->message(_msg);
+  // args.GetReturnValue().Set(Number::New(isolate,temp_obj->lcd->message(_msg)));
 }
 
 void LCDWrapper::clear(const FunctionCallbackInfo<Value>& args){

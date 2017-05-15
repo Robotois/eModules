@@ -134,7 +134,7 @@ int16_t ADS1015::fullRangeMeas(uint16_t reading){
 float ADS1015::readInput(){
     int16_t input = readRawInput();
 
-    return input*resolution;
+    return (float)(input*resolution);
 }
 
 void ADS1015::bcm_init(){

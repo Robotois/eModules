@@ -62,7 +62,7 @@ public:
     
     void initializeLCD();
     void printChar(char _char);
-    uint8_t message(std::string _string);
+    void message(std::string _string);
     void scrollRight();
     void scrollLeft();
     void autoScroll(uint8_t right_spaces);

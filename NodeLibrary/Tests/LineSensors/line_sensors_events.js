@@ -1,20 +1,16 @@
 var _line_sensors = require('../../LineSensorsModule'),
     line_sensors = new _line_sensors();
-// line_sensors.setBackground("Black");
+// line_sensors.setBackground("black");
 line_sensors.enableEvents();
 
-var _lcd = require('../../LCDModule'),
-  lcd = new _lcd();
+// setInterval(() => {
+//   console.log("Sensores: " + line_sensors.readSensors());
+//   console.log("Linea: " + line_sensors.readLine());
+// },1000);
 
-var _leds  =  require('../../LEDModule'),
-  led1 = new _leds(5),
-  led2 = new _leds(6);
-
-/** LCD Display for Sensors status **/
-line_sensors.on('Measurement',(_sensors,_line)=>{
-  // console.log(_sensors + " " + _line);
-  lcd.row_1_msg("Sensores: " + line_sensors.sensorsToString(_sensors));
-  lcd.row_2_msg("Linea: " + line_sensors.lineToString(_line));
+line_sensors.on('change',(_line,_sensors)=>{
+  console.log("Linea: " + _line);
+  console.log("Sensores: " + line_sensors.sensorsToString(_sensors));
 });
 
 setInterval(()=>{ // Proceso en estado ocioso

@@ -28,8 +28,8 @@ RGBLEDs::RGBLEDs(uint8_t _addr) {
     pwmModule->setOn(15);
     powerOn = true;
 
-    pwmRatio = 4095.0f/(3.0f*255.0f); // Using only a 3rd of the LEDs full brightness
-    rgbCode = new uint16_t[3];
+    pwmRatio = 4095.0f/(1.5f*255.0f); // Using only a 3rd of the LEDs full brightness
+    rgbCode = new uint16_t[3*4]; // 4 LEDs max
 }
 
 RGBLEDs::RGBLEDs(const RGBLEDs& orig) {
@@ -104,4 +104,25 @@ void RGBLEDs::release(){
 void RGBLEDs::allOff(){
     pwmModule->allOff();
     powerOn = false;
+}
+
+void RGBLEDs::allOn(uint8_t _red_code,uint8_t _green_code,uint8_t _blue_code){
+    if(!powerOn){
+        pwmModule->setOn(15);
+        powerOn = true;
+    }
+
+    rgbCode[0] = _red_code;
+    rgbCode[1] = _green_code;
+    rgbCode[2] = _blue_code;
+    rgbCode[3] = _red_code;
+    rgbCode[4] = _green_code;
+    rgbCode[5] = _blue_code;
+    rgbCode[6] = _red_code;
+    rgbCode[7] = _green_code;
+    rgbCode[8] = _blue_code;
+    rgbCode[9] = _red_code;
+    rgbCode[10] = _green_code;
+    rgbCode[11] = _blue_code;
+    pwmModule->setPWM((uint8_t)0,(uint8_t)3*4,rgbCode);
 }
