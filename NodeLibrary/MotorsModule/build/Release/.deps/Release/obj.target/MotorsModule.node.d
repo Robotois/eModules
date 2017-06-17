@@ -1,1 +1,0 @@
-cmd_Release/obj.target/MotorsModule.node := g++ -shared -pthread -rdynamic  -Wl,-soname=MotorsModule.node -o Release/obj.target/MotorsModule.node -Wl,--start-group Release/obj.target/MotorsModule/MotorsModule.o Release/obj.target/MotorsModule/MotorsWrapper.o Release/obj.target/MotorsModule/../../Modules/Motors/Motors.o -Wl,--end-group -l bcm2835 -l rt
