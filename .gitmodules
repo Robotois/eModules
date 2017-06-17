@@ -1,0 +1,3 @@
+[submodule "robotois-modules/robotois-sound-sensor"]
+	path = robotois-modules/robotois-sound-sensor
+	url = https://github.com/Robotois/robotois-sound-sensor.git
