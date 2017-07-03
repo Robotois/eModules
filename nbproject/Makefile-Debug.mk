@@ -35,29 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Libraries/ADS1015/ADS1015.o \
-	${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o \
-	${OBJECTDIR}/Libraries/DigitalIO/DigitalHeader.o \
-	${OBJECTDIR}/Libraries/DigitalIO/DigitalIO.o \
-	${OBJECTDIR}/Libraries/Kalman/Kalman.o \
-	${OBJECTDIR}/Libraries/MCP23008/MCP23008.o \
-	${OBJECTDIR}/Libraries/PCA9685/PCA9685.o \
-	${OBJECTDIR}/Libraries/Timer/AccurateTiming.o \
-	${OBJECTDIR}/Modules/AccelGyro/AccelGyroModule.o \
-	${OBJECTDIR}/Modules/AnalogModules/LightSensor.o \
-	${OBJECTDIR}/Modules/AnalogModules/PHSensor.o \
-	${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o \
-	${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o \
-	${OBJECTDIR}/Modules/Button/Button.o \
-	${OBJECTDIR}/Modules/LCD/LCDModule.o \
-	${OBJECTDIR}/Modules/LED/LED.o \
-	${OBJECTDIR}/Modules/LineSensors/LineSensors.o \
-	${OBJECTDIR}/Modules/Motors/Motors.o \
-	${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o \
-	${OBJECTDIR}/Modules/Servos/Servos.o \
-	${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o \
-	${OBJECTDIR}/Robots/Robert/Robert.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.o
 
 
 # C Compiler Flags
@@ -84,120 +63,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/emodules: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/emodules ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/Libraries/ADS1015/ADS1015.o: Libraries/ADS1015/ADS1015.cpp
-	${MKDIR} -p ${OBJECTDIR}/Libraries/ADS1015
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/ADS1015/ADS1015.o Libraries/ADS1015/ADS1015.cpp
-
-${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o: Libraries/BCMSetup/BCMSetup.cpp
-	${MKDIR} -p ${OBJECTDIR}/Libraries/BCMSetup
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/BCMSetup/BCMSetup.o Libraries/BCMSetup/BCMSetup.cpp
-
-${OBJECTDIR}/Libraries/DigitalIO/DigitalHeader.o: Libraries/DigitalIO/DigitalHeader.cpp
-	${MKDIR} -p ${OBJECTDIR}/Libraries/DigitalIO
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/DigitalIO/DigitalHeader.o Libraries/DigitalIO/DigitalHeader.cpp
-
-${OBJECTDIR}/Libraries/DigitalIO/DigitalIO.o: Libraries/DigitalIO/DigitalIO.cpp
-	${MKDIR} -p ${OBJECTDIR}/Libraries/DigitalIO
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/DigitalIO/DigitalIO.o Libraries/DigitalIO/DigitalIO.cpp
-
-${OBJECTDIR}/Libraries/Kalman/Kalman.o: Libraries/Kalman/Kalman.cpp
-	${MKDIR} -p ${OBJECTDIR}/Libraries/Kalman
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/Kalman/Kalman.o Libraries/Kalman/Kalman.cpp
-
-${OBJECTDIR}/Libraries/MCP23008/MCP23008.o: Libraries/MCP23008/MCP23008.cpp
-	${MKDIR} -p ${OBJECTDIR}/Libraries/MCP23008
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/MCP23008/MCP23008.o Libraries/MCP23008/MCP23008.cpp
-
-${OBJECTDIR}/Libraries/PCA9685/PCA9685.o: Libraries/PCA9685/PCA9685.cpp
-	${MKDIR} -p ${OBJECTDIR}/Libraries/PCA9685
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/PCA9685/PCA9685.o Libraries/PCA9685/PCA9685.cpp
-
-${OBJECTDIR}/Libraries/Timer/AccurateTiming.o: Libraries/Timer/AccurateTiming.cpp
-	${MKDIR} -p ${OBJECTDIR}/Libraries/Timer
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Libraries/Timer/AccurateTiming.o Libraries/Timer/AccurateTiming.cpp
-
-${OBJECTDIR}/Modules/AccelGyro/AccelGyroModule.o: Modules/AccelGyro/AccelGyroModule.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/AccelGyro
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AccelGyro/AccelGyroModule.o Modules/AccelGyro/AccelGyroModule.cpp
-
-${OBJECTDIR}/Modules/AnalogModules/LightSensor.o: Modules/AnalogModules/LightSensor.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/LightSensor.o Modules/AnalogModules/LightSensor.cpp
-
-${OBJECTDIR}/Modules/AnalogModules/PHSensor.o: Modules/AnalogModules/PHSensor.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/PHSensor.o Modules/AnalogModules/PHSensor.cpp
-
-${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o: Modules/AnalogModules/RotarySensor.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/RotarySensor.o Modules/AnalogModules/RotarySensor.cpp
-
-${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o: Modules/AnalogModules/TemperatureSensor.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/AnalogModules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/AnalogModules/TemperatureSensor.o Modules/AnalogModules/TemperatureSensor.cpp
-
-${OBJECTDIR}/Modules/Button/Button.o: Modules/Button/Button.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/Button
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/Button/Button.o Modules/Button/Button.cpp
-
-${OBJECTDIR}/Modules/LCD/LCDModule.o: Modules/LCD/LCDModule.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/LCD
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/LCD/LCDModule.o Modules/LCD/LCDModule.cpp
-
-${OBJECTDIR}/Modules/LED/LED.o: Modules/LED/LED.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/LED
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/LED/LED.o Modules/LED/LED.cpp
-
-${OBJECTDIR}/Modules/LineSensors/LineSensors.o: Modules/LineSensors/LineSensors.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/LineSensors
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/LineSensors/LineSensors.o Modules/LineSensors/LineSensors.cpp
-
-${OBJECTDIR}/Modules/Motors/Motors.o: Modules/Motors/Motors.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/Motors
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/Motors/Motors.o Modules/Motors/Motors.cpp
-
-${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o: Modules/RGBLEDs/RGBLEDs.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/RGBLEDs
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/RGBLEDs/RGBLEDs.o Modules/RGBLEDs/RGBLEDs.cpp
-
-${OBJECTDIR}/Modules/Servos/Servos.o: Modules/Servos/Servos.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/Servos
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/Servos/Servos.o Modules/Servos/Servos.cpp
-
-${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o: Modules/Ultrasonic/UltrasonicSensor.cpp
-	${MKDIR} -p ${OBJECTDIR}/Modules/Ultrasonic
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Modules/Ultrasonic/UltrasonicSensor.o Modules/Ultrasonic/UltrasonicSensor.cpp
-
-${OBJECTDIR}/Robots/Robert/Robert.o: Robots/Robert/Robert.cpp
-	${MKDIR} -p ${OBJECTDIR}/Robots/Robert
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Robots/Robert/Robert.o Robots/Robert/Robert.cpp
-
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.o: robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.cpp
+	${MKDIR} -p ${OBJECTDIR}/robotois-modules/robotois-temp-hum/src/Modules/TempHum
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.o robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.cpp
 
 # Subprojects
 .build-subprojects:

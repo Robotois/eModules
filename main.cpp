@@ -12,32 +12,6 @@
 #include <cmath>
 #include <chrono>
 
-//#include "Modules/AccelGyro/AccelGyroModule.h"
-
-//#include "Robots/Robert/Robert.h"
-//#include "Robots/Robotina/Robotina.h"
-
-//#include "Libraries/Kalman/Kalman.h"
-#include "Libraries/ADS1015/ADS1015.h"
-#include "Libraries/PCA9685/PCA9685.h"
-#include "Libraries/Timer/AccurateTiming.h"
-#include "Libraries/BCMSetup/BCMSetup.h"
-#include "Libraries/DigitalIO/DigitalHeader.h"
-
-//#include "Modules/AnalogModules/OpticalDistanceSensor.h"
-#include "Modules/AnalogModules/PHSensor.h"
-#include "Modules/AnalogModules/LightSensor.h"
-#include "Modules/AnalogModules/TemperatureSensor.h"
-#include "Modules/AnalogModules/RotarySensor.h"
-#include "Modules/RGBLEDs/RGBLEDs.h"
-#include "Modules/LED/LED.h"
-#include "Modules/Button/Button.h"
-#include "Modules/LCD/LCDModule.h"
-#include "Modules/Ultrasonic/UltrasonicSensor.h"
-#include "Modules/Servos/Servos.h"
-#include "Modules/Motors/Motors.h"
-#include "Modules/LineSensors/LineSensors.h"
-
 #include <iostream>
 #include <fstream>
 

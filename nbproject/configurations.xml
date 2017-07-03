@@ -5,27 +5,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>Libraries/ADS1015/ADS1015.h</itemPath>
-      <itemPath>Modules/AccelGyro/AccelGyroModule.h</itemPath>
-      <itemPath>Libraries/Timer/AccurateTiming.h</itemPath>
-      <itemPath>Libraries/BCMSetup/BCMSetup.h</itemPath>
-      <itemPath>Modules/Button/Button.h</itemPath>
-      <itemPath>Libraries/DigitalIO/DigitalHeader.h</itemPath>
-      <itemPath>Libraries/DigitalIO/DigitalIO.h</itemPath>
-      <itemPath>Modules/LCD/LCDModule.h</itemPath>
-      <itemPath>Modules/LED/LED.h</itemPath>
-      <itemPath>Modules/AnalogModules/LightSensor.h</itemPath>
-      <itemPath>Modules/LineSensors/LineSensors.h</itemPath>
-      <itemPath>Libraries/MCP23008/MCP23008.h</itemPath>
-      <itemPath>Modules/Motors/Motors.h</itemPath>
-      <itemPath>Libraries/PCA9685/PCA9685.h</itemPath>
-      <itemPath>Modules/AnalogModules/PHSensor.h</itemPath>
-      <itemPath>Modules/RGBLEDs/RGBLEDs.h</itemPath>
-      <itemPath>Robots/Robert/Robert.h</itemPath>
-      <itemPath>Modules/AnalogModules/RotarySensor.h</itemPath>
-      <itemPath>Modules/Servos/Servos.h</itemPath>
-      <itemPath>Modules/AnalogModules/TemperatureSensor.h</itemPath>
-      <itemPath>Modules/Ultrasonic/UltrasonicSensor.h</itemPath>
+      <itemPath>robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -34,29 +14,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Libraries/ADS1015/ADS1015.cpp</itemPath>
-      <itemPath>Modules/AccelGyro/AccelGyroModule.cpp</itemPath>
-      <itemPath>Libraries/Timer/AccurateTiming.cpp</itemPath>
-      <itemPath>Libraries/BCMSetup/BCMSetup.cpp</itemPath>
-      <itemPath>Modules/Button/Button.cpp</itemPath>
-      <itemPath>Libraries/DigitalIO/DigitalHeader.cpp</itemPath>
-      <itemPath>Libraries/DigitalIO/DigitalIO.cpp</itemPath>
-      <itemPath>Libraries/Kalman/Kalman.cpp</itemPath>
-      <itemPath>Libraries/Kalman/Kalman.h</itemPath>
-      <itemPath>Modules/LCD/LCDModule.cpp</itemPath>
-      <itemPath>Modules/LED/LED.cpp</itemPath>
-      <itemPath>Modules/AnalogModules/LightSensor.cpp</itemPath>
-      <itemPath>Modules/LineSensors/LineSensors.cpp</itemPath>
-      <itemPath>Libraries/MCP23008/MCP23008.cpp</itemPath>
-      <itemPath>Modules/Motors/Motors.cpp</itemPath>
-      <itemPath>Libraries/PCA9685/PCA9685.cpp</itemPath>
-      <itemPath>Modules/AnalogModules/PHSensor.cpp</itemPath>
-      <itemPath>Modules/RGBLEDs/RGBLEDs.cpp</itemPath>
-      <itemPath>Robots/Robert/Robert.cpp</itemPath>
-      <itemPath>Modules/AnalogModules/RotarySensor.cpp</itemPath>
-      <itemPath>Modules/Servos/Servos.cpp</itemPath>
-      <itemPath>Modules/AnalogModules/TemperatureSensor.cpp</itemPath>
-      <itemPath>Modules/Ultrasonic/UltrasonicSensor.cpp</itemPath>
+      <itemPath>robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -90,134 +48,17 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Libraries/ADS1015/ADS1015.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/ADS1015/ADS1015.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/BCMSetup/BCMSetup.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/BCMSetup/BCMSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/DigitalIO/DigitalHeader.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Libraries/DigitalIO/DigitalHeader.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Libraries/DigitalIO/DigitalIO.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/DigitalIO/DigitalIO.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/Kalman/Kalman.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/Kalman/Kalman.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/MCP23008/MCP23008.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/MCP23008/MCP23008.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/PCA9685/PCA9685.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/PCA9685/PCA9685.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/Timer/AccurateTiming.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/Timer/AccurateTiming.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/AccelGyro/AccelGyroModule.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AccelGyro/AccelGyroModule.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/LightSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/LightSensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/PHSensor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/PHSensor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/RotarySensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/RotarySensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/TemperatureSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/TemperatureSensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Modules/Button/Button.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/Button/Button.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/LCD/LCDModule.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/LCD/LCDModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/LED/LED.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/LED/LED.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/LineSensors/LineSensors.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/LineSensors/LineSensors.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/Motors/Motors.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/Motors/Motors.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/RGBLEDs/RGBLEDs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/RGBLEDs/RGBLEDs.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/Servos/Servos.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/Servos/Servos.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/Ultrasonic/UltrasonicSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/Ultrasonic/UltrasonicSensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Robots/Robert/Robert.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Robots/Robert/Robert.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -248,132 +89,17 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Libraries/ADS1015/ADS1015.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/ADS1015/ADS1015.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/BCMSetup/BCMSetup.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/BCMSetup/BCMSetup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/DigitalIO/DigitalHeader.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Libraries/DigitalIO/DigitalHeader.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Libraries/DigitalIO/DigitalIO.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/DigitalIO/DigitalIO.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/Kalman/Kalman.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/Kalman/Kalman.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/MCP23008/MCP23008.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/MCP23008/MCP23008.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/PCA9685/PCA9685.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Libraries/PCA9685/PCA9685.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Libraries/Timer/AccurateTiming.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/AccelGyro/AccelGyroModule.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AccelGyro/AccelGyroModule.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/LightSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/LightSensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/PHSensor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/PHSensor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/RotarySensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/RotarySensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/TemperatureSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/AnalogModules/TemperatureSensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Modules/Button/Button.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/Button/Button.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/LCD/LCDModule.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/LCD/LCDModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/LED/LED.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/LED/LED.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/LineSensors/LineSensors.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/LineSensors/LineSensors.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/Motors/Motors.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/Motors/Motors.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/RGBLEDs/RGBLEDs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/RGBLEDs/RGBLEDs.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/Servos/Servos.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Modules/Servos/Servos.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Modules/Ultrasonic/UltrasonicSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="Modules/Ultrasonic/UltrasonicSensor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="Robots/Robert/Robert.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Robots/Robert/Robert.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="robotois-modules/robotois-temp-hum/src/Modules/TempHum/TempHum.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
     </conf>
   </confs>

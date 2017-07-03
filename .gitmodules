@@ -1,3 +1,18 @@
 [submodule "robotois-modules/robotois-sound-sensor"]
 	path = robotois-modules/robotois-sound-sensor
 	url = https://github.com/Robotois/robotois-sound-sensor.git
+[submodule "robotois-modules/robotois-temp-hum"]
+	path = robotois-modules/robotois-temp-hum
+	url = https://github.com/Robotois/robotois-temp-hum.git
+[submodule "robotois-modules/robotois-distance-sensor"]
+	path = robotois-modules/robotois-distance-sensor
+	url = https://github.com/Robotois/robotois-distance-sensor.git
+[submodule "robotois-modules/robotois-button"]
+	path = robotois-modules/robotois-button
+	url = https://github.com/Robotois/robotois-button.git
+[submodule "robotois-modules/robotois-led"]
+	path = robotois-modules/robotois-led
+	url = https://github.com/Robotois/robotois-led.git
+[submodule "robotois-modules/robotois-temperature-sensor"]
+	path = robotois-modules/robotois-temperature-sensor
+	url = https://github.com/Robotois/robotois-temperature-sensor.git
