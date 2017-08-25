@@ -16,3 +16,21 @@
 [submodule "robotois-modules/robotois-temperature-sensor"]
 	path = robotois-modules/robotois-temperature-sensor
 	url = https://github.com/Robotois/robotois-temperature-sensor.git
+[submodule "robotois-modules/robotois-rgb-leds"]
+	path = robotois-modules/robotois-rgb-leds
+	url = https://github.com/Robotois/robotois-rgb-leds.git
+[submodule "robotois-modules/robotois-lcd-display"]
+	path = robotois-modules/robotois-lcd-display
+	url = https://github.com/Robotois/robotois-lcd-display.git
+[submodule "robotois-modules/robotois-relay"]
+	path = robotois-modules/robotois-relay
+	url = https://github.com/Robotois/robotois-relay.git
+[submodule "robotois-modules/robotois-motion-sensor"]
+	path = robotois-modules/robotois-motion-sensor
+	url = https://github.com/Robotois/robotois-motion-sensor.git
+[submodule "robotois-modules/robotois-light-sensor"]
+	path = robotois-modules/robotois-light-sensor
+	url = https://github.com/Robotois/robotois-light-sensor.git
+[submodule "robotois-modules/robotois-rotary-sensor"]
+	path = robotois-modules/robotois-rotary-sensor
+	url = https://github.com/Robotois/robotois-rotary-sensor.git
