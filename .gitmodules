@@ -34,3 +34,9 @@
 [submodule "robotois-modules/robotois-rotary-sensor"]
 	path = robotois-modules/robotois-rotary-sensor
 	url = https://github.com/Robotois/robotois-rotary-sensor.git
+[submodule "robotois-modules/robotois-servo-controller"]
+	path = robotois-modules/robotois-servo-controller
+	url = https://github.com/Robotois/robotois-servo-controller.git
+[submodule "robotois-modules/robotois-motor-controller"]
+	path = robotois-modules/robotois-motor-controller
+	url = https://github.com/Robotois/robotois-motor-controller.git
